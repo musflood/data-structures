@@ -1,4 +1,4 @@
-from setuptools import setupt 
+from setuptools import setup
 
 setup(
     name = 'data-structures',
