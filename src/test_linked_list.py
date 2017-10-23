@@ -51,10 +51,53 @@ def test_push_two_new_vals_to_linked_list(val1, val2):
     assert l.head.nxt == old_head
 
 
-# @pytest.mark.parametrize('itr', [[], [1], [1, 2, 3, 4, 5, 6, 7]])
-# def test_linked_list_constructor(itr):
-#     """."""
-#     from linked_list import LinkedList
-#     l = LinkedList(itr)
-#     assert l.head == itr[-1]
-#     assert l.length == len(itr)
+def test_linked_list_constructor_with_empty_iterable():
+    """."""
+    from linked_list import LinkedList
+    l = LinkedList([])
+    assert l.head is None
+    assert l.length == 0
+
+
+@pytest.mark.parametrize('itr', [[1], [1, 2, 3, 4, 5, 6, 7]])
+def test_linked_list_constructor(itr):
+    """."""
+    from linked_list import LinkedList
+    l = LinkedList(itr)
+    assert l.head.val == itr[-1]
+    assert l.length == len(itr)
+
+
+@pytest.mark.parametrize('itr', [[], [1], [1, 2, 3, 4, 5, 6, 7]])
+def test_len_function(itr):
+    """."""
+    from linked_list import LinkedList
+    l = LinkedList(itr)
+    assert len(l) == l.length
+
+
+@pytest.mark.parametrize('itr', [[], [1], [1, 2, 3, 4, 5, 6, 7]])
+def test_size(itr):
+    """."""
+    from linked_list import LinkedList
+    l = LinkedList(itr)
+    assert l.size() == l.length
+
+
+@pytest.mark.parametrize('itr', [[1, 2], [1, 2, 3, 4, 5, 6, 7]])
+def test_pop(itr):
+    """."""
+    from linked_list import LinkedList
+    l = LinkedList(itr)
+    x = l.pop()
+    assert x == itr[-1]
+    assert l.head.val == itr[-2]
+    assert l.length == len(itr) - 1
+
+
+def test_pop_empty_linked_list():
+    """."""
+    from linked_list import LinkedList
+    l = LinkedList()
+    with pytest.raises(IndexError):
+        l.pop()
