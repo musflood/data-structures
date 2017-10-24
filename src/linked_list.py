@@ -2,22 +2,22 @@
 
 
 class Node(object):
-    """."""
+    """A single node from a linked list."""
 
     def __init__(self, val, nxt=None):
-        """."""
+        """Construct a new Node."""
         self.val = val
         self.nxt = nxt
 
 
 class LinkedList(object):
-    """."""
+    """List of values stored in nodes linked to each other."""
 
     def __init__(self, itr=None):
-        """."""
+        """Contruct a new LInkedList."""
         self.head = None
         self.length = 0
-        if itr:
+        if isinstance(itr, (str, list, tuple)):
             for item in itr:
                 self.push(item)
 
@@ -26,20 +26,44 @@ class LinkedList(object):
         return self.length
 
     def size(self):
-        """."""
+        """Get the size of the LinkedList."""
         return len(self)
 
     def push(self, val):
         """Add another value to the front of the list."""
-        new_node = Node(val, self.head)
-        self.head = new_node
+        self.head = Node(val, self.head)
         self.length += 1
 
     def pop(self):
-        """."""
-        if self.head is None:
+        """Remove the first node and return it's value."""
+        if not self.head:
             raise IndexError('Cannot pop from empty list.')
         val = self.head.val
         self.head = self.head.nxt
         self.length -= 1
         return val
+
+    def search(self, val):
+        """Find the node that has the given value."""
+        curr = self.head
+        while curr:
+            if curr.val == val:
+                return curr
+            curr = curr.nxt
+
+    def remove(self, node):
+        """Remove the given node from the LinkedList."""
+        if self.head is node:
+            self.head = self.head.nxt
+            self.length -= 1
+            return
+
+        curr = self.head
+        while curr:
+            if curr.nxt is node:
+                curr.nxt = node.nxt
+                self.length -= 1
+                return
+            curr = curr.nxt
+
+        raise ValueError('Node is not in list.')
