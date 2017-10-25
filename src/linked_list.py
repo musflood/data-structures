@@ -14,7 +14,7 @@ class LinkedList(object):
     """List of values stored in nodes linked to each other."""
 
     def __init__(self, itr=None):
-        """Contruct a new LInkedList."""
+        """Contruct a new LinkedList."""
         self.head = None
         self.length = 0
         if isinstance(itr, (str, list, tuple)):
