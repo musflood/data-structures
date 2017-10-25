@@ -29,9 +29,9 @@ l = LinkedList(iterable='list, tuple, or str')
 s = Stack(iterable='list, tuple, or str')
 ```
 ### Implements the following methods:
-- **push(val):** Add another value to the front of the list.
+- **push(val):** Add another value to the top of the stack.
     - Time complexity: O(1)
-- **pop():** Remove the first node and return it's value. Raises a IndexError if there are no values to return.
+- **pop():** Remove the top node and return it's value. Raises a IndexError if there are no values to return.
     - Time complexity: O(1)
 
 ## Resources
