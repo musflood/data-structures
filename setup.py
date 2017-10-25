@@ -1,10 +1,10 @@
-from setuptools import setupt 
+from setuptools import setup
 
 setup(
     name = 'data-structures',
     description = 'A number of classic data structures impemented in python',
     package_dir = {'': 'src'},
-    py_modules = [],
+    py_modules = ['linked_list'],
     authors = 'Megan, Kavdi',
     author_email = 'kavdyjh@gmail.com',
     install_requires = [],
