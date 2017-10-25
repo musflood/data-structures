@@ -6,7 +6,7 @@ This file holds sample code for a number of classic data structures impemented i
 ## Linked-List
 Constructor:
 ```python
-l = LinkedList(iterable=(list, tuple, or str))
+l = LinkedList(iterable='list, tuple, or str')
 ```
 Implements the following methods:
 - push(val): Add another value to the front of the list.

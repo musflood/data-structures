@@ -13,12 +13,12 @@ class Node(object):
 class LinkedList(object):
     """List of values stored in nodes linked to each other."""
 
-    def __init__(self, itr=None):
+    def __init__(self, iterable=None):
         """Contruct a new LinkedList."""
         self.head = None
         self.length = 0
-        if isinstance(itr, (str, list, tuple)):
-            for item in itr:
+        if isinstance(iterable, (str, list, tuple)):
+            for item in iterable:
                 self.push(item)
 
     def __len__(self):
