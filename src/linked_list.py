@@ -25,6 +25,10 @@ class LinkedList(object):
         """Overwrite the default return for len function."""
         return self.length
 
+    def __str__(self):
+        """Overwrite the default return for print function."""
+        return self.display()
+
     def size(self):
         """Get the size of the LinkedList."""
         return len(self)
@@ -67,3 +71,12 @@ class LinkedList(object):
             curr = curr.nxt
 
         raise ValueError('Node is not in list.')
+
+    def display(self):
+        """Display LinkedList as if it were a tuple literal."""
+        curr = self.head
+        output = []
+        while curr:
+            output.append(curr.val)
+            curr = curr.nxt
+        return tuple(output).__str__()

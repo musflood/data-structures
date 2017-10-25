@@ -183,3 +183,19 @@ def test_remove_last_node_from_linked_list(itr):
 
     assert l.search(itr[1]).nxt is None
     assert l.length == len(itr) - 1
+
+
+@pytest.mark.parametrize('itr', [[x for x in range(y)] for y in range(0, 20)])
+def test_display_shows_linked_list_looks_like_tuple(itr):
+    """Test that display for LinkedList matches the __str__ for a tuple."""
+    from linked_list import LinkedList
+    l = LinkedList(itr)
+    assert l.display() == tuple(itr[::-1]).__str__()
+
+
+@pytest.mark.parametrize('itr', [[x for x in range(y)] for y in range(0, 20)])
+def test_print_diplays_linked_list_like_tuple(itr):
+    """Test that print for LinkedList matches the __str__ for a tuple."""
+    from linked_list import LinkedList
+    l = LinkedList(itr)
+    assert l.__str__() == tuple(itr[::-1]).__str__()
