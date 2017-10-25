@@ -11,7 +11,7 @@ l = LinkedList(iterable='list, tuple, or str')
 ### Implements the following methods:
 - **push(val):** Add another value to the front of the list.
     - Time complexity: O(1)
-- **pop():** Remove the first node and return it's value. Raises a IndexError if there are no values to return.
+- **pop():** Remove the first node and return it's value. Raises an IndexError if there are no values to return.
     - Time complexity: O(1)
 - **size():** Get the size of the LinkedList.
     - Time complexity: O(1)
@@ -31,8 +31,25 @@ s = Stack(iterable='list, tuple, or str')
 ### Implements the following methods:
 - **push(val):** Add another value to the top of the stack.
     - Time complexity: O(1)
-- **pop():** Remove the top node and return it's value. Raises a IndexError if there are no values to return.
+- **pop():** Remove the top node and return it's value. Raises an IndexError if there are no values to return.
     - Time complexity: O(1)
+
+
+## Doubly-Linked-List
+### Constructor:
+```python
+l = LinkedList(iterable='list, tuple, or str')
+```
+### Implements the following methods:
+- **push(val):** Add another value to the front of the list.
+    - Time complexity: O(1)
+- **pop():** Remove the first node and return it's value. Raises an IndexError if there are no values to return.
+    - Time complexity: O(1)
+- **remove(val):** Remove the given node from the LinkedList. Raises a ValueError if the node is not in the list.
+    - Time complexity: O(n)
+- **append(val):** Append the value at the tail of the list.
+- **shift():** Remove the last value from the tail of the list and return it. Raises an IndexError if there are no values to return
+
 
 ## Resources
 
