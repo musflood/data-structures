@@ -11,7 +11,7 @@ class Node(object):
 
 
 class LinkedList(object):
-    """List of values stored in nodes linked to each other."""
+    """List of values stored in nodes linked to each other in one direction."""
 
     def __init__(self, iterable=None):
         """Contruct a new LinkedList."""
