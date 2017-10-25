@@ -22,6 +22,18 @@ l = LinkedList(iterable='list, tuple, or str')
 - **display():** Display LinkedList as if it were a tuple literal. Ex: “(12, ‘sam’, 37, ‘tango’)”
     - Time complexity: O(n)
 
+
+## Stack
+### Constructor:
+```python
+s = Stack(iterable='list, tuple, or str')
+```
+### Implements the following methods:
+- **push(val):** Add another value to the front of the list.
+    - Time complexity: O(1)
+- **pop():** Remove the first node and return it's value. Raises a IndexError if there are no values to return.
+    - Time complexity: O(1)
+
 ## Resources
 
 
