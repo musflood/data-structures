@@ -322,11 +322,24 @@ def test_remove_first_instance_of_value_from_doubly_linked_list(itr):
     """Test that removing any node from any length list adjusts the list."""
     from dll import DLL
     l = DLL(itr)
-    print(itr)
     l.remove(1)
     assert l.head.val == 0
     assert l.head.nxt.val == 0
     assert l.head.nxt.nxt.val == 1
+    assert l.length == len(itr) - 1
+
+
+@pytest.mark.parametrize('itr', [[x % 2 for x in range(y)]
+                                 for y in range(5, 20) if not y % 2])
+def test_remove_first_instance_of_tail_value_from_doubly_linked_list(itr):
+    """Test that removing any node from any length list adjusts the list."""
+    from dll import DLL
+    l = DLL(itr)
+    l.remove(0)
+    assert l.head.val == 1
+    assert l.head.nxt.val == 1
+    assert l.head.nxt.nxt.val == 0
+    assert l.tail.val == 0
     assert l.length == len(itr) - 1
 
 
