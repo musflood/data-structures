@@ -21,7 +21,13 @@ class DLL(linked_list.LinkedList):
 
     def push(self, val):
         """Insert the value val at the head of the list."""
-        pass
+        old_head = self.head
+        self.head = Node(val, self.head)
+        self.length += 1
+        if old_head:
+            old_head.prev = self.head
+        else:
+            self.tail = self.head
 
     def append(self, val):
         """Append the value val at the tail of the list."""
