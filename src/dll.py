@@ -39,12 +39,16 @@ class DLL(linked_list.LinkedList):
         else:
             self.head = self.tail
 
-
-    def pop(self, ):
+    def pop(self):
         """Pop the first value off the head of the list and return it."""
-        pass
+        val = super(DLL, self).pop()
+        if self.head:
+            self.head.prev = None
+        else:
+            self.tail = None
+        return val
 
-    def shift(self, ):
+    def shift(self):
         """Remove the last value from the tail of the list and return it."""
         pass
 
