@@ -50,7 +50,16 @@ class DLL(linked_list.LinkedList):
 
     def shift(self):
         """Remove the last value from the tail of the list and return it."""
-        pass
+        if not self.tail:
+            raise IndexError('Cannot pop from empty list.')
+        val = self.tail.val
+        self.tail = self.tail.prev
+        if self.tail:
+            self.tail.nxt = None
+        else:
+            self.head = None
+        self.length -= 1
+        return val
 
     def remove(self, val):
         """Remove the first instance of val found in the list, starts at head.

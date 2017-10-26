@@ -210,3 +210,57 @@ def test_pop_empty_doubly_linked_list(empty_dll):
     """Test that pop on a empty list throws an IndexError."""
     with pytest.raises(IndexError):
         empty_dll.pop()
+
+
+def test_shift_only_item_from_doubly_linked_list(empty_dll):
+    """Test that shift only item empties the DLL."""
+    l = empty_dll
+    l.push(0)
+    x = l.shift()
+    assert x == 0
+    assert l.head is None
+    assert l.tail is None
+    assert l.length == 0
+
+
+@pytest.mark.parametrize('itr', [[x for x in range(y)] for y in range(2, 20)])
+def test_shift_one_item_from_any_length_doubly_linked_list(itr):
+    """Test that shift item removes head from DLL."""
+    from dll import DLL
+    l = DLL(itr)
+    x = l.shift()
+    assert x == itr[0]
+    assert l.head.val == itr[-1]
+    assert l.tail.val == itr[1]
+    assert l.tail.nxt is None
+    assert l.length == len(itr) - 1
+
+
+@pytest.mark.parametrize('itr', [[x for x in range(y)] for y in range(3, 20)])
+def test_shift_multiple_items_from_any_length_doubly_linked_list(itr):
+    """Test that shift items removes head from DLL."""
+    from dll import DLL
+    from random import randint
+    l = DLL(itr)
+    num = randint(2, len(itr) - 1)
+    for _ in range(num):
+        x = l.shift()
+    assert x == itr[num - 1]
+    assert l.head.val == itr[-1]
+    assert l.tail.val == itr[num]
+    assert l.tail.nxt is None
+    assert l.length == len(itr) - num
+
+
+def test_shift_empty_doubly_linked_list(empty_dll):
+    """Test that shift on a empty list throws an IndexError."""
+    with pytest.raises(IndexError):
+        empty_dll.shift()
+
+
+@pytest.mark.parametrize('itr', [[x for x in range(y)] for y in range(20)])
+def test_len_function_works_for_doubly_linked_list(itr):
+    """Test that len function gets the length of a DLL."""
+    from dll import DLL
+    l = DLL(itr)
+    assert len(l) == l.length
