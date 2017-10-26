@@ -4,6 +4,9 @@ This file holds sample code for a number of classic data structures impemented i
 **Authors:** Kavdi Hodgson and Megan Flood
 
 ## Linked-List
+
+A single linked list is beneficial when creating a to do list. You can remove the items when they are completed whithout having to alter the entire list. And there is no need to iterate through it from both directions. 
+
 ### Constructor:
 ```python
 l = LinkedList(iterable='list, tuple, or str')
@@ -36,6 +39,10 @@ s = Stack(iterable='list, tuple, or str')
 
 
 ## Doubly-Linked-List
+
+A single linked list is beneficial when creating a to do list. You can remove the items when they are completed whithout having to alter the entire list. And there is no need to iterate through it from both directions. 
+A doubly linked list is better for keeping a log of information, such as history, this way you can access information from both directions.
+
 ### Constructor:
 ```python
 l = DLL(iterable='list, tuple, or str')
