@@ -66,4 +66,19 @@ class DLL(linked_list.LinkedList):
 
         Raises a ValueError if value is not in the list.
         """
-        pass
+        if not self.head:
+            raise ValueError('Cannot remove from empty list.')
+        if self.head.val == val:
+            self.pop()
+            return
+        if self.tail.val == val:
+            self.shift()
+            return
+        curr = self.head
+        while curr:
+            if curr.val == val:
+                curr.prev.nxt, curr.nxt.prev = curr.nxt, curr.prev
+                self.length -= 1
+                return
+            curr = curr.nxt
+        raise ValueError('Value is not in list.')

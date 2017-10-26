@@ -264,3 +264,80 @@ def test_len_function_works_for_doubly_linked_list(itr):
     from dll import DLL
     l = DLL(itr)
     assert len(l) == l.length
+
+
+def test_remove_only_item_in_doubly_linked_list(empty_dll):
+    """Test that remove only item from doubly linked list empties it."""
+    l = empty_dll
+    l.push(0)
+    l.remove(0)
+    assert l.head is None
+    assert l.length == 0
+    assert l.tail is None
+
+
+def test_remove_item_not_in_doubly_linked_list(empty_dll):
+    """Test that removing node not in list raises a ValueError."""
+    with pytest.raises(ValueError):
+        empty_dll.remove(1)
+
+
+@pytest.mark.parametrize('itr', [[x for x in range(y)] for y in range(2, 20)])
+def test_remove_head_of_doubly_linked_list(itr):
+    """Test that removing the head from any length list moves the head."""
+    from dll import DLL
+    l = DLL(itr)
+    l.remove(itr[-1])
+    assert l.head.val == itr[-2]
+    assert l.length == len(itr) - 1
+    assert l.tail.val == itr[0]
+    assert l.head.prev is None
+
+
+def test_remove_invalid_item_from_doubly_linked_list():
+    """."""
+    from dll import DLL
+    l = DLL([1, 2, 3, 4, 5, 6])
+    with pytest.raises(ValueError):
+        l.remove('a')
+
+
+@pytest.mark.parametrize('itr', [[x for x in range(y)] for y in range(3, 20)])
+def test_remove_random_inner_node_from_doubly_linked_list(itr):
+    """Test that removing any node from any length list adjusts the list."""
+    from dll import DLL
+    from random import choice
+    l = DLL(itr)
+
+    remove_item = choice(itr[1:-1])
+    l.remove(remove_item)
+    with pytest.raises(ValueError):
+        l.remove(remove_item)
+    assert l.length == len(itr) - 1
+
+
+@pytest.mark.parametrize('itr', [[x % 2 for x in range(y)]
+                                 for y in range(5, 20) if y % 2])
+def test_remove_first_instance_of_value_from_doubly_linked_list(itr):
+    """Test that removing any node from any length list adjusts the list."""
+    from dll import DLL
+    l = DLL(itr)
+    print(itr)
+    l.remove(1)
+    assert l.head.val == 0
+    assert l.head.nxt.val == 0
+    assert l.head.nxt.nxt.val == 1
+    assert l.length == len(itr) - 1
+
+
+@pytest.mark.parametrize('itr', [[x for x in range(y)] for y in range(2, 20)])
+def test_remove_tail_from_doubly_linked_list(itr):
+    """Test that removing tail from any length list adjusts the list."""
+    from dll import DLL
+    l = DLL(itr)
+
+    l.remove(itr[0])
+
+    assert l.tail.val == itr[1]
+    assert l.tail.nxt is None
+    assert l.length == len(itr) - 1
