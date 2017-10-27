@@ -71,14 +71,14 @@ class DLL(linked_list.LinkedList):
         if self.head.val == val:
             self.pop()
             return
-        if self.tail.val == val:
-            self.shift()
-            return
         curr = self.head
-        while curr:
+        while curr.nxt:
             if curr.val == val:
                 curr.prev.nxt, curr.nxt.prev = curr.nxt, curr.prev
                 self.length -= 1
                 return
             curr = curr.nxt
+        if self.tail.val == val:
+            self.shift()
+            return
         raise ValueError('Value is not in list.')

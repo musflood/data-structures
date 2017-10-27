@@ -45,7 +45,9 @@ s = Stack(iterable='list, tuple, or str')
 
 ## Doubly-Linked-List
 
+
 List of values stored in nodes linked in two directions.
+
 
 A doubly linked list is better for keeping a log of information, such as history, this way you can access information from both directions.
 
@@ -58,11 +60,12 @@ l = DLL(iterable='list, tuple, or str')
     - Time complexity: O(1)
 - **pop():** Remove the first node and return it's value. Raises an IndexError if there are no values to return.
     - Time complexity: O(1)
-- **remove(val):** Remove the given value from the doubly-linked list. Raises a ValueError if the node is not in the list.
+- **remove(val):** Remove the given value from the doubly-linked list. Raises a ValueError if the value is not in the list.
     - Time complexity: O(n)
 - **append(val):** Append the value at the tail of the list.
+    - Time complexity: O(1)
 - **shift():** Remove the last value from the tail of the list and return it. Raises an IndexError if there are no values to return
-
+    - Time complexity: O(1)
 
 ## Queue
 
