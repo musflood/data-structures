@@ -11,6 +11,24 @@ class Queue(object):
         """Construct a new queue."""
         self._values = DLL(iterable)
 
+    @property
+    def front(self):
+        """Get the node at front of the queue."""
+        return self._values.tail
+
+    @property
+    def back(self):
+        """Get the node at back of the queue."""
+        return self._values.head
+
+    def __len__(self):
+        """Overwrite the default return for len function."""
+        return len(self._values)
+
+    def size(self):
+        """Get the size of the queue."""
+        return len(self)
+
     def enqueue(self, val):
         """Add a value to the end of the queue."""
         self._values.push(val)
@@ -27,13 +45,3 @@ class Queue(object):
         if self.front:
             return self.front.val
         return None
-
-    @property
-    def front(self):
-        """Get the node at front of the queue."""
-        return self._values.tail
-
-    @property
-    def back(self):
-        """Get the node at back of the queue."""
-        return self._values.head

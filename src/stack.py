@@ -11,6 +11,11 @@ class Stack(object):
         """Construct a Stack."""
         self._values = LinkedList(iterable)
 
+    @property
+    def top(self):
+        """Get the top node from the stack."""
+        return self._values.head
+
     def __len__(self):
         """Overwrite the default return for len function."""
         return len(self._values)
@@ -25,8 +30,3 @@ class Stack(object):
     def push(self, val):
         """Add a value to the top of the stack."""
         self._values.push(val)
-
-    @property
-    def top(self):
-        """Get the top node from the stack."""
-        return self._values.head
