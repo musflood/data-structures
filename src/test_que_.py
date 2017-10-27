@@ -146,3 +146,19 @@ def test_peek_finds_value_of_front_of_queue(itr):
     q = Queue(itr)
     assert q.peek() == itr[0]
     assert q._values.length == len(itr)
+
+
+@pytest.mark.parametrize('itr', [[x for x in range(y)] for y in range(1, 20)])
+def test_size_for_queue(itr):
+    """Test that size gets the length of a queue."""
+    from que_ import Queue
+    q = Queue(itr)
+    assert q.size() == len(itr)
+
+
+@pytest.mark.parametrize('itr', [[x for x in range(y)] for y in range(1, 20)])
+def test_len_function_works_for_queue(itr):
+    """Test that len function gets the length of a queue."""
+    from que_ import Queue
+    q = Queue(itr)
+    assert len(q) == len(itr)
