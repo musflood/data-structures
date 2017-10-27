@@ -51,7 +51,7 @@ class DLL(linked_list.LinkedList):
     def shift(self):
         """Remove the last value from the tail of the list and return it."""
         if not self.tail:
-            raise IndexError('Cannot pop from empty list.')
+            raise IndexError('Cannot shift from empty list.')
         val = self.tail.val
         self.tail = self.tail.prev
         if self.tail:

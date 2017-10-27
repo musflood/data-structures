@@ -8,7 +8,7 @@ def test_empty_stack_constructor():
     """Test that a Stack created with no arguments is empty."""
     from stack import Stack
     s = Stack()
-    assert s._values.head is None
+    assert s.top is None
     assert s._values.length == 0
 
 
@@ -16,7 +16,7 @@ def test_stack_constructor_with_empty_iterable():
     """Test that a Stack created with an empty iterable is empty."""
     from stack import Stack
     s = Stack([])
-    assert s._values.head is None
+    assert s.top is None
     assert s._values.length == 0
 
 
@@ -25,7 +25,7 @@ def test_stack_constructor_with_iterable(itr):
     """Test that a Stack created with an iterable contains all items."""
     from stack import Stack
     s = Stack(itr)
-    assert s._values.head.val == itr[-1]
+    assert s.top.val == itr[-1]
     assert s._values.length == len(itr)
 
 
@@ -36,7 +36,7 @@ def test_pop_removes_last_item_from_stack(itr):
     s = Stack(itr)
     x = s.pop()
     assert x == itr[-1]
-    assert s._values.head.val == itr[-2]
+    assert s.top.val == itr[-2]
     assert s._values.length == len(itr) - 1
 
 
@@ -46,7 +46,7 @@ def test_pop_removes_last_item_from_one_item_stack():
     s = Stack([1])
     x = s.pop()
     assert x == 1
-    assert s._values.head is None
+    assert s.top is None
     assert s._values.length == 0
 
 
@@ -65,8 +65,8 @@ def test_push_new_val_to_stack(val):
     s = Stack()
     s.push(val)
     assert s._values.length == 1
-    assert s._values.head.val == val
-    assert s._values.head.nxt is None
+    assert s.top.val == val
+    assert s.top.nxt is None
 
 
 @pytest.mark.parametrize('val1, val2', [(0, 'a'), ([], (1, 2, 3))])
@@ -75,11 +75,11 @@ def test_push_two_new_vals_to_stack(val1, val2):
     from stack import Stack
     s = Stack()
     s.push(val1)
-    old_head = s._values.head
+    old_head = s.top
     s.push(val2)
     assert s._values.length == 2
-    assert s._values.head.val == val2
-    assert s._values.head.nxt == old_head
+    assert s.top.val == val2
+    assert s.top.nxt == old_head
 
 
 @pytest.mark.parametrize('n', range(3, 20))
@@ -91,8 +91,8 @@ def test_push_multiple_new_vals_to_stack(n):
     for num in nums:
         s.push(num)
     assert s._values.length == n
-    assert s._values.head.val == n - 1
-    assert s._values.head.nxt.val == n - 2
+    assert s.top.val == n - 1
+    assert s.top.nxt.val == n - 2
 
 
 @pytest.mark.parametrize('itr', [[x for x in range(y)] for y in range(1, 20)])

@@ -5,11 +5,16 @@ from linked_list import LinkedList
 
 
 class Stack(object):
-    """List of values stored in a stack."""
+    """Structure for values in a stack where first item in is last out."""
 
     def __init__(self, iterable=None):
         """Construct a Stack."""
         self._values = LinkedList(iterable)
+
+    @property
+    def top(self):
+        """Get the top node from the stack."""
+        return self._values.head
 
     def __len__(self):
         """Overwrite the default return for len function."""
@@ -17,7 +22,10 @@ class Stack(object):
 
     def pop(self):
         """Remove the top node and return it's value."""
-        return self._values.pop()
+        try:
+            return self._values.pop()
+        except IndexError:
+            raise IndexError('Cannot pop from empty stack.')
 
     def push(self, val):
         """Add a value to the top of the stack."""
