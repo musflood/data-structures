@@ -34,7 +34,7 @@ class Queue(object):
         self._values.push(val)
 
     def dequeue(self):
-        """Remove the value from the front of the queue."""
+        """Remove the value from the front of the queue and return it."""
         try:
             return self._values.shift()
         except IndexError:

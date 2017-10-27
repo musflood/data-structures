@@ -58,6 +58,19 @@ l = DLL(iterable='list, tuple, or str')
 - **shift():** Remove the last value from the tail of the list and return it. Raises an IndexError if there are no values to return
 
 
+## Queue
+### Constructor:
+```python
+q = Queue(iterable='list, tuple, or str')
+```
+### Implements the following methods:
+- **enqueue(value):** Add a value to the end of the queue.
+    - Time complexity: O(1)
+- **dequeue():** Remove the value from the front of the queue and return it. Raises an IndexError if there are no values to return.
+    - Time complexity: O(1)
+- **peek():** Get the value from the front of the queue without removing it.
+    - Time complexity: O(1)
+- **size():** Get the size of the queue.
+    - Time complexity: O(1)
+
 ## Resources
-
-
