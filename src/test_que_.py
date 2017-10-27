@@ -132,3 +132,17 @@ def test_dequeue_empty_queue(empty_queue):
     """Test that dequeue on a empty queue throws an IndexError."""
     with pytest.raises(IndexError):
         empty_queue.dequeue()
+
+
+def test_peek_at_empty_queue_is_none(empty_queue):
+    """Test that peek at empty queue is None."""
+    assert empty_queue.peek() is None
+
+
+@pytest.mark.parametrize('itr', [[x for x in range(y)] for y in range(1, 20)])
+def test_peek_finds_value_of_front_of_queue(itr):
+    """Test that peek finds the value of the front of the queue."""
+    from que_ import Queue
+    q = Queue(itr)
+    assert q.peek() == itr[0]
+    assert q._values.length == len(itr)
