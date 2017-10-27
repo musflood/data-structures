@@ -5,7 +5,7 @@ from linked_list import LinkedList
 
 
 class Stack(object):
-    """List of values stored in a stack."""
+    """Structure for values in a stack where first item in is last out."""
 
     def __init__(self, iterable=None):
         """Construct a Stack."""

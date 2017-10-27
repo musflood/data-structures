@@ -5,6 +5,8 @@ This file holds sample code for a number of classic data structures impemented i
 
 ## Linked-List
 
+List of values stored in nodes linked to each other in one direction.
+
 A single linked list is beneficial when creating a to do list. You can remove the items when they are completed whithout having to alter the entire list. And there is no need to iterate through it from both directions. 
 
 ### Constructor:
@@ -27,6 +29,9 @@ l = LinkedList(iterable='list, tuple, or str')
 
 
 ## Stack
+
+Structure for values in a stack where first item in is last out.
+
 ### Constructor:
 ```python
 s = Stack(iterable='list, tuple, or str')
@@ -40,7 +45,8 @@ s = Stack(iterable='list, tuple, or str')
 
 ## Doubly-Linked-List
 
-A single linked list is beneficial when creating a to do list. You can remove the items when they are completed whithout having to alter the entire list. And there is no need to iterate through it from both directions. 
+List of values stored in nodes linked in two directions.
+
 A doubly linked list is better for keeping a log of information, such as history, this way you can access information from both directions.
 
 ### Constructor:
@@ -59,6 +65,9 @@ l = DLL(iterable='list, tuple, or str')
 
 
 ## Queue
+
+Structure for values in a queue where first item in is first out.!
+
 ### Constructor:
 ```python
 q = Queue(iterable='list, tuple, or str')

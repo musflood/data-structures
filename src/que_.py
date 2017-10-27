@@ -5,7 +5,7 @@ from dll import DLL
 
 
 class Queue(object):
-    """Creates a queue."""
+    """Structure for values in a queue where first item in is first out."""
 
     def __init__(self, iterable=None):
         """Construct a new queue."""
