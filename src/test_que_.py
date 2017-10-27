@@ -91,7 +91,7 @@ def test_enqueue_values_into_queue_adjust_inner_nodes(empty_queue):
 def test_dequeue_only_item_from_queue(empty_queue):
     """Test that dequeue only item empties the Queue."""
     q = empty_queue
-    q.push(0)
+    q.enqueue(0)
     x = q.dequeue()
     assert x == 0
     assert q.back is None
