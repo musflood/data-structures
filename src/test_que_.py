@@ -88,7 +88,7 @@ def test_enqueue_values_into_queue_adjust_inner_nodes(empty_queue):
     assert q._values.length == 4
 
 
-def test_dequeue_only_item_from_queue(empty_Queue):
+def test_dequeue_only_item_from_queue(empty_queue):
     """Test that dequeue only item empties the Queue."""
     q = empty_queue
     q.push(0)
@@ -102,7 +102,7 @@ def test_dequeue_only_item_from_queue(empty_Queue):
 @pytest.mark.parametrize('itr', [[x for x in range(y)] for y in range(2, 20)])
 def test_dequeue_one_item_from_any_length_queue(itr):
     """Test that dequeue item removes value from head of Queue."""
-    from queue import Queue
+    from que_ import Queue
     q = Queue(itr)
     x = q.dequeue()
     assert x == itr[0]
@@ -114,8 +114,8 @@ def test_dequeue_one_item_from_any_length_queue(itr):
 
 @pytest.mark.parametrize('itr', [[x for x in range(y)] for y in range(3, 20)])
 def test_dequeue_multiple_items_from_any_length_queue(itr):
-    """Test that dequeue items removes head from Queue"""
-    from queue import Queue
+    """Test that dequeue items removes head from Queue."""
+    from que_ import Queue
     from random import randint
     q = Queue(itr)
     num = randint(2, len(itr) - 1)
