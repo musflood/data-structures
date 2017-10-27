@@ -24,8 +24,8 @@ class Queue(object):
 
     def peek(self):
         """Get the value from the front of the queue without removing it."""
-        if self._values.tail:
-            return self._values.tail.val
+        if self.front:
+            return self.front.val
         return None
 
     @property

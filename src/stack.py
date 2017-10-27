@@ -25,3 +25,8 @@ class Stack(object):
     def push(self, val):
         """Add a value to the top of the stack."""
         self._values.push(val)
+
+    @property
+    def top(self):
+        """Get the top node from the stack."""
+        return self._values.head
