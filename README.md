@@ -66,7 +66,7 @@ l = DLL(iterable='list, tuple, or str')
 
 ## Queue
 
-Structure for values in a queue where first item in is first out.!
+Structure for values in a queue where first item in is first out.
 
 ### Constructor:
 ```python
