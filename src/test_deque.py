@@ -87,3 +87,49 @@ def test_append_values_into_deque_adjust_inner_nodes(empty_deque):
     assert d.front.prev.prev.val == 3
     assert d.front.prev.prev.prev.val == 4
     assert d._values.length == 4
+
+
+def test_popleft_only_item_from_deque(empty_deque):
+    """Test that popleft only item empties the deque."""
+    d = empty_deque
+    d.endeque(0)
+    x = d.popleft()
+    assert x == 0
+    assert d.end is None
+    assert d.front is None
+    assert d._values.length == 0
+
+
+@pytest.mark.parametrize('itr', [[x for x in range(y)] for y in range(2, 20)])
+def test_popleft_one_item_from_any_length_deque(itr):
+    """Test that popleft item removes value from front of deque."""
+    from que_ import Deque
+    d = Deque(itr)
+    x = d.popleft()
+    assert x == itr[0]
+    assert d.end.val == itr[-1]
+    assert d.front.val == itr[1]
+    assert d.front.nxt is None
+    assert d._values.length == len(itr) - 1
+
+
+@pytest.mark.parametrize('itr', [[x for x in range(y)] for y in range(3, 20)])
+def test_popleft_multiple_items_from_any_length_deque(itr):
+    """Test that popleft items removes front from deque."""
+    from que_ import Deque
+    from random import randint
+    d = Deque(itr)
+    num = randint(2, len(itr) - 1)
+    for _ in range(num):
+        x = d.popleft()
+    assert x == itr[num - 1]
+    assert d.end.val == itr[-1]
+    assert d.front.val == itr[num]
+    assert d.front.nxt is None
+    assert d._values.length == len(itr) - num
+
+
+def test_popleft_empty_deque(empty_deque):
+    """Test that popleft on a empty deque throws an IndexError."""
+    with pytest.raises(IndexError):
+        empty_deque.popleft()
