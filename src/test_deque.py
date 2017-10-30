@@ -136,7 +136,7 @@ def test_popleft_empty_deque(empty_deque):
 
 
 def test_appendleft_one_node_into_deque(empty_deque):
-    """Test that appendleft a value adds it to front of doubly linked list."""
+    """Test that appendleft a value adds it to front of deque."""
     d = empty_deque
     d.appendleft(0)
     assert d.end.val == 0
@@ -149,7 +149,7 @@ def test_appendleft_one_node_into_deque(empty_deque):
 
 
 def test_appendleft_two_values_into_deque(empty_deque):
-    """Test that appendleft two values adds to front of DLL."""
+    """Test that appendleft two values adds to front of deque."""
     d = empty_deque
     d.appendleft(0)
     d.appendleft(1)
@@ -163,7 +163,7 @@ def test_appendleft_two_values_into_deque(empty_deque):
 
 
 def test_appendleft_multiple_values_into_deque_change_end(empty_deque):
-    """Test that appendleft multiple values adds to front of DLL."""
+    """Test that appendleft multiple values adds to front of deque."""
     d = empty_deque
     d.appendleft(0)
     d.appendleft(1)
@@ -192,3 +192,49 @@ def test_appendleft_values_into_deque_adjust_inner_nodes(empty_deque):
     assert d.front.prev.prev.val == 1
     assert d.front.prev.prev.prev.val == 0
     assert d._values.length == 4
+
+
+def test_pop_only_item_from_deque(empty_deque):
+    """Test that pop only item empties the deque."""
+    d = empty_deque
+    d.push(0)
+    x = d.pop()
+    assert x == 0
+    assert d.end is None
+    assert d.front is None
+    assert d._values.length == 0
+
+
+@pytest.mark.parametrize('itr', [[x for x in range(y)] for y in range(2, 20)])
+def test_pop_one_item_from_any_length_deque(itr):
+    """Test that pop item removes end from deque."""
+    from deque import Deque
+    d = Deque(itr)
+    x = d.pop()
+    assert x == itr[-1]
+    assert d.end.val == itr[-2]
+    assert d.end.prev is None
+    assert d.front.val == itr[0]
+    assert d._values.length == len(itr) - 1
+
+
+@pytest.mark.parametrize('itr', [[x for x in range(y)] for y in range(3, 20)])
+def test_pop_multiple_items_from_any_length_deque(itr):
+    """Test that pop items removes end from deque."""
+    from deque import Deque
+    from random import randint
+    d = Deque(itr)
+    num = randint(2, len(itr) - 1)
+    for _ in range(num):
+        x = d.pop()
+    assert x == itr[-num]
+    assert d.end.val == itr[-num - 1]
+    assert d.end.prev is None
+    assert d.front.val == itr[0]
+    assert d._values.length == len(itr) - num
+
+
+def test_pop_empty_deque(empty_deque):
+    """Test that pop on a empty deque throws an IndexError."""
+    with pytest.raises(IndexError):
+        empty_deque.pop()
