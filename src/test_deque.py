@@ -238,3 +238,17 @@ def test_pop_empty_deque(empty_deque):
     """Test that pop on a empty deque throws an IndexError."""
     with pytest.raises(IndexError):
         empty_deque.pop()
+
+
+def test_peek_at_empty_deque_is_none(empty_deque):
+    """Test that peek at empty deque is None."""
+    assert empty_deque.peek() is None
+
+
+@pytest.mark.parametrize('itr', [[x for x in range(y)] for y in range(1, 20)])
+def test_peek_finds_value_of_front_of_deque(itr):
+    """Test that peek finds the value returned by poping the deque."""
+    from deque import Deque
+    d = Deque(itr)
+    assert d.peek() == d.pop()
+    assert d._values.length == len(itr) - 1
