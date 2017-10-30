@@ -197,7 +197,7 @@ def test_appendleft_values_into_deque_adjust_inner_nodes(empty_deque):
 def test_pop_only_item_from_deque(empty_deque):
     """Test that pop only item empties the deque."""
     d = empty_deque
-    d.push(0)
+    d.appendleft(0)
     x = d.pop()
     assert x == 0
     assert d.end is None
