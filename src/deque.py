@@ -20,6 +20,10 @@ class Deque(object):
         """Get the node at end of the deque."""
         return self._values.head
 
+    def __len__(self):
+        """Overwrite the default return for len function."""
+        return len(self._values)
+
     def append(self, val):
         """Add a value to the end of the deque."""
         self._values.push(val)
@@ -43,9 +47,14 @@ class Deque(object):
             raise IndexError('Cannot popleft from empty deque.')
 
     def peek(self):
-        """Get the value from the front of the deque without removing it."""
+        """Get the value from the end of the deque without removing it."""
         if self.end:
             return self.end.val
+
+    def peekleft(self):
+        """Get the value from the front of the deque without removing it."""
+        if self.front:
+            return self.front.val
 
     def size(self):
         """Get the size of the deque."""
