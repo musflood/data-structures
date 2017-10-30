@@ -252,3 +252,11 @@ def test_peek_finds_value_of_front_of_deque(itr):
     d = Deque(itr)
     assert d.peek() == d.pop()
     assert d._values.length == len(itr) - 1
+
+
+@pytest.mark.parametrize('itr', [[x for x in range(y)] for y in range(1, 20)])
+def test_size_for_deque(itr):
+    """Test that size gets the length of a deque."""
+    from deque import Deque
+    d = Deque(itr)
+    assert d.size() == len(itr)
