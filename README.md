@@ -85,4 +85,28 @@ q = Queue(iterable='list, tuple, or str')
 - **size():** Get the size of the queue.
     - Time complexity: O(1)
 
+## Deque
+
+Structure for values in a deque, double-ended queue.
+
+### Constructor:
+```python
+d = Deque(iterable='list, tuple, or str')
+```
+### Implements the following methods:
+- **append(value):** Add a value to the end of the deque.
+    - Time complexity: O(1)
+- **appendleft(value):** Add a value to the front of the deque.
+    - Time complexity: O(1)
+- **pop():** Remove the value from the end of the deque and return it. Raises an IndexError if there are no values to return.
+    - Time complexity: O(1)
+- **popleft():** Remove the value from the front of the deque and return it. Raises an IndexError if there are no values to return.
+    - Time complexity: O(1)
+- **peek():** Get the value from the end of the deque without removing it.
+    - Time complexity: O(1)
+- **peekleft():** Get the value from the front of the deque without removing it.
+    - Time complexity: O(1)
+- **size():** Get the size of the deque.
+    - Time complexity: O(1)
+
 ## Resources

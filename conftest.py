@@ -13,3 +13,10 @@ def empty_queue():
     """Create an empty queue."""
     from que_ import Queue
     return Queue()
+
+
+@pytest.fixture
+def empty_deque():
+    """Create an empty deque."""
+    from deque import Deque
+    return Deque()
