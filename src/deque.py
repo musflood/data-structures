@@ -41,3 +41,12 @@ class Deque(object):
             return self._values.shift()
         except IndexError:
             raise IndexError('Cannot popleft from empty deque.')
+
+    def peek(self):
+        """Get the value from the front of the deque without removing it."""
+        if self.end:
+            return self.end.val
+
+    def size(self):
+        """Get the size of the deque."""
+        return len(self)
