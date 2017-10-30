@@ -4,7 +4,7 @@ from dll import DLL
 
 
 class Deque(object):
-    """Structure for values in a deque."""
+    """Structure for values in a deque, a double-ended queue."""
 
     def __init__(self, iterable=None):
         """Construct a ne deque."""
@@ -23,6 +23,17 @@ class Deque(object):
     def append(self, val):
         """Add a value to the end of the deque."""
         self._values.push(val)
+
+    def appendleft(self, val):
+        """Add a value to the front of the deque."""
+        self._values.append(val)
+
+    def pop(self):
+        """Remove the value from the end of the deque and return it."""
+        try:
+            return self._values.pop()
+        except IndexError:
+            raise IndexError('Cannot pop from empty deque.')
 
     def popleft(self):
         """Remove the value from the front of the deque and return it."""
