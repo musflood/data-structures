@@ -103,7 +103,7 @@ def test_popleft_only_item_from_deque(empty_deque):
 @pytest.mark.parametrize('itr', [[x for x in range(y)] for y in range(2, 20)])
 def test_popleft_one_item_from_any_length_deque(itr):
     """Test that popleft item removes value from front of deque."""
-    from que_ import Deque
+    from deque import Deque
     d = Deque(itr)
     x = d.popleft()
     assert x == itr[0]
@@ -116,7 +116,7 @@ def test_popleft_one_item_from_any_length_deque(itr):
 @pytest.mark.parametrize('itr', [[x for x in range(y)] for y in range(3, 20)])
 def test_popleft_multiple_items_from_any_length_deque(itr):
     """Test that popleft items removes front from deque."""
-    from que_ import Deque
+    from deque import Deque
     from random import randint
     d = Deque(itr)
     num = randint(2, len(itr) - 1)
