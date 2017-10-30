@@ -260,3 +260,25 @@ def test_size_for_deque(itr):
     from deque import Deque
     d = Deque(itr)
     assert d.size() == len(itr)
+
+
+def test_peekleft_at_empty_deque_is_none(empty_deque):
+    """Test that peekleft at empty deque is None."""
+    assert empty_deque.peekleft() is None
+
+
+@pytest.mark.parametrize('itr', [[x for x in range(y)] for y in range(1, 20)])
+def test_peekleft_finds_value_of_front_of_deque(itr):
+    """Test that peekleft finds the value returned by poping the deque."""
+    from deque import Deque
+    d = Deque(itr)
+    assert d.peekleft() == d.popleft()
+    assert d._values.length == len(itr) - 1
+
+
+@pytest.mark.parametrize('itr', [[x for x in range(y)] for y in range(1, 20)])
+def test_len_for_deque(itr):
+    """Test that size gets the length of a deque."""
+    from deque import Deque
+    d = Deque(itr)
+    assert len(d) == len(itr)
