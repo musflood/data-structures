@@ -28,3 +28,62 @@ def test_deque_constructor_with_iterable(itr):
     assert d.end.val == itr[-1]
     assert d.front.val == itr[0]
     assert d._values.length == len(itr)
+
+
+def test_append_one_node_into_deque(empty_deque):
+    """Test that appending one value adds it to front of deque."""
+    d = empty_deque
+    d.append(0)
+    assert d.end.val == 0
+    assert d.front.val == 0
+    assert d.end.nxt is None
+    assert d.end.prev is None
+    assert d.front.nxt is None
+    assert d.front.prev is None
+    assert d._values.length == 1
+
+
+def test_append_two_values_into_deque(empty_deque):
+    """Test that appending two values adds to front of deque."""
+    d = empty_deque
+    d.append(0)
+    d.append(1)
+    assert d.end.val == 1
+    assert d.front.val == 0
+    assert d.end.nxt.val == 0
+    assert d.end.prev is None
+    assert d.front.nxt is None
+    assert d.front.prev.val == 1
+    assert d._values.length == 2
+
+
+def test_append_multiple_values_into_deque_change_head(empty_deque):
+    """Test that appending multiple values adds to front of deque."""
+    d = empty_deque
+    d.append(0)
+    d.append(1)
+    d.append(3)
+    d.append(4)
+    assert d.end.val == 4
+    assert d.front.val == 0
+    assert d.end.nxt.val == 3
+    assert d.end.prev is None
+    assert d.front.nxt is None
+    assert d.front.prev.val == 1
+    assert d._values.length == 4
+
+
+def test_append_values_into_deque_adjust_inner_nodes(empty_deque):
+    """Test that appending multiple values changes inner node connections."""
+    d = empty_deque
+    d.append(0)
+    d.append(1)
+    d.append(3)
+    d.append(4)
+    assert d.end.nxt.val == 3
+    assert d.end.nxt.nxt.val == 1
+    assert d.end.nxt.nxt.nxt.val == 0
+    assert d.front.prev.val == 1
+    assert d.front.prev.prev.val == 3
+    assert d.front.prev.prev.prev.val == 4
+    assert d._values.length == 4
