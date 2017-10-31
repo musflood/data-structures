@@ -44,5 +44,5 @@ def test_push_multiple_values_maintains_the_heap_property(empty_binheap):
     h.push(1)
     h.push(2)
     assert len(h._values) - 1 == 2
-    assert h.values[1] == 2
-    assert h.values[2] == 1
+    assert h._values[1] == 2
+    assert h._values[2] == 1
