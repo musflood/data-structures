@@ -17,7 +17,7 @@ def test_find_parent_of_random_node_in_binheap(idx, result):
     assert BinHeap._pi(idx) == result
 
 
-@pytest.mark.parametrize('idx, result', [(1, 2), (2, 4), (3, 5)])
+@pytest.mark.parametrize('idx, result', [(1, 2), (2, 4), (3, 6)])
 def test_find_left_child_of_random_node_in_binheap(idx, result):
     """Test that _lci returns the left child of selected index."""
     from binheap import BinHeap
