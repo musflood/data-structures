@@ -20,3 +20,10 @@ def empty_deque():
     """Create an empty deque."""
     from deque import Deque
     return Deque()
+
+
+@pytest.fixture
+def empty_binheap():
+    """Create and empty binheap."""
+    from binheap import BinHeap
+    return BinHeap()
