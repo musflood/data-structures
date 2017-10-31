@@ -5,8 +5,8 @@ import pytest
 
 def test_binheap_constructed_with_no_arguments_is_empty(empty_binheap):
     """Test that new binheap constructed with no arguments is empty."""
-    assert empty_binheap[0] is None
-    assert len(empty_binheap._vallues) == 1
+    assert empty_binheap._values[0] is None
+    assert len(empty_binheap._values) == 1
 
 
 @pytest.mark.parametrize('idx, result', [(2, 1), (3, 1), (4, 2),
