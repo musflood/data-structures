@@ -13,5 +13,5 @@ def test_binheap_constructed_with_no_arguments_is_empty(empty_binheap):
                                          (5, 2), (6, 3), (7, 3)])
 def test_find_parent_of_random_node_in_binheap(idx, result):
     """Test that _pi returns the parent of selected index."""
-    from binheap import _pi
-    assert _pi(idx) == result
+    from binheap import BinHeap
+    assert BinHeap._pi(idx) == result
