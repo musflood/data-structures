@@ -16,7 +16,7 @@ def test_comparing_priority_of_buckets():
     from priorityq import Bucket
     b1 = Bucket(1)
     b2 = Bucket(2)
-    assert b1 > b2
+    assert b2 > b1
 
 
 def test_there_can_not_be_buckets_with_same_priority():
@@ -35,10 +35,16 @@ def test_two_buckets_with_different_priority_not_equal():
     assert b1 != b2
 
 
-@pytest.mark.parametrize('priority, iterable', [(1, None), (2, []), (1, [1]),
+@pytest.mark.parametrize('priority, iterable', [(2, []), (1, [1]),
                                                 (1, [1, 3, 4, 5, 6, 45, 34])])
 def test_giving_itr_to_bucket_creates_bucket_with_values(priority, iterable):
     """Test that creating a bucket with iterable stores values in bucket."""
     from priorityq import Bucket
     b = Bucket(priority, iterable)
     assert len(b._values) == len(iterable)
+
+
+def test_priorityq_constructed_with_no_arguments_is_empty(empty_priorityq):
+    """Test that new priorityq constructed with no arguments is empty."""
+    assert empty_priorityq._all_values[0] is None
+    assert empty_priorityq._size == 0
