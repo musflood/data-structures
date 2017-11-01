@@ -109,4 +109,20 @@ d = Deque(iterable='list, tuple, or str')
 - **size():** Get the size of the deque.
     - Time complexity: O(1)
 
+## Binary Heap
+
+Structure for values in a Binary Heap. A max binary heap is a complete binary tree where each level of the tree is greater than the level below it. A min heap has the lowest values at the top.
+
+### Constructor:
+```python
+h = BinHeap(iterable='list, tuple, or str', is_max_heap=True)
+```
+### Implements the following methods:
+- **push(val):** Put a new value into the binary heap.
+    - Time coplexity: O(log(n))
+- **pop():** Remove the value from the end of the heap and return it. Raises an IndexError if there are no values to return.
+    - Time complexity: O(log(n))
+
 ## Resources
+
+- **Wikipedia:** https://en.wikipedia.org/wiki/Binary_heap
