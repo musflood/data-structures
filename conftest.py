@@ -23,7 +23,14 @@ def empty_deque():
 
 
 @pytest.fixture
-def empty_binheap():
-    """Create and empty binheap."""
+def empty_max_binheap():
+    """Create and empty maxbinheap."""
     from binheap import BinHeap
     return BinHeap()
+
+
+@pytest.fixture
+def empty_min_binheap():
+    """Create and empty minbinheap."""
+    from binheap import BinHeap
+    return BinHeap(is_max_heap=False)
