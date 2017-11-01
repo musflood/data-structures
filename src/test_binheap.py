@@ -9,6 +9,24 @@ def test_binheap_constructed_with_no_arguments_is_empty(empty_binheap):
     assert len(empty_binheap._values) == 1
 
 
+def test_binheap_constructed_with_empty_iterable_is_empty():
+    """Test that new binheap constructed with an empty iterable is empty."""
+    from binheap import BinHeap
+    h = BinHeap([])
+    assert h._values[0] is None
+    assert len(h._values) == 1
+
+
+@pytest.mark.parametrize('itr', [[x for x in range(y)] for y in range(1, 20)])
+def test_binheap_constructed_with_iterable_is_filled_properly(itr):
+    """Test that new binheap constructed with an iterable is filled."""
+    from binheap import BinHeap
+    h = BinHeap(itr)
+    assert h._values[0] is None
+    assert h._values[1] is itr[-1]
+    assert len(h._values) == len(itr) + 1
+
+
 @pytest.mark.parametrize('idx, result', [(2, 1), (3, 1), (4, 2),
                                          (5, 2), (6, 3), (7, 3)])
 def test_find_parent_of_random_node_in_binheap(idx, result):
@@ -74,3 +92,13 @@ def test_push_non_unique_values_does_not_add_to_heap(empty_binheap):
     assert len(h._values) - 1 == 2
     assert h._values[1] == 2
     assert h._values[2] == 1
+
+
+def test_pop_from_two_value_heap_removes_value_from_top(empty_binheap):
+    """Test that popping from two value heap removes top."""
+    h = empty_binheap
+    h.push(1)
+    h.push(2)
+    assert h.pop() == 2
+    assert len(h._values) - 1 == 1
+    assert h._values[1] == 1
