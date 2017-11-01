@@ -6,7 +6,7 @@ import pytest
 def test_binheap_constructed_with_no_arguments_is_empty(empty_binheap):
     """Test that new binheap constructed with no arguments is empty."""
     assert empty_binheap._values[0] is None
-    assert len(empty_binheap._values) == 1
+    assert empty_binheap._size == 0
 
 
 def test_binheap_constructed_with_empty_iterable_is_empty():
@@ -14,7 +14,7 @@ def test_binheap_constructed_with_empty_iterable_is_empty():
     from binheap import BinHeap
     h = BinHeap([])
     assert h._values[0] is None
-    assert len(h._values) == 1
+    assert h._size == 0
 
 
 @pytest.mark.parametrize('itr', [[x for x in range(y)] for y in range(1, 20)])
@@ -24,7 +24,7 @@ def test_binheap_constructed_with_iterable_is_filled_properly(itr):
     h = BinHeap(itr)
     assert h._values[0] is None
     assert h._values[1] is itr[-1]
-    assert len(h._values) == len(itr) + 1
+    assert h._size == len(itr)
 
 
 @pytest.mark.parametrize('idx, result', [(2, 1), (3, 1), (4, 2),
@@ -64,7 +64,7 @@ def test_push_two_values_maintains_the_heap_property(empty_binheap):
     h = empty_binheap
     h.push(1)
     h.push(2)
-    assert len(h._values) - 1 == 2
+    assert h._size == 2
     assert h._values[1] == 2
     assert h._values[2] == 1
 
@@ -76,11 +76,8 @@ def test_push_multiple_values_maintains_the_heap_property(empty_binheap):
     h.push(2)
     h.push(3)
     h.push(4)
-    assert len(h._values) - 1 == 4
-    assert h._values[1] == 4
-    assert h._values[2] == 3
-    assert h._values[3] == 2
-    assert h._values[4] == 1
+    assert h._size == 4
+    assert h._values == [None, 4, 3, 2, 1]
 
 
 def test_push_non_unique_values_does_not_add_to_heap(empty_binheap):
@@ -89,9 +86,17 @@ def test_push_non_unique_values_does_not_add_to_heap(empty_binheap):
     h.push(1)
     h.push(2)
     h.push(2)
-    assert len(h._values) - 1 == 2
+    assert h._size == 2
     assert h._values[1] == 2
     assert h._values[2] == 1
+
+
+def test_pop_only_item_from_heap_empties_it(empty_binheap):
+    """Test that popping only item from a heap empties the heap."""
+    h = empty_binheap
+    h.push(1)
+    assert h.pop() == 1
+    assert h._size == 0
 
 
 def test_pop_from_two_value_heap_removes_value_from_top(empty_binheap):
@@ -100,5 +105,21 @@ def test_pop_from_two_value_heap_removes_value_from_top(empty_binheap):
     h.push(1)
     h.push(2)
     assert h.pop() == 2
-    assert len(h._values) - 1 == 1
+    assert h._size == 1
     assert h._values[1] == 1
+
+
+def test_pop_from_random_heap_in_sorted_order():
+    """Test that popping all the items from a heap are in sorted order."""
+    from binheap import BinHeap
+    from random import randint
+    random_nums = list(set([randint(0, 100) for _ in range(20)]))
+    h = BinHeap(random_nums)
+    popped = [h.pop() for _ in range(len(h._values) - 1)]
+    assert popped == sorted(random_nums, reverse=True)
+
+
+def test_pop_from_empty_heap_raises_indexerror(empty_binheap):
+    """Test popping from empty list raises an IndexError."""
+    with pytest.raises(IndexError):
+        empty_binheap.pop()

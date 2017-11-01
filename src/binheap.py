@@ -22,26 +22,40 @@ class BinHeap(object):
 
         self._values.append(val)
 
-        i = len(self._values) - 1
+        i = self._size
         while self._pi(i) and self._values[self._pi(i)] < val:
             p = self._pi(i)
             self._values[p], self._values[i] = self._values[i], self._values[p]
             i = p
 
     def pop(self):
-        """Remove lowest value from binary heap."""
+        """Remove top from the binary heap."""
         if len(self._values) < 2:
             raise IndexError('Can not pop from empty heap.')
+
+        if len(self._values) == 2:
+            return self._values.pop()
+
         top = self._values[1]
         x = self._values[1] = self._values.pop()
+
         i = 1
-        while self._lci(i) < len(self._values) and self._values[self._lci(i)] > x:
-            if self._values[self._lci(i)] > self._values[self._rci(i)]:
-                c = self._lci(i)
-            else:
+        lc = self._values[self._lci(i):self._lci(i) + 1]
+        rc = self._values[self._rci(i):self._rci(i) + 1]
+
+        while (lc and lc[0] > x) or (rc and rc[0] > x):
+
+            if rc and rc[0] > lc[0]:
                 c = self._rci(i)
+            else:
+                c = self._lci(i)
+
             self._values[c], self._values[i] = self._values[i], self._values[c]
+
             i = c
+            lc = self._values[self._lci(i):self._lci(i) + 1]
+            rc = self._values[self._rci(i):self._rci(i) + 1]
+
         return top
 
     def _pi(self, idx):
@@ -55,3 +69,8 @@ class BinHeap(object):
     def _rci(self, idx):
         """Find the index for the right child of the given index."""
         return idx * 2 + 1
+
+    @property
+    def _size(self):
+        """Get the number of items in the binary heap."""
+        return len(self._values) - 1
