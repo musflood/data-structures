@@ -78,7 +78,10 @@ class BinHeap(object):
         return idx * 2 + 1
 
     def _comp(self, val1, val2):
-        """Compare two values based on if the heap is max or min."""
+        """Compare two values based on if the heap is max or min.
+
+        In max heap, val1 > val2. In min heap, val1 < val2.
+        """
         if self.is_max_heap:
             return val1 > val2
         return val1 < val2
