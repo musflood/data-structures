@@ -185,3 +185,36 @@ def test_pop_values_of_same_priority_acts_like_queue(amount):
         q.insert(n)
     popped = [q.pop() for _ in random_nums]
     assert popped == random_nums
+
+
+def test_pop_from_random_p_q_with_all_diff_priority_in_sorted_order():
+    """Test popping all the items from a priority queue are in sorted order.
+
+    All items inserted have the same priority as their value, so when
+    removed they should be in sorted order.
+    """
+    from priorityq import PriorityQ
+    from random import randint
+    random_nums = list(set([randint(0, 100) for _ in range(20)]))
+    q = PriorityQ()
+    for n in random_nums:
+        q.insert(n, n)
+    popped = [q.pop() for _ in range(len(q._all_values) - 1)]
+    assert popped == sorted(random_nums)
+
+
+def test_pop_from_multiple_items_at_same_priority_works(empty_priorityq):
+    """Test that popped items are in proper order based on priority."""
+    q = empty_priorityq
+    q.insert(1, 5)
+    q.insert(2, 2)
+    q.insert(3, 9)
+    q.insert(4, 1)
+    q.insert(5, 2)
+    q.insert(6, 5)
+    q.insert(7, 1)
+    q.insert(8)
+    q.insert(9, 1)
+    q.insert(10, 9)
+    popped = [q.pop() for _ in range(len(q) - 1)]
+    assert popped == [3, 10, 1, 6, 2, 5, 4, 7, 9, 8]
