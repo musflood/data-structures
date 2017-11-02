@@ -200,7 +200,7 @@ def test_pop_from_random_p_q_with_all_diff_priority_in_sorted_order():
     for n in random_nums:
         q.insert(n, n)
     popped = [q.pop() for _ in range(len(q._all_values) - 1)]
-    assert popped == sorted(random_nums)
+    assert popped == sorted(random_nums, reverse=True)
 
 
 def test_pop_from_multiple_items_at_same_priority_works(empty_priorityq):
@@ -216,5 +216,5 @@ def test_pop_from_multiple_items_at_same_priority_works(empty_priorityq):
     q.insert(8)
     q.insert(9, 1)
     q.insert(10, 9)
-    popped = [q.pop() for _ in range(len(q) - 1)]
+    popped = [q.pop() for _ in range(len(q))]
     assert popped == [3, 10, 1, 6, 2, 5, 4, 7, 9, 8]
