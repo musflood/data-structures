@@ -48,6 +48,13 @@ class PriorityQ(object):
         self._values = BinHeap()
         self._min_priority = 0
 
+    def __len__(self):
+        """Overwrite length to give us the amount of items in priority Q.
+
+        Get all the items from all the buckets in the priority Q.
+        """
+        return sum(len(b) for b in self._all_values[1:])
+
     @property
     def _all_values(self):
         return self._values._values
@@ -74,3 +81,23 @@ class PriorityQ(object):
 
         except ValueError:
             self._values.push(Bucket(priority, [val]))
+
+    def pop(self):
+        """Remove the first value from priority Q.
+
+        If no values in bucket then bucket is removed.
+        """
+        if len(self._all_values) < 2:
+            raise IndexError('Can not pop from empty priority Q.')
+        bucket = self._all_values[1]
+        result = bucket._values.dequeue()
+        if len(bucket._values) == 0:
+            self._values.pop()
+        return result
+
+    def peek(self):
+        """Get the the most important item without removing it."""
+        if len(self._all_values) < 2:
+            return
+        bucket = self._all_values[1]
+        return bucket._values.peek()
