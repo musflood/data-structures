@@ -19,8 +19,8 @@ def test_comparing_priority_of_buckets():
     assert b2 > b1
 
 
-def test_there_can_not_be_buckets_with_same_priority():
-    """Test that there can't be two buckets of the same priority."""
+def test_buckets_with_same_priority_are_equal():
+    """Test that buckets with same priority are the same."""
     from priorityq import Bucket
     b1 = Bucket(1)
     b2 = Bucket(1)
@@ -33,6 +33,27 @@ def test_two_buckets_with_different_priority_not_equal():
     b1 = Bucket(1)
     b2 = Bucket(2)
     assert b1 != b2
+
+
+def test_comparing_priority_of_buckets_to_int():
+    """Test that comparison of bucket priority and int works."""
+    from priorityq import Bucket
+    b1 = Bucket(1)
+    assert b1 > 0
+
+
+def test_bucket_with_same_priority_can_be_equal_to_int():
+    """Test that bucket with same priority as int are the same."""
+    from priorityq import Bucket
+    b1 = Bucket(1)
+    assert b1 == 1
+
+
+def test_bucket_with_different_priority_not_equal_to_int():
+    """Test that bucket with different priority than int is not equal."""
+    from priorityq import Bucket
+    b1 = Bucket(1)
+    assert b1 != 2
 
 
 @pytest.mark.parametrize('priority, iterable', [(2, []), (1, [1]),
