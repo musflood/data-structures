@@ -158,3 +158,30 @@ def test_insert_items_with_same_priority_add_them_in_order(empty_priorityq):
     assert q._all_values[1]._values.dequeue() == 5
     assert q._all_values[1]._values.dequeue() == 3
     assert q._all_values[1]._values.dequeue() == 1
+
+
+def test_pop_value_from_empty_priority_queue(empty_priorityq):
+    """Test that popping from empty queue raises a IndexError."""
+    with pytest.raises(IndexError):
+        empty_priorityq.pop()
+
+
+def test_pop_only_value_from_priority_queue_empties_it(empty_priorityq):
+    """Test that popping only item from queue empties it."""
+    q = empty_priorityq
+    q.insert(5)
+    assert q.pop() == 5
+    assert q._size == 0
+
+
+@pytest.mark.parametrize('amount', range(2, 20))
+def test_pop_values_of_same_priority_acts_like_queue(amount):
+    """Test that popping only item from queue empties it."""
+    from random import randint
+    from priorityq import PriorityQ
+    q = PriorityQ()
+    random_nums = [randint(0, 100) for _ in range(amount)]
+    for n in random_nums:
+        q.insert(n)
+    popped = [q.pop() for _ in random_nums]
+    assert popped == random_nums
