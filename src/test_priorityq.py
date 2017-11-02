@@ -48,3 +48,22 @@ def test_priorityq_constructed_with_no_arguments_is_empty(empty_priorityq):
     """Test that new priorityq constructed with no arguments is empty."""
     assert empty_priorityq._all_values[0] is None
     assert empty_priorityq._size == 0
+
+
+def test_insert_a_item_without_priority_adds_lowest_priority(empty_priorityq):
+    """Test inserting an item into the queue adds it as lowest priority."""
+    q = empty_priorityq
+    q.insert(5)
+    assert q._size == 1
+    assert q._all_values[1].priority == 0
+
+
+def test_insert_items_without_priority_add_all_as_lowest(empty_priorityq):
+    """Test inserting an item into the queue adds it as lowest priority."""
+    q = empty_priorityq
+    q.insert(5)
+    q.insert(3)
+    q.insert(1)
+    assert q._size == 1
+    assert q._all_values[1].priority == 0
+    assert len(q._all_values[1]) == 3

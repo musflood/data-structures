@@ -30,6 +30,10 @@ class Bucket(object):
             return self.priority != value.priority
         return self.priority != value
 
+    def __len__(self):
+        """Overwrite len function to find length of a Bucket."""
+        return len(self._values)
+
 
 class PriorityQ(object):
     """Structure for values in a priorty queue.
@@ -63,9 +67,10 @@ class PriorityQ(object):
         if priority < self._min_priority:
             self._min_priority = priority
 
-        if priority in self._all_values:
-            bucket = self._all_values[self._all_values.index(priority)]
+        try:
+            i = self._all_values.index(priority)
+            bucket = self._all_values[i]
             bucket._values.enqueue(val)
 
-        else:
+        except ValueError:
             self._values.push(Bucket(priority, [val]))
