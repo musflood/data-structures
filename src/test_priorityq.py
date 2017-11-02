@@ -218,3 +218,44 @@ def test_pop_from_multiple_items_at_same_priority_works(empty_priorityq):
     q.insert(10, 9)
     popped = [q.pop() for _ in range(len(q))]
     assert popped == [3, 10, 1, 6, 2, 5, 4, 7, 9, 8]
+
+
+def test_peek_into_empty_priority_q_returns_none(empty_priorityq):
+    """Test that peeking into empty priority q returns none."""
+    assert empty_priorityq.peek() is None
+
+
+def test_peek_into_one_item_q_returns_top_priority_q_value(empty_priorityq):
+    """Test that peeking into priority q returns a value.
+
+    Value returned is the first value of the que in the first priority bucket.
+    """
+    q = empty_priorityq
+    q.insert(2, 2)
+    assert q.peek() == 2
+    assert len(q) == 1
+
+
+def test_peek_into_priority_q_returns_gets_top_value(empty_priorityq):
+    """Test that peeking into priority q with one priority returns valeu.
+
+    Get first of the many values within the bucket.
+    """
+    q = empty_priorityq
+    q.insert(2, 2)
+    q.insert(3, 2)
+    q.insert(4, 2)
+    q.insert(6, 2)
+    assert q.peek() == 2
+    assert len(q) == 4
+
+
+def test_peek_q_with_multiple_buckets_gets_top_priority_value(empty_priorityq):
+    """Test that peeking into q with multiple buckets returns top value."""
+    q = empty_priorityq
+    q.insert(1, 5)
+    q.insert(2, 2)
+    q.insert(3, 9)
+    q.insert(4, 1)
+    assert q.peek() == 3
+    assert len(q) == 4
