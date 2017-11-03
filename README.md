@@ -119,9 +119,25 @@ h = BinHeap(iterable='list, tuple, or str', is_max_heap=True)
 ```
 ### Implements the following methods:
 - **push(val):** Put a new value into the binary heap.
-    - Time coplexity: O(log(n))
-- **pop():** Remove the value from the end of the heap and return it. Raises an IndexError if there are no values to return.
     - Time complexity: O(log(n))
+- **pop():** Remove the value from the top of the heap and return it. Raises an IndexError if there are no values to return.
+    - Time complexity: O(log(n))
+
+## Priority Queue
+
+Structure for values in a priorty queue. Items added to the priority queue are given a priority. If not set by the user, priority is set to be the lowest. When removing items, higher priority items are removed before lower priority items.
+
+### Constructor:
+```python
+q = PriorityQ()
+```
+### Implements the following methods:
+- **insert(value, priority=None):** Put a new value into the priority queue. If no priority is given, it is set to be the current minimum priority. 
+    - Time complexity: O(n)
+- **pop():** Remove the highest priority value from the priority queue and return it. Raises an IndexError if there are no values to return.
+    - Time complexity: O(log(n))
+- **peek():** Get the highest priority value from the priority queue and without removing it. Returns None if these are no values to return.
+    - Time complexity: O(1)
 
 ## Resources
 

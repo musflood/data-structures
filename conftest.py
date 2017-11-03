@@ -34,3 +34,10 @@ def empty_min_binheap():
     """Create and empty minbinheap."""
     from binheap import BinHeap
     return BinHeap(is_max_heap=False)
+
+
+@pytest.fixture
+def empty_priorityq():
+    """Create and empty minbinheap."""
+    from priorityq import PriorityQ
+    return PriorityQ()
