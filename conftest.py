@@ -24,20 +24,27 @@ def empty_deque():
 
 @pytest.fixture
 def empty_max_binheap():
-    """Create and empty maxbinheap."""
+    """Create an empty maxbinheap."""
     from binheap import BinHeap
     return BinHeap()
 
 
 @pytest.fixture
 def empty_min_binheap():
-    """Create and empty minbinheap."""
+    """Create an empty minbinheap."""
     from binheap import BinHeap
     return BinHeap(is_max_heap=False)
 
 
 @pytest.fixture
 def empty_priorityq():
-    """Create and empty minbinheap."""
+    """Create an empty priority queue."""
     from priorityq import PriorityQ
     return PriorityQ()
+
+
+@pytest.fixture
+def empty_graph_1():
+    """Create an empty graph."""
+    from graph_1 import Graph
+    return Graph()
