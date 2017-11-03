@@ -21,11 +21,11 @@ def test_edges_of_empty_graph_is_empty(empty_graph_1):
     assert empty_graph_1.edges() == []
 
 
-@pytest.mark.parametrize('itr', [x for x in range(1, 20)])
-def test_adding_unique_values_to_a_graph_adds_all_nodes(itr):
+@pytest.mark.parametrize('num', [x for x in range(1, 20)])
+def test_adding_unique_values_to_a_graph_adds_all_nodes(num):
     """Test that adding unique values to the graph adds all of them."""
     from graph_1 import Graph
     g = Graph()
-    for x in itr:
+    for x in range(num):
         g.add_node(x)
-    assert len(g.nodes) == len(itr)
+    assert len(g.nodes) == num
