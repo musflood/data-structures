@@ -7,8 +7,8 @@ def test_empty_constructor_constructs_empty_graph():
     """Test that a new graph is empty."""
     from graph_1 import Graph
     g = Graph()
-    assert len(g.nodes) == 0
-    assert len(g.edges) == 0
+    assert len(g.node_set) == 0
+    assert len(g.edge_set) == 0
 
 
 def test_nodes_of_empty_graph_is_empty(empty_graph_1):
@@ -28,4 +28,4 @@ def test_adding_unique_values_to_a_graph_adds_all_nodes(num):
     g = Graph()
     for x in range(num):
         g.add_node(x)
-    assert len(g.nodes) == num
+    assert len(g.node_set) == num
