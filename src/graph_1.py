@@ -26,3 +26,13 @@ class Graph(object):
         self.add_node(val1)
         self.add_node(val2)
         self.edge_set.add((val1, val2))
+
+    def del_node(self, val):
+        """Remove the node with the given value from the graph.
+
+        Also removes all edges connected to the node.
+        """
+        try:
+            self.node_set.remove(val)
+        except KeyError:
+            raise ValueError('Value is not in the graph.')
