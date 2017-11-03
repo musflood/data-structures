@@ -139,6 +139,24 @@ q = PriorityQ()
 - **peek():** Get the highest priority value from the priority queue and without removing it. Returns None if these are no values to return.
     - Time complexity: O(1)
 
+## Graph_1
+
+Structure for values in a graph. Nodes added to graph have a value. Nodes connected to each other by a pointer are edges. Graph contains edges and nodes. Nodes are unique.
+
+### Constructor:
+```python
+g = Graph()
+```
+### Implements the following methods:
+- **nodes():** Get all nodes in the graph and display them as a list.
+    - Time complexity: O(1)
+- **edges():** Get all edges in the graph and display them as a list.
+    - Time complexity: O(1)
+- **add_node(val):** Add a node with a value to the graph.
+    - Time complexity: O(1)
+- **add_edge(val1, val2):** Add an edge with nodes to the graph.
+    - Time complexity: O(1)
+
 ## Resources
 
 - **Wikipedia:** https://en.wikipedia.org/wiki/Binary_heap
