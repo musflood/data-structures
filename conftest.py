@@ -48,3 +48,18 @@ def empty_graph_1():
     """Create an empty graph."""
     from graph_1 import Graph
     return Graph()
+
+
+@pytest.fixture
+def full_graph_1():
+    """Create a graph with nodes and edge cases."""
+    from graph_1 import Graph
+    g = Graph()
+    g.add_edge(1, 2)
+    g.add_edge(4, 2)
+    g.add_edge(3, 5)
+    g.add_edge(7, 9)
+    g.add_edge(6, 8)
+    g.add_edge(5, 3)
+    g.add_node(21)
+    return g
