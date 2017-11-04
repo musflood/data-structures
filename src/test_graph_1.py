@@ -108,7 +108,7 @@ def test_adding_edge_with_two_equal_values_raises_error(empty_graph_1):
     g = empty_graph_1
     with pytest.raises(ValueError):
     g.add_edge(2, 2)
-        
+
 
 
 @pytest.mark.parametrize('num', [x for x in range(1, 20)])
@@ -186,3 +186,44 @@ def test_del_node_with_edge_deletes_node_and_edge(full_graph_1):
 
 
 def test_del_edge_from_empty_graph_raises_error(empty_graph_1):
+    """Test that deleting an edge from empty graph raises an error."""
+    g = empty_graph_1
+    with pytest.raises(ValueError):
+        g.del_edge(1, 2)
+
+
+def test_del_edge_from_graph_with_node_and_no_edge_raises_error(empty_graph_1):
+    """Test deleting edge from graph with node but no edge raises key error."""
+    g = empty_graph_1
+    g.add_node(3)
+    g.add_node(5)
+    g.add_node(1)
+    with pytest.raises(ValueError):
+        g.del_edge(5, 1)
+
+
+def test_del_edge_from_graph_removes_edge_leaves_node(full_graph_1):
+    """Test del edge from graph removes edge but not node."""
+    g = full_graph_1
+    g.del_edge(4, 2)
+    assert (4, 2) not in g.edges()
+    assert 4 in g.nodes()
+    assert 2 in g.nodes()
+
+
+def test_has_node_returns_false_if_node_not_in_graph(empty_graph_1):
+    """Test that has node returns false if node not in graph."""
+    g = empty_graph_1
+    x = g.has_node(4)
+    assert x
+
+
+@pytest.mark.parametrize('num', [x for x in range(1, 20)])
+def test_has_node_returns_true_if_node_serched_is_in_graph(num):
+    """Test that has node returns true if looking for node present in graph."""
+    from graph_1 import Graph
+    g = Graph()
+    for x in range(num):
+        g.add_node(x)
+    for x in range(num):
+        assert g.has_node(x)
