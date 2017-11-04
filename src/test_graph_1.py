@@ -162,10 +162,19 @@ def test_del_all_nodes_from_graph_result_empty_graph(empty_graph_1):
     g.del_node(3)
     g.del_node(2)
     g.del_node(1)
-    assert len(g.nodes) == 0
+    assert len(g.node) == 0
 
 
 def test_del_node_with_edge_deletes_node_and_edge(full_graph_1):
     """Test that deleting a node with an edge deletes both node and edge."""
     g = full_graph_1
+    g.del_node(4)
+    g.del_node(3)
+    assert 4 not in g.node_set
+    assert 3 not in g.node_set
+    assert (3, 5) not in g.edge_set
+    assert (5, 3) not in g.edge_set
+    assert (4, 2) not in g.edge_set
 
+
+def test_del_edge_from_empty_graph_raises_error(empty_graph_1):
