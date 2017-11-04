@@ -39,7 +39,8 @@ class Graph(object):
         except KeyError:
             raise ValueError('Value is not in the graph.')
 
-        for edge in self.edge_set:
+        all_edges = self.edge_set.copy()
+        for edge in all_edges:
             if val in edge:
                 self.edge_set.remove(edge)
 

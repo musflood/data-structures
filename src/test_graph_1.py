@@ -107,8 +107,7 @@ def test_adding_edge_with_two_equal_values_raises_error(empty_graph_1):
     """Test that adding an edge with two equal values raises a value error."""
     g = empty_graph_1
     with pytest.raises(ValueError):
-    g.add_edge(2, 2)
-
+        g.add_edge(2, 2)
 
 
 @pytest.mark.parametrize('num', [x for x in range(1, 20)])
@@ -170,7 +169,7 @@ def test_del_all_nodes_from_graph_result_empty_graph(empty_graph_1):
     g.del_node(3)
     g.del_node(2)
     g.del_node(1)
-    assert len(g.node) == 0
+    assert len(g.nodes()) == 0
 
 
 def test_del_node_with_edge_deletes_node_and_edge(full_graph_1):
@@ -215,7 +214,7 @@ def test_has_node_returns_false_if_node_not_in_graph(empty_graph_1):
     """Test that has node returns false if node not in graph."""
     g = empty_graph_1
     x = g.has_node(4)
-    assert x
+    assert x is False
 
 
 @pytest.mark.parametrize('num', [x for x in range(1, 20)])
@@ -227,3 +226,40 @@ def test_has_node_returns_true_if_node_serched_is_in_graph(num):
         g.add_node(x)
     for x in range(num):
         assert g.has_node(x)
+
+
+def test_neighbors_raises_error_if_node_not_in_graph(empty_graph_1):
+    """Test that looking for neighbor of a node with no edge raises error."""
+    g = empty_graph_1
+    g.add_node(3)
+    g.add_node(4)
+    g.add_node(5)
+    g.add_edge(6, 4)
+    with pytest.raises(ValueError):
+        g.neighbors(8)
+
+
+def test_neighbors_gets_list_of_all_values_the_val_connected_to(full_graph_1):
+    """Test neighbor returns a list of all values connected to value given."""
+    g = full_graph_1
+    g.add_edge(2, 5)
+    x = g.neighbors(2)
+    assert sorted(x) == sorted([1, 4, 5])
+
+
+def test_adjacent_raises_error_if_no_edge_with_value_pair(full_graph_1):
+    """Test that adjacent raises error if values given are not in an edge."""
+    g = full_graph_1
+    with pytest.raises(ValueError):
+        g.adjacent(21, 22)
+
+
+@pytest.mark.parametrize('num', [x for x in range(1, 20)])
+def test_adjacent_returns_true_if_specific_pair_of_values_given_exist(num):
+    """Test adjacent is true if pair of values given exist in graph as edge."""
+    from graph_1 import Graph
+    g = Graph()
+    for x in range(num):
+        g.add_edge(x, x + 1)
+    for x in range(num):
+        assert g.adjacent(x, x + 1)
