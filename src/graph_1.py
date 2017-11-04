@@ -23,6 +23,8 @@ class Graph(object):
 
     def add_edge(self, val1, val2):
         """Add an edge with two values to the graph that does not exist."""
+        if val1 == val2:
+            raise ValueError('Edge needs two different values.')
         self.add_node(val1)
         self.add_node(val2)
         self.edge_set.add((val1, val2))

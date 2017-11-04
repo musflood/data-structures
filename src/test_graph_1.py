@@ -103,6 +103,14 @@ def test_adding_edge_to_nonexisting_nodes_adds_edge_and_nodes(empty_graph_1):
     assert len(g.edge_set) == 1
 
 
+def test_adding_edge_with_two_equal_values_raises_error(empty_graph_1):
+    """Test that adding an edge with two equal values raises a value error."""
+    g = empty_graph_1
+    with pytest.raises(ValueError):
+    g.add_edge(2, 2)
+        
+
+
 @pytest.mark.parametrize('num', [x for x in range(1, 20)])
 def test_adding_unique_edges_to_a_graph_adds_all_edges(num):
     """Test that adding unique edges to the graph adds all edges."""
