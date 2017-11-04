@@ -42,7 +42,7 @@ class Graph(object):
                 self.edge_set.remove(edge)
 
     def del_edge(self, val1, val2):
-        """Remove the edge from node of val1 to node of val2."""
+        """Remove the edge connecting node of val1 to node of val2."""
         try:
             self.edge_set.remove((val1, val2))
         except KeyError:
@@ -73,4 +73,4 @@ class Graph(object):
         if val1 not in self.node_set or val2 not in self.node_set:
             raise ValueError('Value is not in the graph.')
 
-        return (val1, val2) in self.edge_set or (val2, val1) in self.edge_set
+        return (val1, val2) in self.edge_set

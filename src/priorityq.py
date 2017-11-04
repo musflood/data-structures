@@ -43,7 +43,7 @@ class PriorityQ(object):
     higher priority items are removed before lower priority items.
     """
 
-    def __init__(self, iterable=None):
+    def __init__(self):
         """Construct a new priority queue."""
         self._values = BinHeap()
         self._min_priority = 0
