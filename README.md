@@ -162,7 +162,7 @@ g = Graph()
     - Time complexity: O(1)
 - **has_node(val):** Check if the given value is in the graph.
     - Time complexity: O(1)
-- **neighbors(val):** Get a list of all nodes connected to the node of the given value. Raises an ValueError if the value is not in the graph.
+- **neighbors(val):** Get a list of all nodes the node of the given value connects to. Raises an ValueError if the value is not in the graph.
     - Time complexity: O(n<sup>2</sup>)
 - **adjacent(val1, val2):** Check if there is an edge connecting the nodes with given values.
     - Time complexity: O(1)

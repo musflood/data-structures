@@ -263,3 +263,24 @@ def test_adjacent_returns_true_if_specific_pair_of_values_given_exist(num):
         g.add_edge(x, x + 1)
     for x in range(num):
         assert g.adjacent(x, x + 1)
+
+
+def test_b_traversal_from_node_not_in_graph_raises_error(full_graph_1):
+    """Test that traversing from node not in graph raises ValueError."""
+    with pytest.raises(ValueError):
+        full_graph_1.breadth_first_traversal(0)
+
+
+def test_b_traversal_from_neighborless_node_gets_one_node_list(full_graph_1):
+    """Test that traversing from neightborless node gets one node list."""
+    assert full_graph_1.breadth_first_traversal(21) == [21]
+
+
+def test_b_traversal_from_one_neighbor_node_gets_two_node_list(full_graph_1):
+    """Test that traversing from one neightbor node gets two node list."""
+    assert full_graph_1.breadth_first_traversal(1) == [1, 2]
+
+
+def test_b_traversal_from_one_neighbor_loop_gets_two_node_list(full_graph_1):
+    """Test that traversing from one neightbor node loop gets two node list."""
+    assert full_graph_1.breadth_first_traversal(3) == [3, 5]
