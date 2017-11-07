@@ -361,3 +361,15 @@ def test_b_traversal_from_deep_node_with_loop_has_no_repeats(full_graph_tree):
             sol_traversal.append(5)
             sol_traversal.append(4)
     assert sol_traversal == traversal
+
+
+def test_d_traversal_from_node_not_in_graph_raises_error(full_graph_1):
+    """Test that trying to travers from empty graph raises key error."""
+    with pytest.raises(ValueError):
+        full_graph_1.depth_first_traversal(0)
+
+
+def teest_d_traversal_from_neighborless_node_returns_node(full_graph_1):
+    """Test depth traversing a node with no neighbors returns just the node."""
+    with pytest.raises(ValueError):
+        full_graph_1.depth_first_traversal(21) == 21
