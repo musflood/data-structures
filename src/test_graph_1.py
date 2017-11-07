@@ -284,3 +284,80 @@ def test_b_traversal_from_one_neighbor_node_gets_two_node_list(full_graph_1):
 def test_b_traversal_from_one_neighbor_loop_gets_two_node_list(full_graph_1):
     """Test that traversing from one neightbor node loop gets two node list."""
     assert full_graph_1.breadth_first_traversal(3) == [3, 5]
+
+
+def test_b_traversal_from_deep_node_gets_full_node_list(full_graph_tree):
+    """Test that traversing from deep node gets all the nodes."""
+    traversal = full_graph_tree.breadth_first_traversal(1)
+    assert len(traversal) == len(full_graph_tree.nodes())
+    sol_traversal = [1]
+    if traversal[1] == 2:
+        sol_traversal.append(2)
+        sol_traversal.append(3)
+        if sol_traversal[3] == 4:
+            sol_traversal.append(4)
+            sol_traversal.append(5)
+        else:
+            sol_traversal.append(5)
+            sol_traversal.append(4)
+        if sol_traversal[5] == 6:
+            sol_traversal.append(6)
+            sol_traversal.append(7)
+        else:
+            sol_traversal.append(7)
+            sol_traversal.append(6)
+    else:
+        sol_traversal.append(3)
+        sol_traversal.append(2)
+        if sol_traversal[3] == 6:
+            sol_traversal.append(6)
+            sol_traversal.append(7)
+        else:
+            sol_traversal.append(7)
+            sol_traversal.append(6)
+        if sol_traversal[5] == 4:
+            sol_traversal.append(4)
+            sol_traversal.append(5)
+        else:
+            sol_traversal.append(5)
+            sol_traversal.append(4)
+    assert sol_traversal == traversal
+
+
+def test_b_traversal_from_deep_node_with_loop_has_no_repeats(full_graph_tree):
+    """Test that traversing from deep node with a loop does not repeat."""
+    full_graph_tree.edge(4, 1)
+    traversal = full_graph_tree.breadth_first_traversal(1)
+    assert len(traversal) == len(full_graph_tree.nodes())
+    sol_traversal = [1]
+    if traversal[1] == 2:
+        sol_traversal.append(2)
+        sol_traversal.append(3)
+        if sol_traversal[3] == 4:
+            sol_traversal.append(4)
+            sol_traversal.append(5)
+        else:
+            sol_traversal.append(5)
+            sol_traversal.append(4)
+        if sol_traversal[5] == 6:
+            sol_traversal.append(6)
+            sol_traversal.append(7)
+        else:
+            sol_traversal.append(7)
+            sol_traversal.append(6)
+    else:
+        sol_traversal.append(3)
+        sol_traversal.append(2)
+        if sol_traversal[3] == 6:
+            sol_traversal.append(6)
+            sol_traversal.append(7)
+        else:
+            sol_traversal.append(7)
+            sol_traversal.append(6)
+        if sol_traversal[5] == 4:
+            sol_traversal.append(4)
+            sol_traversal.append(5)
+        else:
+            sol_traversal.append(5)
+            sol_traversal.append(4)
+    assert sol_traversal == traversal
