@@ -139,6 +139,34 @@ q = PriorityQ()
 - **peek():** Get the highest priority value from the priority queue and without removing it. Returns None if these are no values to return.
     - Time complexity: O(1)
 
+## Graph_1
+
+Structure for values in a graph. Nodes added to graph have a value. Nodes connected to each other by a pointer are edges. Graph contains edges and nodes. Nodes are unique.
+
+### Constructor:
+```python
+g = Graph()
+```
+### Implements the following methods:
+- **nodes():** Get all nodes in the graph and display them as a list.
+    - Time complexity: O(1)
+- **edges():** Get all edges in the graph and display them as a list.
+    - Time complexity: O(1)
+- **add_node(val):** Add a node with a value to the graph.
+    - Time complexity: O(1)
+- **add_edge(val1, val2):** Add an edge with nodes to the graph.
+    - Time complexity: O(1)
+- **del_node(val):** Remove the node with the given value from the graph. Also removes all edges connected to the node. Raises an ValueError if the value is not in the graph.
+    - Time complexity: O(n<sup>2</sup>)
+- **del_edge(val1, val2):** Remove the edge connecting node of val1 to node of val2. Raises an ValueError if the edge is not in the graph.
+    - Time complexity: O(1)
+- **has_node(val):** Check if the given value is in the graph.
+    - Time complexity: O(1)
+- **neighbors(val):** Get a list of all nodes connected to the node of the given value. Raises an ValueError if the value is not in the graph.
+    - Time complexity: O(n<sup>2</sup>)
+- **adjacent(val1, val2):** Check if there is an edge connecting the nodes with given values.
+    - Time complexity: O(1)
+
 ## Resources
 
 - **Wikipedia:** https://en.wikipedia.org/wiki/Binary_heap
