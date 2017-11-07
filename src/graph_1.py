@@ -56,20 +56,17 @@ class Graph(object):
         return val in self.node_set
 
     def neighbors(self, val):
-        """Get a list of all nodes connected to the node of the given value."""
+        """List all nodes the node of the given value connects to."""
         if val not in self.node_set:
             raise ValueError('Value is not in the graph.')
 
-        neighbor_set = set()
+        neighbor_list = []
 
         for edge in self.edge_set:
-            start, end = edge
-            if start == val:
-                neighbor_set.add(end)
-            elif end == val:
-                neighbor_set.add(start)
+            if edge[0] == val:
+                neighbor_list.append(edge[1])
 
-        return neighbor_set
+        return neighbor_list
 
     def adjacent(self, val1, val2):
         """Check if there is an edge connecting the nodes with given values."""

@@ -244,7 +244,7 @@ def test_neighbors_gets_list_of_all_values_the_val_connected_to(full_graph_1):
     g = full_graph_1
     g.add_edge(2, 5)
     x = g.neighbors(2)
-    assert sorted(x) == sorted([1, 4, 5])
+    assert x == [5]
 
 
 def test_adjacent_raises_error_if_no_edge_with_value_pair(full_graph_1):
