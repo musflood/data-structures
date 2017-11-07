@@ -74,3 +74,21 @@ class Graph(object):
             raise ValueError('Value is not in the graph.')
 
         return (val1, val2) in self.edge_set
+
+    def breadth_first_traversal(self, start_val):
+        """Get the full visited path of a breadth first traversal."""
+        if start_val not in self.node_set:
+            raise ValueError('Value is not in the graph.')
+
+        result = [start_val]
+        row = [start_val]
+        while row:
+            nxt_row = []
+            for node in row:
+                neighbors = self.neighbors(node)
+                for neighbor in neighbors:
+                    if neighbor not in result:
+                        nxt_row.append(neighbor)
+                        result.append(neighbor)
+            row = nxt_row
+        return result
