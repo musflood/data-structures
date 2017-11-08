@@ -6,15 +6,19 @@ class Graph(object):
 
     def __init__(self):
         """Create a graph with no values."""
-        pass
+        self.graph = {}
 
     def nodes(self):
         """Get all nodes in the graph to display in list form."""
-        pass
+        return list(self.graph)
 
     def edges(self):
         """Get all edges in graph to display in list of tuples."""
-        pass
+        edge_list = []
+        for start in self.graph:
+            for end in self.graph[start]:
+                edge_list.append((start, end, self.graph[start][end]))
+        return edge_list
 
     def add_node(self, val):
         """Add a node with a value to the graph."""
