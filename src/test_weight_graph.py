@@ -48,7 +48,7 @@ def test_adding_unique_values_to_a_weight_graph_adds_all_nodes(num):
     g = Graph()
     for x in range(num):
         g.add_node(x)
-    assert len(g.node_set) == num
+    assert len(g.nodes()) == num
 
 
 @pytest.mark.parametrize('num', [x for x in range(1, 20)])
@@ -58,7 +58,7 @@ def test_dublicate_values_to_a_weight_graph_adds_some_nodes(num):
     g = Graph()
     for x in range(num):
         g.add_node(x % 5)
-    assert len(g.node_set) == 5 if num > 5 else num
+    assert len(g.nodes()) == 5 if num > 5 else num
 
 
 @pytest.mark.parametrize('num', [x for x in range(1, 20)])
