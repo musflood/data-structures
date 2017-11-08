@@ -141,7 +141,7 @@ q = PriorityQ()
 
 ## Graph_1
 
-Structure for values in a graph. Nodes added to graph have a value. Nodes connected to each other by a pointer are edges. Graph contains edges and nodes. Nodes are unique.
+Structure for values in a graph, which is directed and unweighted. Nodes added to graph have a value. Nodes connected to each other by a pointer are edges. Graph contains edges and nodes. Nodes are unique.
 
 ### Constructor:
 ```python
@@ -166,6 +166,10 @@ g = Graph()
     - Time complexity: O(n<sup>2</sup>)
 - **adjacent(val1, val2):** Check if there is an edge connecting the nodes with given values.
     - Time complexity: O(1)
+- **def breadth_first_traversal(start_val):** Get the full visited path of a breadth first traversal. Raises an ValueError if the value is not in the graph.
+    - Time complexity: O(n<sup>4</sup>)
+- **def depth_first_traversal(start_val):** Get the full visited path of a depth first traversal. Raises an ValueError if the value is not in the graph.
+    - Time complexity: O(2<sup>n<sup>2</sup></sup>)
 
 ## Resources
 
