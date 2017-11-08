@@ -78,8 +78,22 @@ def full_graph_tree():
     g.add_edge(3, 7)
     return g
 
+
 @pytest.fixture
 def empty_weight_graph():
     """Create an empty graph."""
     from weight_graph import Graph
     return Graph()
+
+
+@pytest.fixture
+def node_weight_graph():
+    """Create a graph with nodes, but no edges."""
+    from weight_graph import Graph
+    g = Graph()
+    g.add_node(1)
+    g.add_node(2)
+    g.add_node(3)
+    g.add_node(4)
+    g.add_node(5)
+    return g
