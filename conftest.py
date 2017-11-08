@@ -52,7 +52,7 @@ def empty_graph_1():
 
 @pytest.fixture
 def full_graph_1():
-    """Create a graph with nodes and edge cases."""
+    """Create a graph with nodes and edges."""
     from graph_1 import Graph
     g = Graph()
     g.add_edge(1, 2)
@@ -62,4 +62,18 @@ def full_graph_1():
     g.add_edge(6, 8)
     g.add_edge(5, 3)
     g.add_node(21)
+    return g
+
+
+@pytest.fixture
+def full_graph_tree():
+    """Create a graph with nodes and edge that connect to eachother."""
+    from graph_1 import Graph
+    g = Graph()
+    g.add_edge(1, 2)
+    g.add_edge(1, 3)
+    g.add_edge(2, 4)
+    g.add_edge(2, 5)
+    g.add_edge(3, 6)
+    g.add_edge(3, 7)
     return g

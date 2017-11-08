@@ -244,7 +244,7 @@ def test_neighbors_gets_list_of_all_values_the_val_connected_to(full_graph_1):
     g = full_graph_1
     g.add_edge(2, 5)
     x = g.neighbors(2)
-    assert sorted(x) == sorted([1, 4, 5])
+    assert x == [5]
 
 
 def test_adjacent_raises_error_if_no_edge_with_value_pair(full_graph_1):
@@ -263,3 +263,62 @@ def test_adjacent_returns_true_if_specific_pair_of_values_given_exist(num):
         g.add_edge(x, x + 1)
     for x in range(num):
         assert g.adjacent(x, x + 1)
+
+
+def test_b_traversal_from_node_not_in_graph_raises_error(full_graph_1):
+    """Test that traversing from node not in graph raises ValueError."""
+    with pytest.raises(ValueError):
+        full_graph_1.breadth_first_traversal(0)
+
+
+def test_b_traversal_from_neighborless_node_gets_one_node_list(full_graph_1):
+    """Test that traversing from neightborless node gets one node list."""
+    assert full_graph_1.breadth_first_traversal(21) == [21]
+
+
+def test_b_traversal_from_one_neighbor_node_gets_two_node_list(full_graph_1):
+    """Test that traversing from one neightbor node gets two node list."""
+    assert full_graph_1.breadth_first_traversal(1) == [1, 2]
+
+
+def test_b_traversal_from_one_neighbor_loop_gets_two_node_list(full_graph_1):
+    """Test that traversing from one neightbor node loop gets two node list."""
+    assert full_graph_1.breadth_first_traversal(3) == [3, 5]
+
+
+def test_b_traversal_from_deep_node_gets_full_node_list(full_graph_tree):
+    """Test that traversing from deep node gets all the nodes."""
+    assert full_graph_tree.breadth_first_traversal(1) == [1, 2, 3, 5, 4, 6, 7]
+
+
+def test_b_traversal_from_deep_node_with_loop_has_no_repeats(full_graph_tree):
+    """Test that traversing from deep node with a loop does not repeat."""
+    full_graph_tree.add_edge(4, 1)
+    assert full_graph_tree.breadth_first_traversal(1) == [1, 2, 3, 5, 4, 6, 7]
+
+
+def test_d_traversal_from_node_not_in_graph_raises_error(full_graph_1):
+    """Test that trying to travers from empty graph raises key error."""
+    with pytest.raises(ValueError):
+        full_graph_1.depth_first_traversal(0)
+
+
+def teest_d_traversal_from_neighborless_node_returns_node(full_graph_1):
+    """Test depth traversing a node with no neighbors returns just the node."""
+    assert full_graph_1.depth_first_traversal(21) == 21
+
+
+def test_d_traversal_from_node_with_one_neighbor_gets_two_node_list(full_graph_1):
+    """Test that depth traversing node with one neighbor gets a list of two."""
+    assert full_graph_1.depth_first_traversal(7) == [7, 9]
+
+
+def test_d_traversal_from_deep_node_gets_full_depth_node_list(full_graph_tree):
+    """Test that depth traversal of deep graph gets full depth of nodes, no repeat."""
+    assert full_graph_tree.depth_first_traversal(1) == [1, 2, 5, 4, 3, 6, 7]
+
+
+def test_d_traversal_from_deep_node_with_loop_has_no_repeat(full_graph_tree):
+    """Test that there are no duplicates in depth traversal of graph with loop."""
+    full_graph_tree.add_edge(4, 1)
+    assert full_graph_tree.depth_first_traversal(1) == [1, 2, 5, 4, 3, 6, 7]
