@@ -92,3 +92,19 @@ class Graph(object):
                         result.append(neighbor)
             row = nxt_row
         return result
+
+    def depth_first_traversal(self, start_val):
+        """Get the full visited path of a depth first traversal."""
+        def dive(val, path):
+            neighbors = self.neighbors(val)
+            for node in neighbors:
+                if node not in path:
+                    path.append(node)
+                    dive(node, path)
+
+        if start_val not in self.node_set:
+            raise ValueError('Value is not in the graph.')
+
+        result = [start_val]
+        dive(start_val, result)
+        return result
