@@ -77,3 +77,9 @@ def full_graph_tree():
     g.add_edge(3, 6)
     g.add_edge(3, 7)
     return g
+
+@pytest.fixture
+def empty_weight_graph():
+    """Create an empty graph."""
+    from weight_graph import Graph
+    return Graph()
