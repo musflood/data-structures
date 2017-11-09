@@ -65,7 +65,7 @@ class Graph(object):
         if val not in self.nodes():
             raise ValueError('Value is not in the graph.')
 
-        list(self.graph[val])
+        return list(self.graph[val])
 
     def adjacent(self, val1, val2):
         """Check if there is an edge connecting the nodes with given values."""
