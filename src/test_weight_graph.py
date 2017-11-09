@@ -127,3 +127,100 @@ def test_adding_unique_edges_to_a_weight_graph_adds_all_edges(num):
     for x in range(num):
         g.add_edge(x, x + 1, x + 2)
     assert len(g.edges()) == num
+
+
+def test_del_node_from_empty_weight_graph_raises_error(empty_weight_graph):
+    """Test that del_node from an empty graph raises ValueError."""
+    g = empty_weight_graph
+    with pytest.raises(ValueError):
+        g.del_node(1)
+
+
+def test_del_false_node_from_weight_graph_raises_value_error(empty_weight_graph):
+    """Test that deleting node that does not exist from weight graph raises error."""
+    g = empty_weight_graph
+    g.add_node(1)
+    g.add_node(2)
+    with pytest.raises(ValueError):
+        g.del_node(4)
+
+
+def test_del_node_from_graph_deletes_node_from_graph(empty_weight_graph):
+    """Test that del node from graph takes the node out of the graph."""
+    g = empty_weight_graph
+    g.add_node(1)
+    g.add_node(2)
+    g.add_node(3)
+    g.add_node(4)
+    g.del_node(3)
+    assert 3 not in g.nodes()
+    assert 4 in g.nodes()
+
+
+def test_del_nodes_from_weight_graph_result_empty_graph(empty_weight_graph):
+    """Test that deleting nodes from weight graph results in empty graph."""
+    g = empty_weight_graph
+    g.add_node(1)
+    g.add_node(2)
+    g.add_node(3)
+    g.add_node(4)
+    g.del_node(4)
+    g.del_node(3)
+    g.del_node(2)
+    g.del_node(1)
+    assert len(g.nodes()) == 0
+
+
+def test_del_node_with_edge_deletes_node_and_edge(edge_weight_graph):
+    """Test that deleting a node with an edge deletes both node and edge."""
+    g = edge_weight_graph
+    g.del_node(4)
+    g.del_node(1)
+    assert 4 not in g.nodes()
+    assert 1 not in g.nodes()
+    assert (3, 4, 2) not in g.edges()
+    assert (1, 2, 1) not in g.edges()
+
+
+def test_del_edge_from_empty_weight_graph_raises_error(empty_weight_graph):
+    """Test that deleting an edge from empty graph raises an error."""
+    g = empty_weight_graph
+    with pytest.raises(ValueError):
+        g.del_edge(1, 2)
+
+
+def test_del_edge_from_weight_graph_with_node_and_no_edge_raises_error(empty_weight_graph):
+    """Test deleting edge from graph with node but no edge raises key error."""
+    g = empty_weight_graph
+    g.add_node(3)
+    g.add_node(5)
+    g.add_node(1)
+    with pytest.raises(ValueError):
+        g.del_edge(5, 1)
+
+
+def test_del_edge_from_weight_graph_removes_edge_leaves_node(edge_weight_graph):
+    """Test del edge from weight graph removes edge but not node."""
+    g = edge_weight_graph
+    g.del_edge(1, 2)
+    assert (1, 2, 1) not in g.edges()
+    assert 1 in g.nodes()
+    assert 2 in g.nodes()
+
+
+def test_has_node_returns_false_if_node_not_in_wight_graph(empty_weight_graph):
+    """Test that has node returns false if node not in weight graph."""
+    g = empty_weight_graph
+    x = g.has_node(4)
+    assert x is False
+
+
+@pytest.mark.parametrize('num', [x for x in range(1, 20)])
+def test_has_node_returns_true_if_node_serched_is_in_wight_graph(num):
+    """Test that has node returns true if looking for node present in weight graph."""
+    from weight_graph import Graph
+    g = Graph()
+    for x in range(num):
+        g.add_node(x)
+    for x in range(num):
+        assert g.has_node(x)

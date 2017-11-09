@@ -97,3 +97,16 @@ def node_weight_graph():
     g.add_node(4)
     g.add_node(5)
     return g
+
+
+@pytest.fixture
+def edge_weight_graph():
+    """"Create a weight graph with edges."""
+    from weight_graph import Graph
+    g = Graph()
+    g. add_edge(1, 2, 1)
+    g. add_edge(3, 4, 2)
+    g. add_edge(5, 6, 3)
+    g. add_edge(7, 8, 4)
+    g. add_edge(9, 10, 5)
+    return g

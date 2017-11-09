@@ -62,11 +62,17 @@ class Graph(object):
 
     def neighbors(self, val):
         """List all nodes the node of the given value connects to."""
-        pass
+        if val not in self.nodes():
+            raise ValueError('Value is not in the graph.')
+
+        list(self.graph[val])
 
     def adjacent(self, val1, val2):
         """Check if there is an edge connecting the nodes with given values."""
-        pass
+        if val1 not in self.nodes() or val2 not in self.nodes():
+            raise ValueError('Value is not in the graph.')
+
+        return val2 in self.graph[val1]
 
     def breadth_first_traversal(self, start_val):
         """Get the full visited path of a breadth first traversal."""
@@ -74,4 +80,16 @@ class Graph(object):
 
     def depth_first_traversal(self, start_val):
         """Get the full visited path of a depth first traversal."""
-        pass
+        def dive(val, path):
+            neighbors = self.neighbors(val)
+            for node in neighbors:
+                if node not in path:
+                    path.append(node)
+                    dive(node, path)
+
+        if start_val not in self.node_set:
+            raise ValueError('Value is not in the graph.')
+
+        result = [start_val]
+        dive(start_val, result)
+        return result
