@@ -299,3 +299,41 @@ def test_d_traversal_from_deep_node_with_loop_has_no_repeat(full_weight_graph_tr
     """Test that there are no duplicates in depth traversal of graph with loop."""
     full_weight_graph_tree.add_edge(4, 1, 6)
     assert full_weight_graph_tree.depth_first_traversal(1) == [1, 2, 4, 5, 3, 6, 7]
+
+
+# breadth traversal tests
+
+
+def test_b_traversal_from_node_not_in_weight_graph_raises_error(full_weight_graph_tree):
+    """Test that traversing from node not in graph raises ValueError."""
+    with pytest.raises(ValueError):
+        full_weight_graph_tree.breadth_first_traversal(0)
+
+
+def test_b_traversal_from_neighborless_node_gets_one_node_list(node_weight_graph):
+    """Test that traversing from neightborless node gets one node list."""
+    assert node_weight_graph.breadth_first_traversal(2) == [2]
+
+
+def test_b_traversal_from_one_neighbor_node_gets_two_node_list(edge_weight_graph):
+    """Test that traversing from one neightbor node gets two node list."""
+    assert edge_weight_graph.breadth_first_traversal(1) == [1, 2]
+
+
+def test_b_traversal_from_one_neighbor_loop_gets_two_node_list(empty_weight_graph):
+    """Test that traversing from one neightbor node loop gets two node list."""
+    g = empty_weight_graph
+    g.add_edge(3, 5, 5)
+    g.add_edge(5, 3, 4)
+    assert g.breadth_first_traversal(3) == [3, 5]
+
+
+def test_b_traversal_from_deep_node_gets_full_node_list(full_weight_graph_tree):
+    """Test that traversing from deep node gets all the nodes."""
+    assert full_weight_graph_tree.breadth_first_traversal(1) == [1, 2, 3, 4, 5, 6, 7]
+
+
+def test_b_traversal_from_deep_node_with_loop_has_no_repeats(full_weight_graph_tree):
+    """Test that traversing from deep node with a loop does not repeat."""
+    full_weight_graph_tree.add_edge(4, 1, 4)
+    assert full_weight_graph_tree.breadth_first_traversal(1) == [1, 2, 3, 4, 5, 6, 7]
