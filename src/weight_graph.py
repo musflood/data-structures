@@ -87,7 +87,7 @@ class Graph(object):
                     path.append(node)
                     dive(node, path)
 
-        if start_val not in self.node_set:
+        if start_val not in self.nodes():
             raise ValueError('Value is not in the graph.')
 
         result = [start_val]
