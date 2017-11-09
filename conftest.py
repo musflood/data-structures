@@ -110,3 +110,17 @@ def edge_weight_graph():
     g. add_edge(7, 8, 4)
     g. add_edge(9, 10, 5)
     return g
+
+
+@pytest.fixture
+def full_weight_graph_tree():
+    """Create a graph with nodes and edge that connect to eachother."""
+    from weight_graph import Graph
+    g = Graph()
+    g.add_edge(1, 2, 3)
+    g.add_edge(1, 3, 5)
+    g.add_edge(2, 4, 2)
+    g.add_edge(2, 5, 9)
+    g.add_edge(3, 6, 1)
+    g.add_edge(3, 7, 3)
+    return g

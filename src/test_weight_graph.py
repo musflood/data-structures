@@ -208,7 +208,7 @@ def test_del_edge_from_weight_graph_removes_edge_leaves_node(edge_weight_graph):
     assert 2 in g.nodes()
 
 
-def test_has_node_returns_false_if_node_not_in_wight_graph(empty_weight_graph):
+def test_has_node_returns_false_if_node_not_in_weight_graph(empty_weight_graph):
     """Test that has node returns false if node not in weight graph."""
     g = empty_weight_graph
     x = g.has_node(4)
@@ -216,7 +216,7 @@ def test_has_node_returns_false_if_node_not_in_wight_graph(empty_weight_graph):
 
 
 @pytest.mark.parametrize('num', [x for x in range(1, 20)])
-def test_has_node_returns_true_if_node_serched_is_in_wight_graph(num):
+def test_has_node_returns_true_if_node_serched_is_in_weight_graph(num):
     """Test that has node returns true if looking for node present in weight graph."""
     from weight_graph import Graph
     g = Graph()
@@ -224,3 +224,78 @@ def test_has_node_returns_true_if_node_serched_is_in_wight_graph(num):
         g.add_node(x)
     for x in range(num):
         assert g.has_node(x)
+
+
+def test_neighbors_raises_error_if_node_not_in_weight_graph(empty_weight_graph):
+    """Test that looking for neighbor of a node with no edge raises error."""
+    g = empty_weight_graph
+    g.add_node(3)
+    g.add_node(4)
+    g.add_node(5)
+    g.add_edge(6, 4, 7)
+    with pytest.raises(ValueError):
+        g.neighbors(8)
+
+
+def test_neighbors_gets_list_of_all_values_the_val_connected_to(node_weight_graph):
+    """Test neighbor returns a list of all values connected to value given."""
+    g = node_weight_graph
+    g.add_edge(2, 5, 1)
+    x = g.neighbors(2)
+    assert x == [5]
+
+
+def test_adjacent_raises_error_if_no_edge_with_value_pair(edge_weight_graph):
+    """Test that adjacent raises error if values given are not in an edge."""
+    g = edge_weight_graph
+    with pytest.raises(ValueError):
+        g.adjacent(9, 20)
+
+
+@pytest.mark.parametrize('num', [x for x in range(1, 20)])
+def test_adjacent_returns_true_if_specific_pair_of_values_given_exist(num):
+    """Test adjacent is true if pair of values given exist in graph as edge."""
+    from weight_graph import Graph
+    g = Graph()
+    for x in range(num):
+        g.add_edge(x, x + 1, x % 3 + 1)
+    for x in range(num):
+        assert g.adjacent(x, x + 1)
+
+
+@pytest.mark.parametrize('num', [x for x in range(1, 20)])
+def test_adjacent_returns_false_if_specific_pair_of_values_has_no_edge(num):
+    """Test adjacent is false if pair of values given doesn't exist in graph as edge."""
+    from weight_graph import Graph
+    g = Graph()
+    for x in range(num):
+        g.add_edge(x, x + 1, x % 3 + 1)
+    for x in range(num - 1):
+        assert not g.adjacent(x, x + 2)
+
+
+def test_d_traversal_from_node_not_in_graph_raises_error(empty_weight_graph):
+    """Test that trying to travers from empty graph raises key error."""
+    with pytest.raises(ValueError):
+        empty_weight_graph.depth_first_traversal(0)
+
+
+def teest_d_traversal_from_neighborless_node_returns_node(edge_weight_graph):
+    """Test depth traversing a node with no neighbors returns just the node."""
+    assert edge_weight_graph.depth_first_traversal(2) == [2]
+
+
+def test_d_traversal_from_node_with_one_neighbor_gets_two_node_list(edge_weight_graph):
+    """Test that depth traversing node with one neighbor gets a list of two."""
+    assert edge_weight_graph.depth_first_traversal(1) == [1, 2]
+
+
+def test_d_traversal_from_deep_node_gets_full_depth_node_list(full_weight_graph_tree):
+    """Test that depth traversal of deep weight graph gets full depth of nodes, no repeat."""
+    assert full_weight_graph_tree.depth_first_traversal(1) == [1, 2, 4, 5, 3, 6, 7]
+
+
+def test_d_traversal_from_deep_node_with_loop_has_no_repeat(full_weight_graph_tree):
+    """Test that there are no duplicates in depth traversal of graph with loop."""
+    full_weight_graph_tree.add_edge(4, 1, 6)
+    assert full_weight_graph_tree.depth_first_traversal(1) == [1, 2, 4, 5, 3, 6, 7]
