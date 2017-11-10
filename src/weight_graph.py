@@ -1,8 +1,8 @@
-"""Implement a graph."""
+"""Implement a weighted graph."""
 
 
 class Graph(object):
-    """Structure for values in a graph."""
+    """Structure for values in a weighted graph."""
 
     def __init__(self):
         """Create a graph with no values."""
@@ -76,18 +76,32 @@ class Graph(object):
 
     def breadth_first_traversal(self, start_val):
         """Get the full visited path of a breadth first traversal."""
-        pass
+        if start_val not in self.graph:
+            raise ValueError('Value is not in the graph.')
+
+        result = [start_val]
+        row = [start_val]
+        while row:
+            nxt_row = []
+            for node in row:
+                neighbors = self.graph[node]
+                for neighbor in neighbors:
+                    if neighbor not in result:
+                        nxt_row.append(neighbor)
+                        result.append(neighbor)
+            row = nxt_row
+        return result
 
     def depth_first_traversal(self, start_val):
         """Get the full visited path of a depth first traversal."""
         def dive(val, path):
-            neighbors = self.neighbors(val)
+            neighbors = self.graph[val]
             for node in neighbors:
                 if node not in path:
                     path.append(node)
                     dive(node, path)
 
-        if start_val not in self.nodes():
+        if start_val not in self.graph:
             raise ValueError('Value is not in the graph.')
 
         result = [start_val]
