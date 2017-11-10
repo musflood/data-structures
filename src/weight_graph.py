@@ -135,4 +135,14 @@ class Graph(object):
             del search[curr]
             if curr == end:
                 break
-        return final
+
+        min_path = [end]
+        curr = end
+        prev = final[curr][1]
+        if not prev:
+            raise ValueError('Start and end do not connect.')
+        while curr != prev:
+            min_path.append(prev)
+            curr = prev
+            prev = final[curr][1]
+        return reversed(min_path)
