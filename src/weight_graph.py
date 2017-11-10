@@ -107,3 +107,32 @@ class Graph(object):
         result = [start_val]
         dive(start_val, result)
         return result
+
+    def dijkstra_min(self, start, end):
+        """Find the shortest path from the starting to ending node.
+
+        Uses Dijkstra's algorithm to determine the path.
+        """
+        if start == end:
+            return [start]
+
+        final = {start: (0, start)}
+        search = {n: (float('inf'), None) for n in self.graph if n != start}
+
+        curr = start
+        while search:
+            path = final[curr][0]
+
+            neighbors = {n: self.graph[curr][n] for n in self.graph[curr]
+                         if n not in final}
+
+            for n in neighbors:
+                if path + neighbors[n] < search[n][0]:
+                    search[n] = (path + neighbors[n], curr)
+
+            curr = min(search, key=lambda n: search[n][0])
+            final[curr] = search[curr]
+            del search[curr]
+            if curr == end:
+                break
+        return final
