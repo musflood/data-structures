@@ -337,3 +337,9 @@ def test_b_traversal_from_deep_node_with_loop_has_no_repeats(full_weight_graph_t
     """Test that traversing from deep node with a loop does not repeat."""
     full_weight_graph_tree.add_edge(4, 1, 4)
     assert full_weight_graph_tree.breadth_first_traversal(1) == [1, 2, 3, 4, 5, 6, 7]
+
+
+def test_dijkstra_with_empty_graph_raises_error(empty_weight_graph):
+    """Test that Value Error raised if dijkstra used on empty graph."""
+    with pytest.raises(ValueError):
+        empty_weight_graph.dijkstra_min(4, 19)
