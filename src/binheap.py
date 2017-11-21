@@ -16,6 +16,8 @@ class BinHeap(object):
         if isinstance(iterable, (str, list, tuple)):
             for item in iterable:
                 self.push(item)
+        elif iterable is not None:
+            raise TypeError('Iterable must be a str, list, or tuple.')
 
     @property
     def _size(self):
@@ -24,9 +26,6 @@ class BinHeap(object):
 
     def push(self, val):
         """Put a new value into the binary heap."""
-        if val in self._values:
-            return
-
         self._values.append(val)
 
         i = self._size
