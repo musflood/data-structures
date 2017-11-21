@@ -12,7 +12,8 @@ setup(
         'deque',
         'binheap',
         'priorityq',
-        'graph_1'
+        'graph_1',
+        'weight_graph'
     ],
     authors='Megan, Kavdi',
     author_email='kavdyjh@gmail.com',

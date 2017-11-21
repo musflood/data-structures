@@ -171,6 +171,38 @@ g = Graph()
 - **def depth_first_traversal(start_val):** Get the full visited path of a depth first traversal. Raises an ValueError if the value is not in the graph.
     - Time complexity: O(2<sup>n<sup>2</sup></sup>)
 
+## Weighted-Graph (weight_graph)
+
+Structure for values in a graph, which is directed and weighted. Nodes added to graph have a value. Nodes connected to each other by a pointer are edges and each edge has a weighted value. Graph contains edges and nodes. Nodes are unique.
+
+### Constructor:
+```python
+g = Graph()
+```
+### Implements the following methods:
+- **nodes():** Get all nodes in the graph and display them as a list.
+    - Time complexity: O(n)
+- **edges():** Get all edges in the graph and display them as a list.
+    - Time complexity: O(n<sup>2</sup>)
+- **add_node(val):** Add a node with a value to the graph.
+    - Time complexity: O(1)
+- **add_edge(val1, val2, weight):** Add an edge with nodes and weight to the graph.
+    - Time complexity: O(1)
+- **del_node(val):** Remove the node with the given value from the graph. Also removes all edges connected to the node. Raises an ValueError if the value is not in the graph.
+    - Time complexity: O(n)
+- **del_edge(val1, val2):** Remove the edge connecting node of val1 to node of val2. Raises an ValueError if the edge is not in the graph.
+    - Time complexity: O(1)
+- **has_node(val):** Check if the given value is in the graph.
+    - Time complexity: O(1)
+- **neighbors(val):** Get a list of all nodes the node of the given value connects to. Raises an ValueError if the value is not in the graph.
+    - Time complexity: O(n)
+- **adjacent(val1, val2):** Check if there is an edge connecting the nodes with given values.
+    - Time complexity: O(1)
+- **def breadth_first_traversal(start_val):** Get the full visited path of a breadth first traversal. Raises an ValueError if the value is not in the graph.
+    - Time complexity: O(n<sup>2</sup>)
+- **def depth_first_traversal(start_val):** Get the full visited path of a depth first traversal. Raises an ValueError if the value is not in the graph.
+    - Time complexity: O(n<sup>2</sup>)
+
 ## Resources
 
 - **Wikipedia:** https://en.wikipedia.org/wiki/Binary_heap
