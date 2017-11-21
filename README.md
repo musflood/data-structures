@@ -119,10 +119,96 @@ h = BinHeap(iterable='list, tuple, or str', is_max_heap=True)
 ```
 ### Implements the following methods:
 - **push(val):** Put a new value into the binary heap.
-    - Time coplexity: O(log(n))
-- **pop():** Remove the value from the end of the heap and return it. Raises an IndexError if there are no values to return.
     - Time complexity: O(log(n))
+- **pop():** Remove the value from the top of the heap and return it. Raises an IndexError if there are no values to return.
+    - Time complexity: O(log(n))
+
+## Priority Queue
+
+Structure for values in a priorty queue. Items added to the priority queue are given a priority. If not set by the user, priority is set to be the lowest. When removing items, higher priority items are removed before lower priority items.
+
+### Constructor:
+```python
+q = PriorityQ()
+```
+### Implements the following methods:
+- **insert(value, priority=None):** Put a new value into the priority queue. If no priority is given, it is set to be the current minimum priority. 
+    - Time complexity: O(n)
+- **pop():** Remove the highest priority value from the priority queue and return it. Raises an IndexError if there are no values to return.
+    - Time complexity: O(log(n))
+- **peek():** Get the highest priority value from the priority queue and without removing it. Returns None if these are no values to return.
+    - Time complexity: O(1)
+
+## Graph_1
+
+Structure for values in a graph, which is directed and unweighted. Nodes added to graph have a value. Nodes connected to each other by a pointer are edges. Graph contains edges and nodes. Nodes are unique.
+
+### Constructor:
+```python
+g = Graph()
+```
+### Implements the following methods:
+- **nodes():** Get all nodes in the graph and display them as a list.
+    - Time complexity: O(1)
+- **edges():** Get all edges in the graph and display them as a list.
+    - Time complexity: O(1)
+- **add_node(val):** Add a node with a value to the graph.
+    - Time complexity: O(1)
+- **add_edge(val1, val2):** Add an edge with nodes to the graph.
+    - Time complexity: O(1)
+- **del_node(val):** Remove the node with the given value from the graph. Also removes all edges connected to the node. Raises an ValueError if the value is not in the graph.
+    - Time complexity: O(n<sup>2</sup>)
+- **del_edge(val1, val2):** Remove the edge connecting node of val1 to node of val2. Raises an ValueError if the edge is not in the graph.
+    - Time complexity: O(1)
+- **has_node(val):** Check if the given value is in the graph.
+    - Time complexity: O(1)
+- **neighbors(val):** Get a list of all nodes the node of the given value connects to. Raises an ValueError if the value is not in the graph.
+    - Time complexity: O(n<sup>2</sup>)
+- **adjacent(val1, val2):** Check if there is an edge connecting the nodes with given values.
+    - Time complexity: O(1)
+- **def breadth_first_traversal(start_val):** Get the full visited path of a breadth first traversal. Raises an ValueError if the value is not in the graph.
+    - Time complexity: O(n<sup>4</sup>)
+- **def depth_first_traversal(start_val):** Get the full visited path of a depth first traversal. Raises an ValueError if the value is not in the graph.
+    - Time complexity: O(2<sup>n<sup>2</sup></sup>)
+
+## Weighted-Graph (weight_graph)
+
+Structure for values in a graph, which is directed and weighted. Nodes added to graph have a value. Nodes connected to each other by a pointer are edges and each edge has a weighted value. Graph contains edges and nodes. Nodes are unique.
+
+### Constructor:
+```python
+g = Graph()
+```
+### Implements the following methods:
+- **nodes():** Get all nodes in the graph and display them as a list.
+    - Time complexity: O(n)
+- **edges():** Get all edges in the graph and display them as a list.
+    - Time complexity: O(n<sup>2</sup>)
+- **add_node(val):** Add a node with a value to the graph.
+    - Time complexity: O(1)
+- **add_edge(val1, val2, weight):** Add an edge with nodes and weight to the graph.
+    - Time complexity: O(1)
+- **del_node(val):** Remove the node with the given value from the graph. Also removes all edges connected to the node. Raises an ValueError if the value is not in the graph.
+    - Time complexity: O(n)
+- **del_edge(val1, val2):** Remove the edge connecting node of val1 to node of val2. Raises an ValueError if the edge is not in the graph.
+    - Time complexity: O(1)
+- **has_node(val):** Check if the given value is in the graph.
+    - Time complexity: O(1)
+- **neighbors(val):** Get a list of all nodes the node of the given value connects to. Raises an ValueError if the value is not in the graph.
+    - Time complexity: O(n)
+- **adjacent(val1, val2):** Check if there is an edge connecting the nodes with given values.
+    - Time complexity: O(1)
+- **def breadth_first_traversal(start_val):** Get the full visited path of a breadth first traversal. Raises an ValueError if the value is not in the graph.
+    - Time complexity: O(n<sup>2</sup>)
+- **def depth_first_traversal(start_val):** Get the full visited path of a depth first traversal. Raises an ValueError if the value is not in the graph.
+    - Time complexity: O(n<sup>2</sup>)
+- **def dijkstra_min(start, end):** Find the shortest path from start to end using Dijkstra's algorithm. Raises value error if node not in graph or start and end do not connect.
+    - Time complexity: O(n<sup>2</sup>)
+- **def bellman_ford_min(start, end):** Find the shortest path from start to end using the Bellman-Ford algorithm. Raises value error if node not in graph or start and end do not connect.
+    - Time complexity: O(n<sup>2</sup>)
 
 ## Resources
 
 - **Wikipedia:** https://en.wikipedia.org/wiki/Binary_heap
+- **GeeksForGeeks:** [Bellman-Ford](http://www.geeksforgeeks.org/dynamic-programming-set-23-bellman-ford-algorithm/)
+- **YouTube:** [Dijkstra's algorithm](https://www.youtube.com/watch?v=5GT5hYzjNoo)
