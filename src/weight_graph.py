@@ -113,8 +113,8 @@ class Graph(object):
 
         Uses Dijkstra's algorithm to determine the path.
         """
-        if start or end not in self.graph:
-            raise ValueError('Graph is empty.')
+        if start not in self.graph or end not in self.graph:
+            raise ValueError('Node not in graph.')
         if start == end:
             return [start]
 

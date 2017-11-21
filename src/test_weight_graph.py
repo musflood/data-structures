@@ -339,7 +339,89 @@ def test_b_traversal_from_deep_node_with_loop_has_no_repeats(full_weight_graph_t
     assert full_weight_graph_tree.breadth_first_traversal(1) == [1, 2, 3, 4, 5, 6, 7]
 
 
+# dijkstra tests
+@pytest.fixture
+def complex_weight_graph():
+    """Create a graph with interconnecting nodes and edges."""
+    from weight_graph import Graph
+    g = Graph()
+    g.add_edge(0, 1, 4)
+    g.add_edge(1, 0, 4)
+    g.add_edge(0, 7, 8)
+    g.add_edge(7, 0, 8)
+    g.add_edge(1, 7, 11)
+    g.add_edge(7, 1, 11)
+    g.add_edge(7, 8, 7)
+    g.add_edge(8, 7, 7)
+    g.add_edge(7, 6, 1)
+    g.add_edge(6, 7, 1)
+    g.add_edge(1, 2, 8)
+    g.add_edge(2, 1, 8)
+    g.add_edge(2, 5, 4)
+    g.add_edge(5, 2, 4)
+    g.add_edge(2, 8, 2)
+    g.add_edge(8, 2, 2)
+    g.add_edge(2, 3, 7)
+    g.add_edge(3, 2, 7)
+    g.add_edge(8, 6, 6)
+    g.add_edge(6, 8, 6)
+    g.add_edge(6, 5, 2)
+    g.add_edge(5, 6, 2)
+    g.add_edge(5, 3, 14)
+    g.add_edge(3, 5, 14)
+    g.add_edge(5, 4, 10)
+    g.add_edge(4, 5, 10)
+    g.add_edge(3, 4, 9)
+    g.add_edge(4, 3, 9)
+    return g
+
+
 def test_dijkstra_with_empty_graph_raises_error(empty_weight_graph):
-    """Test that Value Error raised if dijkstra used on empty graph."""
+    """Test that ValueError raised if dijkstra used on empty graph."""
     with pytest.raises(ValueError):
         empty_weight_graph.dijkstra_min(4, 19)
+
+
+def test_dijkstra_start_not_in_graph_raises_error(complex_weight_graph):
+    """Test ValueError raised if dijkstra is used with start not in graph."""
+    with pytest.raises(ValueError):
+        complex_weight_graph.dijkstra_min(14, 2)
+
+
+def test_dijkstra_end_not_in_graph_raises_error(complex_weight_graph):
+    """Test ValueError raised if dijkstra is used with end not in graph."""
+    with pytest.raises(ValueError):
+        complex_weight_graph.dijkstra_min(4, 19)
+
+
+def test_dijkstra_start_end_not_connected_raises_error(complex_weight_graph):
+    """Test ValueError raised if dijkstra is used with end not cennected to start."""
+    complex_weight_graph.add_node(14)
+    with pytest.raises(ValueError):
+        complex_weight_graph.dijkstra_min(4, 14)
+
+
+def test_dijkstra_path_for_node_to_itself_is_node(complex_weight_graph):
+    """Test dijkstra path from node to itself is the node."""
+    path = complex_weight_graph.dijkstra_min(8, 8)
+    assert len(path) == 1
+    assert path[0] == 8
+
+
+def test_dijkstra_path_for_node_to_adjacent_is_two(complex_weight_graph):
+    """Test dijkstra path from node to adjacent is two nodes."""
+    path = complex_weight_graph.dijkstra_min(8, 2)
+    assert len(path) == 2
+    assert path[0] == 8
+    assert path[1] == 2
+
+
+@pytest.mark.parametrize('graph, start, end, solution',
+                         [(complex_weight_graph(), 0, 6, [0, 7, 6]),
+                          (complex_weight_graph(), 7, 3, [7, 6, 5, 2, 3]),
+                          (complex_weight_graph(), 1, 5, [1, 2, 5]),
+                          (complex_weight_graph(), 4, 0, [4, 5, 6, 7, 0]),
+                          (complex_weight_graph(), 5, 3, [5, 2, 3])])
+def test_dijkstra_path_is_correct(graph, start, end, solution):
+    """Test dijkstra path is correct shortest path."""
+    assert graph.dijkstra_min(start, end) == solution
