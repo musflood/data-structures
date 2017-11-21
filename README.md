@@ -202,6 +202,8 @@ g = Graph()
     - Time complexity: O(n<sup>2</sup>)
 - **def depth_first_traversal(start_val):** Get the full visited path of a depth first traversal. Raises an ValueError if the value is not in the graph.
     - Time complexity: O(n<sup>2</sup>)
+- **def dijkstra_min(start, end):** Find the shortest path from start to end using Dijkstra's algorithm. Raises value error if node not in graph or start and end do not connect.
+    - Time complexity: O(n<sup>2</sup>)
 
 ## Resources
 
