@@ -113,6 +113,8 @@ class Graph(object):
 
         Uses Dijkstra's algorithm to determine the path.
         """
+        if start or end not in self.graph:
+            raise ValueError('Graph is empty.')
         if start == end:
             return [start]
 
@@ -145,4 +147,4 @@ class Graph(object):
             min_path.append(prev)
             curr = prev
             prev = final[curr][1]
-        return reversed(min_path)
+        return list(reversed(min_path))
