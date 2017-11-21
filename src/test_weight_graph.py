@@ -340,6 +340,7 @@ def test_b_traversal_from_deep_node_with_loop_has_no_repeats(full_weight_graph_t
 
 
 # dijkstra tests
+
 @pytest.fixture
 def complex_weight_graph():
     """Create a graph with interconnecting nodes and edges."""
@@ -425,3 +426,65 @@ def test_dijkstra_path_for_node_to_adjacent_is_two(complex_weight_graph):
 def test_dijkstra_path_is_correct(graph, start, end, solution):
     """Test dijkstra path is correct shortest path."""
     assert graph.dijkstra_min(start, end) == solution
+
+
+# bellman tests
+
+def test_bellman_with_empty_graph_raises_error(empty_weight_graph):
+    """Test that ValueError raised if bellman used on empty graph."""
+    with pytest.raises(ValueError):
+        empty_weight_graph.bellman_ford_min(4, 19)
+
+
+def test_bellman_start_not_in_graph_raises_error(complex_weight_graph):
+    """Test ValueError raised if bellman is used with start not in graph."""
+    with pytest.raises(ValueError):
+        complex_weight_graph.bellman_ford_min(14, 2)
+
+
+def test_bellman_end_not_in_graph_raises_error(complex_weight_graph):
+    """Test ValueError raised if bellman is used with end not in graph."""
+    with pytest.raises(ValueError):
+        complex_weight_graph.bellman_ford_min(4, 19)
+
+
+def test_bellman_start_end_not_connected_raises_error(complex_weight_graph):
+    """Test ValueError raised if bellman is used with end not cennected to start."""
+    complex_weight_graph.add_node(14)
+    with pytest.raises(ValueError):
+        complex_weight_graph.bellman_ford_min(4, 14)
+
+
+def test_bellman_path_for_node_to_itself_is_node(complex_weight_graph):
+    """Test bellman path from node to itself is the node."""
+    path = complex_weight_graph.bellman_ford_min(8, 8)
+    assert len(path) == 1
+    assert path[0] == 8
+
+
+def test_bellman_path_for_node_to_adjacent_is_two(complex_weight_graph):
+    """Test bellman path from node to adjacent is two nodes."""
+    path = complex_weight_graph.bellman_ford_min(8, 2)
+    assert len(path) == 2
+    assert path[0] == 8
+    assert path[1] == 2
+
+
+@pytest.mark.parametrize('graph, start, end, solution',
+                         [(complex_weight_graph(), 0, 6, [0, 7, 6]),
+                          (complex_weight_graph(), 7, 3, [7, 6, 5, 2, 3]),
+                          (complex_weight_graph(), 1, 5, [1, 2, 5]),
+                          (complex_weight_graph(), 4, 0, [4, 5, 6, 7, 0]),
+                          (complex_weight_graph(), 5, 3, [5, 2, 3])])
+def test_bellman_path_is_correct(graph, start, end, solution):
+    """Test bellman path is correct shortest path."""
+    assert graph.bellman_ford_min(start, end) == solution
+
+
+@pytest.mark.parametrize('graph', [complex_weight_graph() for _ in range(20)])
+def test_bellman_path_is_same_as_djkstras(graph):
+    """Test bellman path is the same as dijkstra path."""
+    from random import choice
+    start = choice(graph.nodes())
+    end = choice(graph.nodes())
+    assert graph.bellman_ford_min(start, end) == graph.dijkstra_min(start, end)
