@@ -114,7 +114,7 @@ def edge_weight_graph():
 
 @pytest.fixture
 def full_weight_graph_tree():
-    """Create a graph with nodes and edge that connect to eachother."""
+    """Create a graph with nodes and edge that connect to each other."""
     from weight_graph import Graph
     g = Graph()
     g.add_edge(1, 2, 3)
@@ -123,4 +123,40 @@ def full_weight_graph_tree():
     g.add_edge(2, 5, 9)
     g.add_edge(3, 6, 1)
     g.add_edge(3, 7, 3)
+    return g
+
+
+@pytest.fixture
+def complex_weight_graph():
+    """Create a graph with interconnecting nodes and edges."""
+    from weight_graph import Graph
+    g = Graph()
+    g.add_edge(0, 1, 4)
+    g.add_edge(1, 0, 4)
+    g.add_edge(0, 7, 8)
+    g.add_edge(7, 0, 8)
+    g.add_edge(1, 7, 11)
+    g.add_edge(7, 1, 11)
+    g.add_edge(7, 8, 7)
+    g.add_edge(8, 7, 7)
+    g.add_edge(7, 6, 1)
+    g.add_edge(6, 7, 1)
+    g.add_edge(1, 2, 8)
+    g.add_edge(2, 1, 8)
+    g.add_edge(2, 5, 4)
+    g.add_edge(5, 2, 4)
+    g.add_edge(2, 8, 2)
+    g.add_edge(8, 2, 2)
+    g.add_edge(2, 3, 7)
+    g.add_edge(3, 2, 7)
+    g.add_edge(8, 6, 6)
+    g.add_edge(6, 8, 6)
+    g.add_edge(6, 5, 2)
+    g.add_edge(5, 6, 2)
+    g.add_edge(5, 3, 14)
+    g.add_edge(3, 5, 14)
+    g.add_edge(5, 4, 10)
+    g.add_edge(4, 5, 10)
+    g.add_edge(3, 4, 9)
+    g.add_edge(4, 3, 9)
     return g

@@ -107,3 +107,74 @@ class Graph(object):
         result = [start_val]
         dive(start_val, result)
         return result
+
+    def dijkstra_min(self, start, end):
+        """Find the shortest path from the starting to ending node.
+
+        Uses Dijkstra's algorithm to determine the path.
+        """
+        if start not in self.graph or end not in self.graph:
+            raise ValueError('Node not in graph.')
+        if start == end:
+            return [start]
+
+        final = {start: (0, start)}
+        search = {n: (float('inf'), None) for n in self.graph if n != start}
+
+        curr = start
+        while search:
+            path = final[curr][0]
+
+            neighbors = {n: self.graph[curr][n] for n in self.graph[curr]
+                         if n not in final}
+
+            for n in neighbors:
+                if path + neighbors[n] < search[n][0]:
+                    search[n] = (path + neighbors[n], curr)
+
+            curr = min(search, key=lambda n: search[n][0])
+            final[curr] = search[curr]
+            del search[curr]
+            if curr == end:
+                break
+
+        min_path = [end]
+        curr = end
+        prev = final[curr][1]
+        if prev is None:
+            raise ValueError('Start and end do not connect.')
+        while curr != prev:
+            min_path.append(prev)
+            curr = prev
+            prev = final[curr][1]
+        return list(reversed(min_path))
+
+    def bellman_ford_min(self, start, end):
+        """Find the shortest path from the starting to ending node.
+
+        Uses Bellman Ford's algorithm to determine the path.
+        """
+        if start not in self.graph or end not in self.graph:
+            raise ValueError('Node not in graph.')
+        if start == end:
+            return [start]
+
+        distance = {n: float('inf') for n in self.graph}
+        parent = {n: None for n in self.graph}
+        distance[start] = 0
+
+        for _ in range(len(self.graph) - 1):
+            for edge_start, edge_end, weight in self.edges():
+                if distance[edge_end] > distance[edge_start] + weight:
+                    distance[edge_end] = distance[edge_start] + weight
+                    parent[edge_end] = edge_start
+
+        min_path = []
+        curr = end
+
+        if parent[curr] is None:
+            raise ValueError('Start and end do not connect.')
+        while curr is not None:
+            min_path.append(curr)
+            curr = parent[curr]
+        return list(reversed(min_path))
