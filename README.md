@@ -1,4 +1,7 @@
 # Data Structures
+[![Build Status](https://travis-ci.org/musflood/data-structures.svg?branch=master)](https://travis-ci.org/musflood/data-structures)
+[![Coverage Status](https://coveralls.io/repos/github/musflood/data-structures/badge.svg?branch=master)](https://coveralls.io/github/musflood/data-structures?branch=master)
+
 This file holds sample code for a number of classic data structures impemented in python.
 
 **Authors:** Kavdi Hodgson and Megan Flood
