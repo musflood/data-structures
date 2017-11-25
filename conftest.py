@@ -160,3 +160,10 @@ def complex_weight_graph():
     g.add_edge(3, 4, 9)
     g.add_edge(4, 3, 9)
     return g
+
+
+@pytest.fixture
+def empty_bst():
+    """Create an empty binary search tree."""
+    from bst import BST
+    return BST()
