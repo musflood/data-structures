@@ -53,7 +53,7 @@ def test_bst_constructed_with_iterable_is_filled_properly(itr):
     """Test that new tree constructed with an iterable is filled."""
     from bst import BST
     t = BST(itr)
-    assert t.size == len(set(itr))
+    assert t._size == len(set(itr))
     assert t.root.val == itr[0]
 
 
@@ -137,7 +137,7 @@ def test_insert_multiple_values_increases_size(values, size):
     for n in values:
         t.insert(n)
 
-    assert t.size == size
+    assert t._size == size
 
 
 @pytest.mark.parametrize('values, l_depth, r_depth',
@@ -181,3 +181,77 @@ def test_search_for_leaf_val_finds_node(filled_bst):
     assert n.val == 87
     assert n.left is None
     assert n.right is None
+
+
+def test_size_of_empty_tree_is_zero(empty_bst):
+    """Test that the size of an empty tree is zero."""
+    assert empty_bst.size() == 0
+
+
+@pytest.mark.parametrize('values, size', [([8], 1), ([1, 3], 2),
+                                          ([1, 2, 3], 3), ([3, 2, 1], 3),
+                                          ([5, 2, 3, 7, 1], 5),
+                                          ([72, 42, 54, 87, 3, 25], 6),
+                                          ([2, 8, 4, 6, 1, 6, 9, 52, 4, 8, 9,
+                                            52, 9], 7)])
+def test_size_of_filled_tree_is_correct(values, size):
+    """Test that the size of a filled tree is correct."""
+    from bst import BST
+    t = BST(values)
+    assert t.size() == size
+
+
+def test_depth_of_empty_tree_is_zero(empty_bst):
+    """Test that the depth of an empty tree is zero."""
+    assert empty_bst.depth() == 0
+
+
+@pytest.mark.parametrize('values, depth', [([8], 0), ([1, 3], 1),
+                                           ([1, 2, 3], 2), ([3, 2, 1], 2),
+                                           ([5, 2, 3, 7, 1], 2),
+                                           ([72, 42, 54, 87, 3, 25], 3),
+                                           ([2, 8, 4, 6, 1, 6, 9, 52, 4, 8, 9,
+                                             52, 9], 3)])
+def test_depth_of_filled_tree_is_correct(values, depth):
+    """Test that the depth of a filled tree is correct."""
+    from bst import BST
+    t = BST(values)
+    assert t.depth() == depth
+
+
+def test_contains_for_val_not_in_tree_is_none(filled_bst):
+    """Test that checking if tree contains value not in tree returns False."""
+    assert not filled_bst.contains(-10)
+
+
+def test_contains_for_root_val_finds_node(filled_bst):
+    """Test that checking if tree contains value at the root returns True."""
+    assert filled_bst.contains(57)
+
+
+def test_contains_for_inner_val_finds_node(filled_bst):
+    """Test that checking if tree contains branch value returns True."""
+    assert filled_bst.contains(45)
+
+
+def test_contains_for_leaf_val_finds_node(filled_bst):
+    """Test that checking if tree contains leaf value returns True."""
+    assert filled_bst.contains(87)
+
+
+def test_balance_of_empty_tree_is_zero(empty_bst):
+    """Test that the balance of an empty tree is zero."""
+    assert empty_bst.balance() == 0
+
+
+@pytest.mark.parametrize('values, balance', [([8], 0), ([1, 3], -1),
+                                             ([1, 2, 3], -2), ([3, 2, 1], 2),
+                                             ([5, 2, 3, 7, 1, 8], 0),
+                                             ([72, 42, 54, 87, 3, 25], 2),
+                                             ([2, 8, 4, 6, 1, 6, 9, 52, 4, 8, 9,
+                                               52, 9], -2)])
+def test_balance_of_filled_tree_is_correct(values, balance):
+    """Test that the balance of a filled tree is correct."""
+    from bst import BST
+    t = BST(values)
+    assert t.balance() == balance

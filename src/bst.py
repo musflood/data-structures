@@ -10,11 +10,6 @@ class Node(object):
         self.left = left
         self.right = right
 
-    def __repr__(self):
-        return '<Node {}: left={}, right={}>'.format(self.val,
-                                                     self.left.val if self.left else None,
-                                                     self.right.val if self.right else None)
-
 
 class BST(object):
     """Structure for values in a Binary Search Tree.
@@ -27,7 +22,7 @@ class BST(object):
     def __init__(self, iterable=None):
         """Instantiate a new Binary Search Tree, filled with an iterable."""
         self.root = None
-        self.size = 0
+        self._size = 0
         self.left_depth = 0
         self.right_depth = 0
 
@@ -44,7 +39,7 @@ class BST(object):
         """
         if not self.root:
             self.root = Node(val)
-            self.size += 1
+            self._size += 1
             return
 
         left_branch = val < self.root.val
@@ -58,14 +53,14 @@ class BST(object):
             if val < curr.val:
                 if not curr.left:
                     curr.left = Node(val)
-                    self.size += 1
+                    self._size += 1
                     break
                 curr = curr.left
 
             elif val > curr.val:
                 if not curr.right:
                     curr.right = Node(val)
-                    self.size += 1
+                    self._size += 1
                     break
                 curr = curr.right
 
@@ -90,3 +85,28 @@ class BST(object):
                 curr = curr.right
             else:
                 return curr
+
+    def size(self):
+        """Get the size of the Binary Search Tree."""
+        return self._size
+
+    def depth(self):
+        """Get the maximum depth of the Binary Search Tree.
+
+        The depth is the number of levels in the tree. A tree with only
+        one value has a depth of 0.
+        """
+        return max(self.right_depth, self.left_depth)
+
+    def contains(self, val):
+        """Check if a value is in the Binary Search Tree."""
+        return bool(self.search(val))
+
+    def balance(self):
+        """Get the balance of the Binary Search Tree.
+
+        balance > 0: Tree is deeper on the left than right
+        balance < 0: Tree is deeper on the right than left
+        balance == 0: Tree is balanced, with the same depth on left and right
+        """
+        return self.left_depth - self.right_depth
