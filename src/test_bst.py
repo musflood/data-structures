@@ -248,8 +248,8 @@ def test_balance_of_empty_tree_is_zero(empty_bst):
                                              ([1, 2, 3], -2), ([3, 2, 1], 2),
                                              ([5, 2, 3, 7, 1, 8], 0),
                                              ([72, 42, 54, 87, 3, 25], 2),
-                                             ([2, 8, 4, 6, 1, 6, 9, 52, 4, 8, 9,
-                                               52, 9], -2)])
+                                             ([2, 8, 4, 6, 1, 6, 9, 52, 4, 8,
+                                               9, 52, 9], -2)])
 def test_balance_of_filled_tree_is_correct(values, balance):
     """Test that the balance of a filled tree is correct."""
     from bst import BST

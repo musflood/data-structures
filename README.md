@@ -210,6 +210,28 @@ g = Graph()
 - **def bellman_ford_min(start, end):** Find the shortest path from start to end using the Bellman-Ford algorithm. Raises value error if node not in graph or start and end do not connect.
     - Time complexity: O(n<sup>2</sup>)
 
+## Binary Search Tree
+
+Structure for values in a Binary Search Tree. Each node has a maximum of two children, where the the left child is 'less' than the parent and the right child is 'greater' than the parent. Duplicate values cannot be added to the tree.
+
+### Constructor:
+```python
+t = BST(iterable='list, tuple, or str')
+```
+### Implements the following methods:
+- **insert(val):** Insert a new value into the Binary Search Tree. Duplicate values are ignored when inserted into the tree.
+    - Time complexity: O(n)
+- **search(val):** Find the node that contains the given value. Returns None if value is not in the tree.
+    - Time complexity: O(n)
+- **contains(val):** Check if a value is in the Binary Search Tree.
+    - Time complexity: O(n)
+- **size():** Get the size of the Binary Search Tree.
+    - Time complexity: O(1)
+- **depth():** Get the maximum depth of the Binary Search Tree. The depth is the number of levels in the tree. A tree with only one value has a depth of 0.
+    - Time complexity: O(1)
+- **balance():** Get the balance of the Binary Search Tree. Tree that is deeper on the left than right has positive balance. Tree that is deeper on the right than left has negative balance. Tree that is balanced, with the same depth on left and right, has a balance of zero. 
+    - Time complexity: O(1)
+
 ## Resources
 
 - **Wikipedia:** https://en.wikipedia.org/wiki/Binary_heap

@@ -110,3 +110,33 @@ class BST(object):
         balance == 0: Tree is balanced, with the same depth on left and right
         """
         return self.left_depth - self.right_depth
+
+
+if __name__ == '__main__':  # pragma: no cover
+    from timeit import timeit
+    print("""-- Searching a Binary Search Tree --
+    Best Case search for 7, O(log(n)):
+                    4
+                  /   \\
+                 2     6
+                / \\   / \\
+               1   3 5   7""")
+    setup = 'from bst import BST; tree = BST([4, 2, 6, 1, 3, 5, 7])'
+    print('    {}ms'.format(timeit('tree.search(7)', setup)))
+    print("""
+    Worst Case search for 7, O(n):
+                    1
+                     \\
+                      2
+                       \\
+                        3
+                         \\
+                          4
+                           \\
+                            5
+                             \\
+                              6
+                               \\
+                                7""")
+    setup = 'from bst import BST; tree = BST([1, 2, 3, 4, 5, 6, 7])'
+    print('    {}ms'.format(timeit('tree.search(7)', setup)))
