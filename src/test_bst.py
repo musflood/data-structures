@@ -255,3 +255,40 @@ def test_balance_of_filled_tree_is_correct(values, balance):
     from bst import BST
     t = BST(values)
     assert t.balance() == balance
+
+
+def test_in_order_of_empty_tree_is_empty(empty_bst):
+    """Test that in-order of an empty tree is empty."""
+    assert len([x for x in empty_bst.in_order()]) == 0
+
+
+@pytest.mark.parametrize('values', [[8], [1, 3], [1, 2, 3], [3, 2, 1],
+                                    [2, 1, 3], [5, 2, 3, 7, 1, 8],
+                                    [72, 42, 54, 87, 3, 25],
+                                    [2, 8, 4, 6, 1, 6, 9, 52, 4, 8, 9, 52, 9]])
+def test_in_order_of_filled_tree_contains_all_values(values):
+    """Test that the in-order of a filled tree contains all values."""
+    from bst import BST
+    t = BST(values)
+    assert len([x for x in t.in_order()]) == len(set(values))
+
+
+@pytest.mark.parametrize('values, order', [([8], [8]),
+                                           ([1, 3], [1, 3]),
+                                           ([1, 2, 3], [1, 2, 3]),
+                                           ([3, 2, 1], [1, 2, 3]),
+                                           ([2, 1, 3], [1, 2, 3]),
+                                           ([5, 2, 3, 7, 1, 8],
+                                            [1, 2, 3, 5, 7, 8]),
+                                           ([72, 42, 54, 87, 3, 25],
+                                            [3, 25, 42, 54, 72, 87]),
+                                           ([2, 8, 4, 6, 1, 6, 9, 52,
+                                             4, 8, 9, 52, 9],
+                                            [1, 2, 4, 6, 8, 9, 52])])
+def test_in_order_of_filled_tree_is_correct(values, order):
+    """Test that the in-order traversal of a filled tree is correct."""
+    from bst import BST
+    t = BST(values)
+    traversal = [x for x in t.in_order()]
+    print(traversal)
+    assert traversal == order

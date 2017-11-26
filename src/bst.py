@@ -111,6 +111,17 @@ class BST(object):
         """
         return self.left_depth - self.right_depth
 
+    def in_order(self):
+        """Get an in-order traveral generator of the values in the tree."""
+        def traverse(node):
+            if node:
+                for val in traverse(node.left):
+                    yield val
+                yield node.val
+                for val in traverse(node.right):
+                    yield val
+        return traverse(self.root)
+
 
 if __name__ == '__main__':  # pragma: no cover
     from timeit import timeit

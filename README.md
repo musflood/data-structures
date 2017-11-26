@@ -231,6 +231,8 @@ t = BST(iterable='list, tuple, or str')
     - Time complexity: O(1)
 - **balance():** Get the balance of the Binary Search Tree. Tree that is deeper on the left than right has positive balance. Tree that is deeper on the right than left has negative balance. Tree that is balanced, with the same depth on left and right, has a balance of zero. 
     - Time complexity: O(1)
+- **in_order(val):** Get an in-order traveral generator of the values in the tree.
+    - Time complexity: O(n)
 
 ## Resources
 
