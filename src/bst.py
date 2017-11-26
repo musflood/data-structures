@@ -112,7 +112,7 @@ class BST(object):
         return self.left_depth - self.right_depth
 
     def in_order(self):
-        """Get an in-order traveral generator of the tree.
+        """Get an in-order traversal generator of the tree.
 
         In-order gets values from the tree by traversing the left branch,
         root, then right branch.
@@ -128,7 +128,7 @@ class BST(object):
         return traverse(self.root)
 
     def pre_order(self):
-        """Get an pre-order traveral generator of the tree.
+        """Get an pre-order traversal generator of the tree.
 
         Pre-order gets values from the tree by traversing the root,
         left branch, then right branch.
@@ -144,7 +144,7 @@ class BST(object):
         return traverse(self.root)
 
     def post_order(self):
-        """Get an post-order traveral generator of the tree.
+        """Get an post-order traversal generator of the tree.
 
         Post-order gets values from the tree by traversing the left branch,
         right branch, then root.
@@ -160,7 +160,7 @@ class BST(object):
         return traverse(self.root)
 
     def breadth_first(self):
-        """Get an breadth-first traveral generator of the tree.
+        """Get an breadth-first traversal generator of the tree.
 
         Breadth-first gets values from the tree by stepping down through
         the layers of the tree.
