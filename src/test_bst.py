@@ -125,26 +125,39 @@ def test_insert_multiple_values_correctly_placed(values):
         curr = curr.right
 
 
-@pytest.mark.parametrize('values, size', [([1, 2, 3], 3), ([3, 2, 1], 3),
-                                          ([5, 2, 3, 7, 1], 5),
-                                          ([72, 42, 54, 87, 3, 25], 6),
-                                          ([2, 8, 4, 6, 1, 6, 9, 52, 4, 8, 9,
-                                            52, 9], 7)])
-def test_insert_multiple_values_increases_size(values, size):
+TREES = [
+    [8], [1, 3], [3, 1], [1, 2, 3], [3, 2, 1], [2, 1, 3], [5, 2, 3, 7, 1, 8],
+    [72, 42, 54, 87, 3, 25], [2, 8, 4, 6, 1, 6, 9, 52, 4, 8, 9, 52, 9],
+    [57, 20, 17, 86, 23, 12, 100, 45, 49, 26, -2, 89, 53, 52, 15, 13, 87, 75]
+]
+
+
+@pytest.mark.parametrize('values', TREES)
+def test_insert_multiple_values_increases_size(values):
     """Test that multiple values are inserted increments the size."""
     from bst import BST
     t = BST()
     for n in values:
         t.insert(n)
 
-    assert t._size == size
+    assert t._size == len(set(values))
+
+
+LDEPTH = [
+    0, 0, 1, 0, 2, 1, 2,
+    3, 1,
+    6
+]
+
+RDEPTH = [
+    0, 1, 0, 2, 0, 1, 2,
+    1, 3,
+    4
+]
 
 
 @pytest.mark.parametrize('values, l_depth, r_depth',
-                         [([1, 2, 3], 0, 2), ([3, 2, 1], 2, 0),
-                          ([5, 2, 3, 7, 1], 2, 1),
-                          ([72, 42, 54, 87, 3, 25], 3, 1),
-                          ([2, 8, 4, 6, 1, 6, 9, 52, 4, 8, 9, 52, 9], 1, 3)])
+                         zip(TREES, LDEPTH, RDEPTH))
 def test_insert_multiple_values_increases_depth(values, l_depth, r_depth):
     """Test that multiple values are inserted increments the depth."""
     from bst import BST
@@ -188,17 +201,12 @@ def test_size_of_empty_tree_is_zero(empty_bst):
     assert empty_bst.size() == 0
 
 
-@pytest.mark.parametrize('values, size', [([8], 1), ([1, 3], 2),
-                                          ([1, 2, 3], 3), ([3, 2, 1], 3),
-                                          ([5, 2, 3, 7, 1], 5),
-                                          ([72, 42, 54, 87, 3, 25], 6),
-                                          ([2, 8, 4, 6, 1, 6, 9, 52, 4, 8, 9,
-                                            52, 9], 7)])
-def test_size_of_filled_tree_is_correct(values, size):
+@pytest.mark.parametrize('values', TREES)
+def test_size_of_filled_tree_is_correct(values):
     """Test that the size of a filled tree is correct."""
     from bst import BST
     t = BST(values)
-    assert t.size() == size
+    assert t.size() == len(set(values))
 
 
 def test_depth_of_empty_tree_is_zero(empty_bst):
@@ -206,12 +214,14 @@ def test_depth_of_empty_tree_is_zero(empty_bst):
     assert empty_bst.depth() == 0
 
 
-@pytest.mark.parametrize('values, depth', [([8], 0), ([1, 3], 1),
-                                           ([1, 2, 3], 2), ([3, 2, 1], 2),
-                                           ([5, 2, 3, 7, 1], 2),
-                                           ([72, 42, 54, 87, 3, 25], 3),
-                                           ([2, 8, 4, 6, 1, 6, 9, 52, 4, 8, 9,
-                                             52, 9], 3)])
+MAXDEPTH = [
+    0, 1, 1, 2, 2, 1, 2,
+    3, 3,
+    6
+]
+
+
+@pytest.mark.parametrize('values, depth', zip(TREES, MAXDEPTH))
 def test_depth_of_filled_tree_is_correct(values, depth):
     """Test that the depth of a filled tree is correct."""
     from bst import BST
@@ -244,12 +254,14 @@ def test_balance_of_empty_tree_is_zero(empty_bst):
     assert empty_bst.balance() == 0
 
 
-@pytest.mark.parametrize('values, balance', [([8], 0), ([1, 3], -1),
-                                             ([1, 2, 3], -2), ([3, 2, 1], 2),
-                                             ([5, 2, 3, 7, 1, 8], 0),
-                                             ([72, 42, 54, 87, 3, 25], 2),
-                                             ([2, 8, 4, 6, 1, 6, 9, 52, 4, 8,
-                                               9, 52, 9], -2)])
+BALANCE = [
+    0, -1, 1, -2, 2, 0, 0,
+    2, -2,
+    2
+]
+
+
+@pytest.mark.parametrize('values, balance', zip(TREES, BALANCE))
 def test_balance_of_filled_tree_is_correct(values, balance):
     """Test that the balance of a filled tree is correct."""
     from bst import BST
@@ -262,10 +274,7 @@ def test_in_order_of_empty_tree_is_empty(empty_bst):
     assert len([x for x in empty_bst.in_order()]) == 0
 
 
-@pytest.mark.parametrize('values', [[8], [1, 3], [1, 2, 3], [3, 2, 1],
-                                    [2, 1, 3], [5, 2, 3, 7, 1, 8],
-                                    [72, 42, 54, 87, 3, 25],
-                                    [2, 8, 4, 6, 1, 6, 9, 52, 4, 8, 9, 52, 9]])
+@pytest.mark.parametrize('values', TREES)
 def test_in_order_of_filled_tree_contains_all_values(values):
     """Test that the in-order of a filled tree contains all values."""
     from bst import BST
@@ -273,22 +282,72 @@ def test_in_order_of_filled_tree_contains_all_values(values):
     assert len([x for x in t.in_order()]) == len(set(values))
 
 
-@pytest.mark.parametrize('values, order', [([8], [8]),
-                                           ([1, 3], [1, 3]),
-                                           ([1, 2, 3], [1, 2, 3]),
-                                           ([3, 2, 1], [1, 2, 3]),
-                                           ([2, 1, 3], [1, 2, 3]),
-                                           ([5, 2, 3, 7, 1, 8],
-                                            [1, 2, 3, 5, 7, 8]),
-                                           ([72, 42, 54, 87, 3, 25],
-                                            [3, 25, 42, 54, 72, 87]),
-                                           ([2, 8, 4, 6, 1, 6, 9, 52,
-                                             4, 8, 9, 52, 9],
-                                            [1, 2, 4, 6, 8, 9, 52])])
+INORDER = [
+    [8], [1, 3], [1, 3], [1, 2, 3], [1, 2, 3], [1, 2, 3], [1, 2, 3, 5, 7, 8],
+    [3, 25, 42, 54, 72, 87], [1, 2, 4, 6, 8, 9, 52],
+    [-2, 12, 13, 15, 17, 20, 23, 26, 45, 49, 52, 53, 57, 75, 86, 87, 89, 100]
+]
+
+
+@pytest.mark.parametrize('values, order', zip(TREES, INORDER))
 def test_in_order_of_filled_tree_is_correct(values, order):
     """Test that the in-order traversal of a filled tree is correct."""
     from bst import BST
     t = BST(values)
-    traversal = [x for x in t.in_order()]
-    print(traversal)
-    assert traversal == order
+    assert [x for x in t.in_order()] == order
+
+
+PREORDER = [
+    [8], [1, 3], [3, 1], [1, 2, 3], [3, 2, 1], [2, 1, 3], [5, 2, 1, 3, 7, 8],
+    [72, 42, 3, 25, 54, 87], [2, 1, 8, 4, 6, 9, 52],
+    [57, 20, 17, 12, -2, 15, 13, 23, 45, 26, 49, 53, 52, 86, 75, 100, 89, 87]
+]
+
+
+def test_pre_order_of_empty_tree_is_empty(empty_bst):
+    """Test that pre-order of an empty tree is empty."""
+    assert len([x for x in empty_bst.pre_order()]) == 0
+
+
+@pytest.mark.parametrize('values', TREES)
+def test_pre_order_of_filled_tree_contapres_all_values(values):
+    """Test that the pre-order of a filled tree contapres all values."""
+    from bst import BST
+    t = BST(values)
+    assert len([x for x in t.pre_order()]) == len(set(values))
+
+
+@pytest.mark.parametrize('values, order', zip(TREES, PREORDER))
+def test_pre_order_of_filled_tree_is_correct(values, order):
+    """Test that the pre-order traversal of a filled tree is correct."""
+    from bst import BST
+    t = BST(values)
+    assert [x for x in t.pre_order()] == order
+
+
+POSTORDER = [
+    [8], [3, 1], [1, 3], [3, 2, 1], [1, 2, 3], [1, 3, 2], [1, 3, 2, 8, 7, 5],
+    [25, 3, 54, 42, 87, 72], [1, 6, 4, 52, 9, 8, 2],
+    [-2, 13, 15, 12, 17, 26, 52, 53, 49, 45, 23, 20, 75, 87, 89, 100, 86, 57]
+]
+
+
+def test_post_order_of_empty_tree_is_empty(empty_bst):
+    """Test that post-order of an empty tree is empty."""
+    assert len([x for x in empty_bst.post_order()]) == 0
+
+
+@pytest.mark.parametrize('values', TREES)
+def test_post_order_of_filled_tree_contaposts_all_values(values):
+    """Test that the post-order of a filled tree contaposts all values."""
+    from bst import BST
+    t = BST(values)
+    assert len([x for x in t.post_order()]) == len(set(values))
+
+
+@pytest.mark.parametrize('values, order', zip(TREES, POSTORDER))
+def test_post_order_of_filled_tree_is_correct(values, order):
+    """Test that the post-order traversal of a filled tree is correct."""
+    from bst import BST
+    t = BST(values)
+    assert [x for x in t.post_order()] == order
