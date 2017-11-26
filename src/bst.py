@@ -112,7 +112,11 @@ class BST(object):
         return self.left_depth - self.right_depth
 
     def in_order(self):
-        """Get an in-order traveral generator of the values in the tree."""
+        """Get an in-order traveral generator of the tree.
+
+        In-order gets values from the tree by traversing the left branch,
+        root, then right branch.
+        """
         def traverse(node):
             if node:
                 for val in traverse(node.left):
@@ -120,10 +124,15 @@ class BST(object):
                 yield node.val
                 for val in traverse(node.right):
                     yield val
+
         return traverse(self.root)
 
     def pre_order(self):
-        """Get an pre-order traveral generator of the values in the tree."""
+        """Get an pre-order traveral generator of the tree.
+
+        Pre-order gets values from the tree by traversing the root,
+        left branch, then right branch.
+        """
         def traverse(node):
             if node:
                 yield node.val
@@ -131,10 +140,15 @@ class BST(object):
                     yield val
                 for val in traverse(node.right):
                     yield val
+
         return traverse(self.root)
 
     def post_order(self):
-        """Get an post-order traveral generator of the values in the tree."""
+        """Get an post-order traveral generator of the tree.
+
+        Post-order gets values from the tree by traversing the left branch,
+        right branch, then root.
+        """
         def traverse(node):
             if node:
                 for val in traverse(node.left):
@@ -142,7 +156,31 @@ class BST(object):
                 for val in traverse(node.right):
                     yield val
                 yield node.val
+
         return traverse(self.root)
+
+    def breadth_first(self):
+        """Get an breadth-first traveral generator of the tree.
+
+        Breadth-first gets values from the tree by stepping down through
+        the layers of the tree.
+        """
+        if not self.root:
+            return
+
+        row = [self.root]
+        while row:
+            next_row = []
+
+            for node in row:
+                yield node.val
+
+                if node.left:
+                    next_row.append(node.left)
+                if node.right:
+                    next_row.append(node.right)
+
+            row = next_row
 
 
 if __name__ == '__main__':  # pragma: no cover

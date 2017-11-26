@@ -311,7 +311,7 @@ def test_pre_order_of_empty_tree_is_empty(empty_bst):
 
 @pytest.mark.parametrize('values', TREES)
 def test_pre_order_of_filled_tree_contapres_all_values(values):
-    """Test that the pre-order of a filled tree contapres all values."""
+    """Test that the pre-order of a filled tree contains all values."""
     from bst import BST
     t = BST(values)
     assert len([x for x in t.pre_order()]) == len(set(values))
@@ -339,7 +339,7 @@ def test_post_order_of_empty_tree_is_empty(empty_bst):
 
 @pytest.mark.parametrize('values', TREES)
 def test_post_order_of_filled_tree_contaposts_all_values(values):
-    """Test that the post-order of a filled tree contaposts all values."""
+    """Test that the post-order of a filled tree contains all values."""
     from bst import BST
     t = BST(values)
     assert len([x for x in t.post_order()]) == len(set(values))
@@ -351,3 +351,31 @@ def test_post_order_of_filled_tree_is_correct(values, order):
     from bst import BST
     t = BST(values)
     assert [x for x in t.post_order()] == order
+
+
+BREDTHFIRST = [
+    [8], [1, 3], [3, 1], [1, 2, 3], [3, 2, 1], [2, 1, 3], [5, 2, 7, 1, 3, 8],
+    [72, 42, 87, 3, 54, 25], [2, 1, 8, 4, 9, 6, 52],
+    [57, 20, 86, 17, 23, 75, 100, 12, 45, 89, -2, 15, 26, 49, 87, 13, 53, 52]
+]
+
+
+def test_breadth_first_of_empty_tree_is_empty(empty_bst):
+    """Test that breadth-first of an empty tree is empty."""
+    assert len([x for x in empty_bst.breadth_first()]) == 0
+
+
+@pytest.mark.parametrize('values', TREES)
+def test_breadth_first_of_filled_tree_contaposts_all_values(values):
+    """Test that the breadth-first of a filled tree contains all values."""
+    from bst import BST
+    t = BST(values)
+    assert len([x for x in t.breadth_first()]) == len(set(values))
+
+
+@pytest.mark.parametrize('values, order', zip(TREES, BREDTHFIRST))
+def test_breadth_first_of_filled_tree_is_correct(values, order):
+    """Test that the breadth-first traversal of a filled tree is correct."""
+    from bst import BST
+    t = BST(values)
+    assert [x for x in t.breadth_first()] == order
