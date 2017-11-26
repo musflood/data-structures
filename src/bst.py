@@ -10,6 +10,11 @@ class Node(object):
         self.left = left
         self.right = right
 
+    def __repr__(self):
+        return '<Node {}: left={}, right={}>'.format(self.val,
+                                                     self.left.val if self.left else None,
+                                                     self.right.val if self.right else None)
+
 
 class BST(object):
     """Structure for values in a Binary Search Tree.
@@ -25,6 +30,12 @@ class BST(object):
         self.size = 0
         self.left_depth = 0
         self.right_depth = 0
+
+        if isinstance(iterable, (str, list, tuple)):
+            for item in iterable:
+                self.insert(item)
+        elif iterable is not None:
+            raise TypeError('Iterable must be a str, list, or tuple.')
 
     def insert(self, val):
         """Insert a new value into the Binary Search Tree.
@@ -65,3 +76,17 @@ class BST(object):
             self.left_depth = max(self.left_depth, depth)
         else:
             self.right_depth = max(self.right_depth, depth)
+
+    def search(self, val):
+        """Find the node that contains the given value.
+
+        Returns None if value is not in the tree.
+        """
+        curr = self.root
+        while curr:
+            if val < curr.val:
+                curr = curr.left
+            elif val > curr.val:
+                curr = curr.right
+            else:
+                return curr

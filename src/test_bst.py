@@ -1,6 +1,7 @@
 """Tests for the bst module."""
 
 import pytest
+from random import randint
 
 
 def test_node_constructor_with_no_children():
@@ -44,6 +45,24 @@ def test_bst_constructor_with_no_iterable():
     from bst import BST
     t = BST()
     assert t.root is None
+
+
+@pytest.mark.parametrize('itr', [[randint(-10, 10) for x in range(y)]
+                                 for y in range(1, 20)])
+def test_bst_constructed_with_iterable_is_filled_properly(itr):
+    """Test that new tree constructed with an iterable is filled."""
+    from bst import BST
+    t = BST(itr)
+    assert t.size == len(set(itr))
+    assert t.root.val == itr[0]
+
+
+@pytest.mark.parametrize('itr', [{1: 2, 2: 3}, 400, set([4, 2, 3, 5, 2])])
+def test_bst_constructed_with_invalid_iterable_raises_error(itr):
+    """Test that new tree constructed invalid iterable raises TypeError."""
+    from bst import BST
+    with pytest.raises(TypeError):
+        BST(itr)
 
 
 def test_insert_first_val_set_as_root(empty_bst):
@@ -135,3 +154,30 @@ def test_insert_multiple_values_increases_depth(values, l_depth, r_depth):
 
     assert t.left_depth == l_depth
     assert t.right_depth == r_depth
+
+
+def test_search_for_val_not_in_tree_is_none(filled_bst):
+    """Test that searching for value not in tree returns None."""
+    assert filled_bst.search(-10) is None
+
+
+def test_search_for_root_val_finds_node(filled_bst):
+    """Test that searching for value at the root of the tree returns node."""
+    n = filled_bst.search(57)
+    assert n == filled_bst.root
+
+
+def test_search_for_inner_val_finds_node(filled_bst):
+    """Test that searching for value inside the tree returns node."""
+    n = filled_bst.search(45)
+    assert n.val == 45
+    assert n.left.val == 26
+    assert n.right.val == 49
+
+
+def test_search_for_leaf_val_finds_node(filled_bst):
+    """Test that searching for leaf value returns node."""
+    n = filled_bst.search(87)
+    assert n.val == 87
+    assert n.left is None
+    assert n.right is None
