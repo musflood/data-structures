@@ -227,7 +227,7 @@ t = BST(iterable='list, tuple, or str')
     - Time complexity: O(n)
 - **size():** Get the size of the Binary Search Tree.
     - Time complexity: O(1)
-- **depth():** Get the maximum depth of the Binary Search Tree. The depth is the number of levels in the tree. A tree with only one value has a depth of 0.
+- **depth():** Get the maximum depth of the Binary Search Tree. The depth is the number of levels in the tree. A tree with only one value has a depth of zero.
     - Time complexity: O(1)
 - **balance():** Get the balance of the Binary Search Tree. Tree that is deeper on the left than right has positive balance. Tree that is deeper on the right than left has negative balance. Tree that is balanced, with the same depth on left and right, has a balance of zero. 
     - Time complexity: O(1)
