@@ -173,5 +173,5 @@ def empty_bst():
 def filled_bst():
     """Create an empty binary search tree."""
     from bst import BST
-    return BST([57, 20, 17, 86, 23, 12, 100, 45, 49,
-                26, -2, 89, 53, 52, 15, 13, 87, 75])
+    return BST([57, 20, 17, 86, 23, 12, 100, 45, 49, 26,
+                -2, 89, 53, 52, 15, 13, 87, 75, 30, 54])

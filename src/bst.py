@@ -4,11 +4,12 @@
 class Node(object):
     """A node for a Binary Search Tree."""
 
-    def __init__(self, val, left=None, right=None):
+    def __init__(self, val, left=None, right=None, parent=None):
         """Instantiate a new node for a binary search tree."""
         self.val = val
         self.left = left
         self.right = right
+        self.parent = parent
 
 
 class BST(object):
@@ -52,14 +53,14 @@ class BST(object):
 
             if val < curr.val:
                 if not curr.left:
-                    curr.left = Node(val)
+                    curr.left = Node(val, parent=curr)
                     self._size += 1
                     break
                 curr = curr.left
 
             elif val > curr.val:
                 if not curr.right:
-                    curr.right = Node(val)
+                    curr.right = Node(val, parent=curr)
                     self._size += 1
                     break
                 curr = curr.right
@@ -71,6 +72,12 @@ class BST(object):
             self.left_depth = max(self.left_depth, depth)
         else:
             self.right_depth = max(self.right_depth, depth)
+
+    def delete(self, val):
+        """Delete the given value from the tree."""
+        node = self.search(val)
+        if not node:
+            return
 
     def search(self, val):
         """Find the node that contains the given value.
