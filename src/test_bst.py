@@ -226,8 +226,8 @@ def test_delete_branch_val_with_left_child_branch_removed_correctly(filled_bst):
     filled_bst.delete(17)
     assert filled_bst.size() == 19
     order = [x for x in filled_bst.pre_order()]
-    assert order == [57, 20, 12, -2, 15, 13, 23, 45,
-                     26, 30, 49, 53, 52, 86, 75, 100, 89, 87]
+    assert order == [57, 20, 12, -2, 15, 13, 23, 45, 26,
+                     30, 49, 53, 52, 54, 86, 75, 100, 89, 87]
 
 
 def test_delete_branch_val_with_right_child_branch_removed_correctly(filled_bst):
