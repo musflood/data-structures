@@ -221,6 +221,8 @@ t = BST(iterable='list, tuple, or str')
 ### Implements the following methods:
 - **insert(val):** Insert a new value into the Binary Search Tree. Duplicate values are ignored when inserted into the tree.
     - Time complexity: O(n)
+- **delete(val):** Delete the given value from the tree. Does nothing if the value is not in the tree.
+    - Time complexity: O(n)
 - **search(val):** Find the node that contains the given value. Returns None if value is not in the tree.
     - Time complexity: O(n)
 - **contains(val):** Check if a value is in the Binary Search Tree.

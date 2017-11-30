@@ -169,6 +169,197 @@ def test_insert_multiple_values_increases_depth(values, l_depth, r_depth):
     assert t.right_depth == r_depth
 
 
+def test_delete_val_from_empty_tree_does_nothing(empty_bst):
+    """Test that deleting a val from an empty tree does nothing."""
+    empty_bst.delete('6')
+    assert empty_bst.size() == 0
+    assert empty_bst.root is None
+
+
+def test_delete_only_val_from_tree_empties_tree(empty_bst):
+    """Test that deleting the only value from the tree empties the tree."""
+    t = empty_bst
+    t.insert(2)
+    t.delete(2)
+    assert t.size() == 0
+    assert t.root is None
+
+
+def test_delete_val_not_in_the_tree_does_nothing(filled_bst):
+    """Test that deleting a val not in the tree does nothing."""
+    filled_bst.delete(0)
+    assert filled_bst.size() == 21
+    order = [x for x in filled_bst.pre_order()]
+    assert order == [57, 20, 17, 12, -2, 15, 13, 23, 45, 26,
+                     30, 49, 53, 52, 54, 86, 75, 100, 89, 87, 101]
+
+
+def test_delete_leaf_val_from_the_tree_removed_correctly(filled_bst):
+    """Test deleting a leaf val from the tree works."""
+    filled_bst.delete(-2)
+    assert filled_bst.size() == 20
+    order = [x for x in filled_bst.pre_order()]
+    assert order == [57, 20, 17, 12, 15, 13, 23, 45, 26,
+                     30, 49, 53, 52, 54, 86, 75, 100, 89, 87, 101]
+
+
+def test_delete_branch_val_with_left_child_leaf_removed_correctly(filled_bst):
+    """Test deleting a branch val with leaf left child from the tree works."""
+    filled_bst.delete(15)
+    assert filled_bst.size() == 20
+    order = [x for x in filled_bst.pre_order()]
+    assert order == [57, 20, 17, 12, -2, 13, 23, 45, 26,
+                     30, 49, 53, 52, 54, 86, 75, 100, 89, 87, 101]
+
+
+def test_delete_branch_val_with_right_child_leaf_removed_correctly(filled_bst):
+    """Test deleting a branch val with leaf right child from the tree works."""
+    filled_bst.delete(26)
+    assert filled_bst.size() == 20
+    order = [x for x in filled_bst.pre_order()]
+    assert order == [57, 20, 17, 12, -2, 15, 13, 23, 45,
+                     30, 49, 53, 52, 54, 86, 75, 100, 89, 87, 101]
+
+
+def test_delete_branch_val_with_left_child_branch_removed_correctly(filled_bst):
+    """Test deleting a branch val with branch left child from the tree works."""
+    filled_bst.delete(17)
+    assert filled_bst.size() == 20
+    order = [x for x in filled_bst.pre_order()]
+    assert order == [57, 20, 12, -2, 15, 13, 23, 45, 26,
+                     30, 49, 53, 52, 54, 86, 75, 100, 89, 87, 101]
+
+
+def test_delete_branch_val_with_right_child_branch_removed_correctly(filled_bst):
+    """Test deleting a branch val with branch right child from the tree works."""
+    filled_bst.delete(23)
+    assert filled_bst.size() == 20
+    order = [x for x in filled_bst.pre_order()]
+    assert order == [57, 20, 17, 12, -2, 15, 13, 45, 26,
+                     30, 49, 53, 52, 54, 86, 75, 100, 89, 87, 101]
+
+
+def test_delete_branch_val_with_both_children_leaf_removed_correctly(filled_bst):
+    """Test deleting a branch val with both children leaves from the tree works."""
+    filled_bst.delete(53)
+    assert filled_bst.size() == 20
+    order = [x for x in filled_bst.pre_order()]
+    assert order == [57, 20, 17, 12, -2, 15, 13, 23, 45, 26,
+                     30, 49, 52, 54, 86, 75, 100, 89, 87, 101]
+
+
+def test_delete_branch_val_with_left_leaf_right_branch(filled_bst):
+    """Test deleting a branch val with two children from the tree.
+
+    Left child is a leaf and right child is a branch.
+    When deleted, will be replaced with the left leaf.
+    """
+    filled_bst.delete(86)
+    assert filled_bst.size() == 20
+    order = [x for x in filled_bst.pre_order()]
+    assert order == [57, 20, 17, 12, -2, 15, 13, 23, 45, 26,
+                     30, 49, 53, 52, 54, 75, 100, 89, 87, 101]
+
+
+def test_delete_branch_val_with_right_leaf_left_branch_rightmost_is_leaf(filled_bst):
+    """Test deleting a branch val with two children from the tree.
+
+    Right child is a leaf and left child is a branch.
+    When deleted, will be replaced with rightmost child of
+    the left branch, which is a leaf.
+    """
+    filled_bst.insert(90)
+    filled_bst.delete(100)
+    assert filled_bst.size() == 21
+    order = [x for x in filled_bst.pre_order()]
+    assert order == [57, 20, 17, 12, -2, 15, 13, 23, 45, 26,
+                     30, 49, 53, 52, 54, 86, 75, 90, 89, 87, 101]
+
+
+def test_delete_branch_val_with_right_leaf_left_branch_rightmost_is_branch(filled_bst):
+    """Test deleting a branch val with two children from the tree.
+
+    Right child is a leaf and left child is a branch.
+    When deleted, will be replaced with rightmost child of
+    the left branch, which is a branch.
+    """
+    filled_bst.delete(100)
+    assert filled_bst.size() == 20
+    order = [x for x in filled_bst.pre_order()]
+    assert order == [57, 20, 17, 12, -2, 15, 13, 23, 45, 26,
+                     30, 49, 53, 52, 54, 86, 75, 89, 87, 101]
+
+
+def test_delete_branch_val_with_both_children_branch_rightmost_is_leaf(filled_bst):
+    """Test deleting a branch val with both children branches from the tree.
+
+    When deleted, will be replaced with rightmost child of
+    the left branch, which is a leaf.
+    """
+    filled_bst.delete(45)
+    assert filled_bst.size() == 20
+    order = [x for x in filled_bst.pre_order()]
+    assert order == [57, 20, 17, 12, -2, 15, 13, 23, 30, 26,
+                     49, 53, 52, 54, 86, 75, 100, 89, 87, 101]
+
+
+def test_delete_branch_val_with_both_children_branch_rightmost_is_branch(filled_bst):
+    """Test deleting a branch val with both children branches from the tree.
+
+    When deleted, will be replaced with rightmost child of
+    the left branch, which is a branch with only a right child.
+    """
+    filled_bst.delete(20)
+    assert filled_bst.size() == 20
+    order = [x for x in filled_bst.pre_order()]
+    assert order == [57, 17, 12, -2, 15, 13, 23, 45, 26,
+                     30, 49, 53, 52, 54, 86, 75, 100, 89, 87, 101]
+
+
+def test_delete_root_val_reassigns_the_root(filled_bst):
+    """Test deleting the root val works and reassigns the root."""
+    filled_bst.delete(57)
+    assert filled_bst.root.val == 54
+
+    order = [x for x in filled_bst.pre_order()]
+    assert order == [54, 20, 17, 12, -2, 15, 13, 23, 45, 26,
+                     30, 49, 53, 52, 86, 75, 100, 89, 87, 101]
+
+
+def test_delete_branch_val_both_children_from_tree_reassigns_all_pointers(filled_bst):
+    """Test deleting a branch val with both children reassigns all pointers."""
+    deleted = filled_bst.search(45)
+
+    curr = deleted.left
+    while curr.right:
+        curr = curr.right
+    replacement = curr
+
+    filled_bst.delete(45)
+
+    assert replacement.left == deleted.left
+    assert replacement.right == deleted.right
+    assert replacement.parent == deleted.parent
+    assert replacement.left.parent == replacement
+    assert replacement.right.parent == replacement
+    assert replacement.parent.right == replacement
+
+
+def test_delete_root_repeatedly_removes_all_nodes_from_tree(filled_bst):
+    """Test that all nodes can be removed from the tree."""
+    t = filled_bst
+    removed = []
+    while t.root:
+        removed.append(t.root.val)
+        t.delete(t.root.val)
+
+    order = [57, 54, 53, 52, 49, 45, 30, 26, 23, 20,
+             17, 15, 13, 12, -2, 86, 75, 100, 89, 87, 101]
+
+    assert len(removed) == len(order)
+    assert removed == order
+
+
 def test_search_for_val_not_in_tree_is_none(filled_bst):
     """Test that searching for value not in tree returns None."""
     assert filled_bst.search(-10) is None

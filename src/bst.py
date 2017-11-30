@@ -4,11 +4,12 @@
 class Node(object):
     """A node for a Binary Search Tree."""
 
-    def __init__(self, val, left=None, right=None):
+    def __init__(self, val, left=None, right=None, parent=None):
         """Instantiate a new node for a binary search tree."""
         self.val = val
         self.left = left
         self.right = right
+        self.parent = parent
 
 
 class BST(object):
@@ -52,14 +53,14 @@ class BST(object):
 
             if val < curr.val:
                 if not curr.left:
-                    curr.left = Node(val)
+                    curr.left = Node(val, parent=curr)
                     self._size += 1
                     break
                 curr = curr.left
 
             elif val > curr.val:
                 if not curr.right:
-                    curr.right = Node(val)
+                    curr.right = Node(val, parent=curr)
                     self._size += 1
                     break
                 curr = curr.right
@@ -71,6 +72,53 @@ class BST(object):
             self.left_depth = max(self.left_depth, depth)
         else:
             self.right_depth = max(self.right_depth, depth)
+
+    def delete(self, val):
+        """Delete the given value from the tree."""
+        deleted = self.search(val)
+
+        if not deleted:  # val not in tree
+            return
+
+        if not deleted.left and not deleted.right:  # leaf val
+            replacement = None
+
+        elif not deleted.left:  # val has only right child
+            replacement = deleted.right
+
+        elif not deleted.right:  # val has only left child
+            replacement = deleted.left
+
+        else:  # val has two children
+            curr = deleted.left  # get rightmost left child
+            while curr.right:
+                curr = curr.right
+            replacement = curr
+
+            self.delete(curr.val)
+            self._size += 1  # going to add the replacement back in
+
+            if deleted.left != replacement:
+                replacement.left = deleted.left
+                if replacement.left:
+                    replacement.left.parent = replacement
+            if deleted.right != replacement:
+                replacement.right = deleted.right
+                if replacement.right:
+                    replacement.right.parent = replacement
+
+        parent = deleted.parent
+        if not parent:
+            self.root = replacement
+        elif parent.left == deleted:
+            parent.left = replacement
+        elif parent.right == deleted:
+            parent.right = replacement
+
+        if replacement:
+            replacement.parent = parent
+
+        self._size -= 1
 
     def search(self, val):
         """Find the node that contains the given value.
