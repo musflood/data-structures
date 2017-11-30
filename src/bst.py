@@ -33,49 +33,6 @@ class BST(object):
         elif iterable is not None:
             raise TypeError('Iterable must be a str, list, or tuple.')
 
-    # def __str__(self):
-    #     """String representation of the tree."""
-    #     if not self.root:
-    #         return ''
-
-    #     row = [self.root]
-    #     rows = []
-    #     vals = []
-    #     while any(row):
-    #         rows.append(row)
-    #         next_row = []
-    #         for node in row:
-    #             if node:
-    #                 vals.append(node.val)
-    #                 if node.left:
-    #                     next_row.append(node.left)
-    #                 else:
-    #                     next_row.append(None)
-    #                 if node.right:
-    #                     next_row.append(node.right)
-    #                 else:
-    #                     next_row.append(None)
-    #             else:
-    #                 next_row.append(None)
-    #                 next_row.append(None)
-    #         row = next_row
-
-    #     max_row_width = len(rows[-1])
-    #     max_num_width = len(str(max(vals, key=lambda n: len(str(n)))))
-    #     tree_width = max_row_width * (max_num_width * 2) - max_num_width
-    #     num_spaces = tree_width
-
-    #     string_tree = []
-    #     for i, row in enumerate(rows):
-    #         if i:
-    #             num_spaces = (num_spaces - max_num_width) // 2
-    #         space = ' ' * num_spaces
-    #         nodes = [node.val if node else ' ' for node in row]
-    #         string_row = space.join('{:^{}}'.format(n, max_num_width) for n in nodes)
-    #         string_tree.append('{:^{}}'.format(string_row, tree_width))
-
-    #     return '\n'.join(string_tree)
-
     def insert(self, val):
         """Insert a new value into the Binary Search Tree.
 
