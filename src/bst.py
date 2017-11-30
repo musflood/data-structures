@@ -129,8 +129,26 @@ class BST(object):
         elif not deleted.left:  # val has only right child
             replacement = deleted.right
 
-        elif not deleted.right:  # val has only right child
+        elif not deleted.right:  # val has only left child
             replacement = deleted.left
+
+        else:  # val has two children
+            curr = deleted.left  # get rightmost left child
+            while curr.right:
+                curr = curr.right
+            replacement = curr
+
+            self.delete(curr.val)
+            self._size += 1  # going to add the replacement back in
+
+            if deleted.left != replacement:
+                replacement.left = deleted.left
+                if replacement.left:
+                    replacement.left.parent = replacement
+            if deleted.right != replacement:
+                replacement.right = deleted.right
+                if replacement.right:
+                    replacement.right.parent = replacement
 
         parent = deleted.parent
         if not parent:
