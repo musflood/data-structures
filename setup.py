@@ -14,7 +14,8 @@ setup(
         'priorityq',
         'graph_1',
         'weight_graph',
-        'bst'
+        'bst',
+        'balance_bst'
     ],
     authors='Megan, Kavdi',
     author_email='kavdyjh@gmail.com',

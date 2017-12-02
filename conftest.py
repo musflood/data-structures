@@ -175,3 +175,18 @@ def filled_bst():
     from bst import BST
     return BST([57, 20, 17, 86, 23, 12, 100, 45, 49, 26,
                 -2, 89, 53, 52, 15, 13, 87, 75, 30, 54, 101])
+
+
+@pytest.fixture
+def empty_balance_bst():
+    """Create an empty self-balancing binary search tree."""
+    from bst_balance import BalanceBST
+    return BalanceBST()
+
+
+@pytest.fixture
+def balanced_balance_bst():
+    """Create a already balanced self-balancing binary search tree."""
+    from bst_balance import BalanceBST
+    return BalanceBST([41, 20, 72, 11, 29, 65, 91, 1,
+                       15, 25, 32, 50, 70, 77, 99])
