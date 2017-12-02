@@ -2,6 +2,16 @@
 import pytest
 
 
+@pytest.mark.parametrize('itr, order', [])
+def test_insert_vals_into_self_balanceing_bst_correct(itr, order):
+    """Test that inserting values into a self-balancing bst works correctly."""
+    from bst_balance import BalanceBST
+    b = BalanceBST()
+    for val in itr:
+        b.insert(val)
+    assert [x for x in b.pre_order()] == order
+
+
 def test_rotate_right_rearranges_tree_with_right_parent(balanced_balance_bst):
     """Test that _rotate_right rearranges nodes correctly."""
     b = balanced_balance_bst
@@ -84,6 +94,52 @@ def test_rotate_left_from_root_reassigns_root(balanced_balance_bst):
     b._rotate_left(b.root)
     assert b.root == new_root
     assert b.root.left == old_root
+
+
+def test_rebalance_does_nothing_for_balanced_node(balanced_balance_bst):
+    """Test that _rebalance does nothing for a balanced node."""
+    b = balanced_balance_bst
+    order = [x for x in b.pre_order()]
+    b._rebalance(b.search(20))
+    assert [x for x in b.pre_order()] == order
+
+
+def test_rebalance_fixes_left_left_case(balanced_balance_bst):
+    """Test that _rebalance balances left-left unbalanced case."""
+    b = balanced_balance_bst
+    order = [x for x in b.pre_order()]
+    b._rotate_left(b.search(20))
+    b._rebalance(b.search(29))
+    assert order == [x for x in b.pre_order()]
+
+
+def test_rebalance_fixes_right_right_case(balanced_balance_bst):
+    """Test that _rebalance balances right-right unbalanced case."""
+    b = balanced_balance_bst
+    order = [x for x in b.pre_order()]
+    b._rotate_right(b.search(72))
+    b._rebalance(b.search(65))
+    assert order == [x for x in b.pre_order()]
+
+
+def test_rebalance_fixes_left_right_case(balanced_balance_bst):
+    """Test that _rebalance balances left-right unbalanced case."""
+    b = balanced_balance_bst
+    order = [x for x in b.pre_order()]
+    b._rotate_left(b.search(20))
+    b._rotate_right(b.search(20))
+    b._rebalance(b.search(29))
+    assert order == [x for x in b.pre_order()]
+
+
+def test_rebalance_fixes_right_left_case(balanced_balance_bst):
+    """Test that _rebalance balances right-left unbalanced case."""
+    b = balanced_balance_bst
+    order = [x for x in b.pre_order()]
+    b._rotate_right(b.search(72))
+    b._rotate_left(b.search(72))
+    b._rebalance(b.search(65))
+    assert order == [x for x in b.pre_order()]
 
 
 def test_find_depth_of_empty_tree_is_neg_1(empty_balance_bst):

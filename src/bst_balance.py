@@ -23,9 +23,6 @@ class BalanceBST(BST):
         """Delete the given value from the tree."""
         super(BalanceBST, self).delete(val)
 
-    def _balance(self):
-        """."""
-
     def _rotate_right(self, node):
         """Rotate the node to the right down the tree."""
         pivot = node.left
@@ -59,6 +56,22 @@ class BalanceBST(BST):
         pivot.parent = parent
         node.right, child.parent = child, node
         pivot.left, node.parent = node, pivot
+
+    def _rebalance(self, node):
+        """Rebalance the node if it is out of balance."""
+        balance = self._find_depth(node.left) - self._find_depth(node.right)
+        if abs(balance) <= 1:
+            return
+        if balance > 0:  # left cases
+            child = node.left
+            if child.right and child.right.right:  # left-right case
+                self._rotate_left(child)
+            self._rotate_right(node)
+        else:  # right cases
+            child = node.right
+            if child.left and child.left.left:  # right-left case
+                self._rotate_right(child)
+            self._rotate_left(node)
 
     def _find_depth(self, node, depth=-1):
         """Find the maximum depth from the given node."""
