@@ -18,6 +18,15 @@ class BalanceBST(BST):
         Duplicate values are ignored when inserted into the tree.
         """
         super(BalanceBST, self).insert(val)
+        curr = self.search(val).parent
+        rebalanced = False
+        while curr:
+            if self._rebalance(curr):
+                rebalanced = True
+            curr = curr.parent
+        if rebalanced:
+            self.right_depth = self._find_depth(self.root.right) + 1
+            self.left_depth = self._find_depth(self.root.left) + 1
 
     def delete(self, val):
         """Delete the given value from the tree."""
@@ -37,7 +46,9 @@ class BalanceBST(BST):
         else:
             self.root = pivot
         pivot.parent = parent
-        node.left, child.parent = child, node
+        node.left = child
+        if child:
+            child.parent = node
         pivot.right, node.parent = node, pivot
 
     def _rotate_left(self, node):
@@ -54,24 +65,29 @@ class BalanceBST(BST):
         else:
             self.root = pivot
         pivot.parent = parent
-        node.right, child.parent = child, node
+        node.right = child
+        if child:
+            child.parent = node
         pivot.left, node.parent = node, pivot
 
     def _rebalance(self, node):
         """Rebalance the node if it is out of balance."""
         balance = self._find_depth(node.left) - self._find_depth(node.right)
         if abs(balance) <= 1:
-            return
+            return False
         if balance > 0:  # left cases
             child = node.left
-            if child.right and child.right.right:  # left-right case
+            child_balance = self._find_depth(child.left) - self._find_depth(child.right)
+            if child_balance < 0:  # left-right case
                 self._rotate_left(child)
             self._rotate_right(node)
         else:  # right cases
             child = node.right
-            if child.left and child.left.left:  # right-left case
+            child_balance = self._find_depth(child.left) - self._find_depth(child.right)
+            if child_balance > 0:  # right-left case
                 self._rotate_right(child)
             self._rotate_left(node)
+        return True
 
     def _find_depth(self, node, depth=-1):
         """Find the maximum depth from the given node."""
