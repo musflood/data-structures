@@ -298,14 +298,14 @@ Structure for values in a Trie tree. Stores strings as individual character node
 
 ### Constructor:
 ```python
-t = Trie(iterable='list, tuple, or str')
+t = Trie(iterable='list or tuple')
 ```
 ### Implements the following methods:
 - **insert(string):** Insert the given string into the Trie tree. Duplicate characters are ignored. Raises a TypeError if given a non-string value.
     - Time complexity: O(k) - where k is the length of the string
 - **contains(string):** Check if the given string is in the Trie tree. Raises a TypeError if given a non-string value.
     - Time complexity: O(k) - where k is the length of the string
-- **size():** Get that number of words in the Trie tree.
+- **size():** Get the number of words in the Trie tree.
     - Time complexity: O(1)
 - **remove(string):** Remove the given string from the Trie tree. Raises a TypeError if given a non-string value. Raises a ValueError if the string is not in the tree.
     - Time complexity: O(k) - where k is the length of the string

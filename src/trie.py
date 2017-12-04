@@ -63,7 +63,7 @@ class Trie(object):
         return True
 
     def size(self):
-        """Get that number of strings in the Trie tree."""
+        """Get the number of strings in the Trie tree."""
         return self._size
 
     def remove(self, string):
