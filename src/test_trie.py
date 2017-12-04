@@ -5,6 +5,13 @@ import random
 with open('/usr/share/dict/words') as f:
     DICT_LIST = [word.strip() for word in f]
 
+SMALL_DICT_LIST = ['whirlpuff', 'lycopodium', 'diblastula', 'antenati',
+                   'scaticook', 'tricrotous', 'lenitively', 'unidealistic',
+                   'anthrapurpurin', 'unretained', 'cacopharyngia',
+                   'multifoliolate', 'agonista', 'unamused', 'chimakum',
+                   'enheritage', 'nonsequestration', 'ormond', 'pseudo',
+                   'unrepleviable', 'whirl']
+
 
 def test_node_constructed_with_no_parent():
     """Test that a Node constructed with no parent has None for parent."""
@@ -152,15 +159,10 @@ def test_insert_dictionary_adds_all_words_with_no_extra_branches(empty_trie):
 def small_trie():
     """Create a small filled trie."""
     from trie import Trie
-    return Trie(['whirlpuff', 'lycopodium', 'diblastula', 'antenati',
-                 'scaticook', 'tricrotous', 'lenitively', 'unidealistic',
-                 'anthrapurpurin', 'unretained', 'cacopharyngia',
-                 'multifoliolate', 'agonista', 'unamused', 'chimakum',
-                 'enheritage', 'nonsequestration', 'ormond', 'pseudo',
-                 'unrepleviable', 'whirl'])
+    return Trie(SMALL_DICT_LIST)
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture
 def giant_trie():
     """Create a giant tire from a dictionary."""
     from trie import Trie
@@ -209,3 +211,52 @@ def test_size_returns_current_size_of_trie_duplicate_strings(num):
     itr = random.sample(DICT_LIST, num)
     t = Trie(itr + itr)
     assert t.size() == num
+
+
+def test_remove_for_non_string_raises_error(small_trie):
+    """Test that remove for non-string raises a TypeError."""
+    with pytest.raises(TypeError):
+        small_trie.remove(10)
+
+
+def test_remove_string_not_in_trie_raises_error(small_trie):
+    """Test that removing a word not in the trie raises a ValueError."""
+    with pytest.raises(ValueError):
+        small_trie.remove('apple')
+
+
+@pytest.mark.parametrize('trie, word', [(small_trie(), 'ormond'),
+                                        (small_trie(), 'lycopodium'),
+                                        (small_trie(), 'unamused'),
+                                        (small_trie(), 'whirlpuff'),
+                                        (small_trie(), 'whirl')])
+def test_remove_string_from_trie_removes_the_string(trie, word):
+    """Test that removing a string removes it from the trie."""
+    assert trie.contains(word) is True
+    trie.remove(word)
+    assert trie.contains(word) is False
+
+
+@pytest.mark.parametrize('trie, word', [(small_trie(), 'ormond'),
+                                        (small_trie(), 'lycopodium'),
+                                        (small_trie(), 'unamused'),
+                                        (small_trie(), 'whirlpuff'),
+                                        (small_trie(), 'whirl')])
+def test_remove_string_from_trie_adjusts_the_size(trie, word):
+    """Test that removing a string removes it from the trie."""
+    size = trie.size()
+    trie.remove(word)
+    assert trie.size() == size - 1
+
+
+def test_remove_all_values_from_trie_empties_it(small_trie):
+    """Test that removing all strings from the trie empties it."""
+    t = small_trie
+    words = SMALL_DICT_LIST[:]
+    random.shuffle(words)
+
+    for word in words:
+        t.remove(word)
+    assert t.size() == 0
+    assert t.root.val == '*'
+    assert t.root.children == {}
