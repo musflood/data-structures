@@ -35,27 +35,22 @@ def test_insert_vals_into_self_balanceing_bst_correct(values, order):
     assert [x for x in b.pre_order()] == order
 
 
-TREES = [
-    [8], [1, 3], [3, 1], [1, 2, 3], [3, 2, 1], [2, 1, 3], [5, 2, 3, 7, 1, 8],
-    [72, 42, 54, 87, 3, 25], [2, 8, 4, 6, 1, 9, 52],
-    [57, 20, 17, 86, 23, 12, 100, 45, 49, 26, -2, 89, 53, 52, 15, 13, 87, 75]
-]
-
-LDEPTH = [
-    0, 0, 1, 1, 1, 1, 2,
-    2, 2,
-    4
-]
-
-RDEPTH = [
-    0, 1, 0, 1, 1, 1, 2,
-    2, 3,
-    4
+INSERT_DEPTH_TESTS = [
+    ([8], 0, 0),
+    ([1, 3], 0, 1),
+    ([3, 1], 1, 0),
+    ([1, 2, 3], 1, 1),
+    ([3, 2, 1], 1, 1),
+    ([2, 1, 3], 1, 1),
+    ([5, 2, 3, 7, 1, 8], 2, 2),
+    ([72, 42, 54, 87, 3, 25], 2, 2),
+    ([2, 8, 4, 6, 1, 9, 52], 2, 3),
+    ([57, 20, 17, 86, 23, 12, 100, 45, 49, 26,
+      -2, 89, 53, 52, 15, 13, 87, 75], 4, 4)
 ]
 
 
-@pytest.mark.parametrize('values, l_depth, r_depth',
-                         zip(TREES, LDEPTH, RDEPTH))
+@pytest.mark.parametrize('values, l_depth, r_depth', INSERT_DEPTH_TESTS)
 def test_insert_multiple_values_sets_depth_properly(values, l_depth, r_depth):
     """Test that multiple values are inserted sets the depth correctly."""
     from bst_balance import BalanceBST
@@ -65,6 +60,97 @@ def test_insert_multiple_values_sets_depth_properly(values, l_depth, r_depth):
 
     assert b.left_depth == l_depth
     assert b.right_depth == r_depth
+
+
+DELETE_TESTS = [
+    ([41, 20, 72, 11, 29, 65, 91, 1, 15, 25, 32, 50, 70, 77, 99], 15,
+     [41, 20, 11, 1, 29, 25, 32, 72, 65, 50, 70, 91, 77, 99]),
+
+    ([41, 20, 72, 11, 29, 65, 91, 1, 25, 32, 50, 70, 77, 99], 1,
+     [41, 20, 11, 29, 25, 32, 72, 65, 50, 70, 91, 77, 99]),
+
+    ([41, 20, 72, 11, 29, 65, 91, 25, 32, 50, 70, 77, 99], 11,
+     [41, 29, 20, 25, 32, 72, 65, 50, 70, 91, 77, 99]),
+
+    ([41, 29, 72, 20, 32, 65, 91, 25, 50, 70, 77, 99], 32,
+     [41, 25, 20, 29, 72, 65, 50, 70, 91, 77, 99]),
+
+    ([41, 25, 72, 20, 29, 65, 91, 50, 70, 77, 99], 29,
+     [41, 25, 20, 72, 65, 50, 70, 91, 77, 99]),
+
+    ([41, 25, 72, 20, 65, 91, 50, 70, 77, 99], 20,
+     [72, 41, 25, 65, 50, 70, 91, 77, 99]),
+
+    ([72, 41, 91, 25, 65, 77, 99, 50, 70], 99,
+     [72, 41, 25, 65, 50, 70, 91, 77]),
+
+    ([72, 41, 91, 25, 65, 77, 50, 70], 77,
+     [65, 41, 25, 50, 72, 70, 91]),
+
+    ([41, 20, 72, 11, 29, 65, 91, 1, 15, 25, 32, 50, 70], 91,
+     [41, 20, 11, 1, 15, 29, 25, 32, 65, 50, 72, 70]),
+
+    ([41, 20, 65, 11, 29, 50, 72, 1, 15, 25, 32, 70], 50,
+     [41, 20, 11, 1, 15, 29, 25, 32, 70, 65, 72]),
+
+    ([41, 20, 70, 11, 29, 72, 1, 15, 25, 32], 72,
+     [20, 11, 1, 15, 41, 29, 25, 32, 70]),
+
+    ([20, 11, 41, 15, 29, 70, 25, 32], 15,
+     [29, 20, 11, 25, 41, 32, 70]),
+]
+
+
+@pytest.mark.parametrize('tree, value, order', DELETE_TESTS)
+def test_delete_leaf_vals_from_self_balancing_bst_correct(tree, value, order):
+    """Test deleting leaf vals from a self-balancing bst works correctly."""
+    from bst_balance import BalanceBST
+    b = BalanceBST(tree)
+    b.delete(value)
+    assert [x for x in b.pre_order()] == order
+
+
+DELETE_TESTS = [
+    ([41, 11, 72, 20, 65, 91, 50, 70, 77, 99], 11,
+     [72, 41, 20, 65, 50, 70, 91, 77, 99]),
+
+    ([72, 41, 91, 20, 65, 77, 50, 70], 91,
+     [65, 41, 20, 50, 72, 70, 77]),
+
+    ([41, 20, 91, 11, 29, 99, 1, 15, 25, 32], 91,
+     [20, 11, 1, 15, 41, 29, 25, 32, 99]),
+
+    ([20, 11, 1, 41, 29, 99, 25, 32], 11,
+     [29, 20, 1, 25, 41, 32, 99]),
+]
+
+
+@pytest.mark.parametrize('tree, value, order', DELETE_TESTS)
+def test_delete_one_child_vals_from_balancing_bst_correct(tree, value, order):
+    """Test deleting vals with one child from balancing bst works correctly."""
+    from bst_balance import BalanceBST
+    b = BalanceBST(tree)
+    b.delete(value)
+    assert [x for x in b.pre_order()] == order
+
+
+DELETE_TESTS = [
+    ([41, 20, 72, 1, 29, 65, 91, 25, 32, 50, 70, 77, 99], 20,
+     [41, 29, 1, 25, 32, 72, 65, 50, 70, 91, 77, 99]),
+
+    ([20, 11, 41, 29, 70], 20,
+     [41, 11, 29, 70]),
+
+]
+
+
+@pytest.mark.parametrize('tree, value, order', DELETE_TESTS)
+def test_delete_two_child_vals_from_balancing_bst_correct(tree, value, order):
+    """Test deleting vals with two children from balancing bst works correctly."""
+    from bst_balance import BalanceBST
+    b = BalanceBST(tree)
+    b.delete(value)
+    assert [x for x in b.pre_order()] == order
 
 
 def test_rotate_right_rearranges_tree_with_right_parent(balanced_balance_bst):

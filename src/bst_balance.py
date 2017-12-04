@@ -18,19 +18,33 @@ class BalanceBST(BST):
         Duplicate values are ignored when inserted into the tree.
         """
         super(BalanceBST, self).insert(val)
+
         curr = self.search(val).parent
         rebalanced = False
         while curr:
             if self._rebalance(curr):
                 rebalanced = True
             curr = curr.parent
+
         if rebalanced:
             self.right_depth = self._find_depth(self.root.right) + 1
             self.left_depth = self._find_depth(self.root.left) + 1
 
     def delete(self, val):
         """Delete the given value from the tree."""
+        curr = self.search(val).parent
+
         super(BalanceBST, self).delete(val)
+
+        rebalanced = False
+        while curr:
+            if self._rebalance(curr):
+                rebalanced = True
+            curr = curr.parent
+
+        if rebalanced:
+            self.right_depth = self._find_depth(self.root.right) + 1
+            self.left_depth = self._find_depth(self.root.left) + 1
 
     def _rotate_right(self, node):
         """Rotate the node to the right down the tree."""
@@ -71,7 +85,10 @@ class BalanceBST(BST):
         pivot.left, node.parent = node, pivot
 
     def _rebalance(self, node):
-        """Rebalance the node if it is out of balance."""
+        """Rebalance the node if it is out of balance.
+
+        Returns whether or not a rebalance occured.
+        """
         balance = self._find_depth(node.left) - self._find_depth(node.right)
         if abs(balance) <= 1:
             return False
