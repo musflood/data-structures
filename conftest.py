@@ -1,3 +1,4 @@
+"""Fixtures for data-structures."""
 import pytest
 
 
@@ -190,3 +191,10 @@ def balanced_balance_bst():
     from bst_balance import BalanceBST
     return BalanceBST([41, 20, 72, 11, 29, 65, 91, 1,
                        15, 25, 32, 50, 70, 77, 99])
+
+
+@pytest.fixture
+def empty_add_table():
+    """Create an empty hash table with add hash function."""
+    from hash_table import additive_hash, HashTable
+    return HashTable(100, additive_hash)

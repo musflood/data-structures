@@ -274,8 +274,27 @@ b = BalanceBST(iterable='list, tuple, or str')
 - **breadth_first():** Get an breadth-first traversal generator of the tree. Breadth-first gets values from the tree by stepping down through the layers of the tree.
     - Time complexity: O(n)
 
+## Hash Table
+
+Structure for items in a hash table. A hash table stored values under keys. It hashes the key using the hashing function to get a number and stores the value under that number, making for easy retrieval.
+
+### Constructor:
+```python
+h = HashTable(size, hashing)
+```
+### Implements the following methods:
+- **set(key):** Set the value to the key in the hash table. Adds the key if it is not in the table. Replaces the value if it is already in the table. Raises a TypeError for non-string keys.
+    - Time complexity: O(k) - where k is the number of collisions for the hash value
+- **get(key):** Get the value stored with the given key. Raises a TypeError for non-string keys. Raises KeyError for a key not in the hash table.
+    - Time complexity: O(k) - where k is the number of collisions for the hash value
+
+### Available functions in the module:
+- **additive_hash(value):** Get the hash value by adding up the ASCII values of the characters in a string. Raises a TypeError for a non-string value.
+- **fnv_hash(value):** Get the hash value using the Fowler-Noll-Vo method. Default is the 32-bit version. The initial hash value is the FNV offset basis. For each byte in the input, the hash is multiplied by the FNV prime, then XOR with the byte from the input. Raises a TypeError for a non-string value.
+
 ## Resources
 
-- **Wikipedia:** https://en.wikipedia.org/wiki/Binary_heap
+- **Wikipedia:** [Binary Heap](https://en.wikipedia.org/wiki/Binary_heap)
 - **GeeksForGeeks:** [Bellman-Ford](http://www.geeksforgeeks.org/dynamic-programming-set-23-bellman-ford-algorithm/)
 - **YouTube:** [Dijkstra's algorithm](https://www.youtube.com/watch?v=5GT5hYzjNoo)
+- **Eternally Confuzzled:** [List of hashing functions](http://www.eternallyconfuzzled.com/tuts/algorithms/jsw_tut_hashing.aspx)
