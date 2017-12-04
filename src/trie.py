@@ -21,10 +21,16 @@ class Trie(object):
     a new branch is added at the node where the difference occurs.
     """
 
-    def __init__(self):
+    def __init__(self, iterable=None):
         """Create an empty Trie tree."""
         self.root = Node('*')
         self._size = 0
+
+        if isinstance(iterable, (list, tuple)):
+            for item in iterable:
+                self.insert(item)
+        elif iterable is not None:
+            raise TypeError('Iterable must be a list, or tuple.')
 
     def insert(self, string):
         """Insert the given string into the Trie tree.
@@ -43,3 +49,19 @@ class Trie(object):
         set_end = curr.children.setdefault('$', new_end)
         if set_end is new_end:
             self._size += 1
+
+    def contains(self, string):
+        """Chech if the given string is in the Trie tree."""
+        if not isinstance(string, str):
+            raise TypeError('Can only check for strings in the trie.')
+
+        curr = self.root
+        for ch in string + '$':
+            if ch not in curr.children:
+                return False
+            curr = curr.children[ch]
+        return True
+
+    def size(self):
+        """Get that number of words in the Trie tree."""
+        return self._size

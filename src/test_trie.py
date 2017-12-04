@@ -1,5 +1,9 @@
 """Tests for the trie module."""
 import pytest
+import random
+
+with open('/usr/share/dict/words') as f:
+    DICT_LIST = [word.strip() for word in f]
 
 
 def test_node_constructed_with_no_parent():
@@ -26,6 +30,23 @@ def test_trie_constructed_is_empty_and_has_star_root():
     t = Trie()
     assert t.root.val == '*'
     assert t._size == 0
+
+
+@pytest.mark.parametrize('num', [x for x in range(1, 20)])
+def test_trie_constructed_with_iterable_has_star_root_and_words(num):
+    """Test that a constructed trie has '*' as the root node."""
+    from trie import Trie
+    itr = random.sample(DICT_LIST, num)
+    t = Trie(itr)
+    assert t.root.val == '*'
+    assert t._size == num
+
+
+def test_trie_constructed_with_string_raises_error():
+    """Test that trie constructed with string directly raisesa TypeError."""
+    from trie import Trie
+    with pytest.raises(TypeError):
+        Trie('apple')
 
 
 def test_insert_non_string_raises_error(empty_trie):
@@ -121,10 +142,70 @@ def test_insert_dictionary_adds_all_words_with_no_extra_branches(empty_trie):
     """Test that inserting a dictionary of words works."""
     from string import ascii_letters
     t = empty_trie
-    count = 0
-    with open('/usr/share/dict/words') as f:
-        for word in f:
-            t.insert(word.strip())
-            count += 1
-    assert t._size == count
+    for word in DICT_LIST:
+        t.insert(word)
+    assert t._size == len(DICT_LIST)
     assert len(t.root.children) == len(ascii_letters)
+
+
+@pytest.fixture
+def small_trie():
+    """Create a small filled trie."""
+    from trie import Trie
+    return Trie(['whirlpuff', 'lycopodium', 'diblastula', 'antenati',
+                 'scaticook', 'tricrotous', 'lenitively', 'unidealistic',
+                 'anthrapurpurin', 'unretained', 'cacopharyngia',
+                 'multifoliolate', 'agonista', 'unamused', 'chimakum',
+                 'enheritage', 'nonsequestration', 'ormond', 'pseudo',
+                 'unrepleviable', 'whirl'])
+
+
+@pytest.fixture(scope='session')
+def giant_trie():
+    """Create a giant tire from a dictionary."""
+    from trie import Trie
+    return Trie(DICT_LIST)
+
+
+def test_contains_for_non_string_raises_error(small_trie):
+    """Test that contains for non-string raises a TypeError."""
+    with pytest.raises(TypeError):
+        small_trie.contains(10)
+
+
+@pytest.mark.parametrize('trie, word', [(small_trie(), 'ormond'),
+                                        (small_trie(), 'lycopodium'),
+                                        (small_trie(), 'unamused'),
+                                        (small_trie(), 'whirlpuff'),
+                                        (small_trie(), 'whirl')])
+def test_contains_returns_true_for_word_in_trie(trie, word):
+    """Test that contains for an word in the trie returns True."""
+    assert trie.contains(word) is True
+
+
+@pytest.mark.parametrize('trie, word', [(small_trie(), 'zebra'),
+                                        (small_trie(), 'apple'),
+                                        (small_trie(), 'unintended'),
+                                        (small_trie(), 'unideal'),
+                                        (small_trie(), 'pseudopod')])
+def test_contains_returns_false_for_word_not_in_trie(trie, word):
+    """Test that contains for an word not in the trie returns False."""
+    assert trie.contains(word) is False
+
+
+@pytest.mark.parametrize('num', [x for x in range(1, 20)])
+def test_size_returns_current_size_of_trie_unique_strings(num):
+    """Test that size returns the current size of the tire."""
+    from trie import Trie
+    itr = random.sample(DICT_LIST, num)
+    t = Trie(itr)
+    assert t.size() == num
+
+
+@pytest.mark.parametrize('num', [x for x in range(1, 20)])
+def test_size_returns_current_size_of_trie_duplicate_strings(num):
+    """Test that size returns the current size of the tire."""
+    from trie import Trie
+    itr = random.sample(DICT_LIST, num)
+    t = Trie(itr + itr)
+    assert t.size() == num

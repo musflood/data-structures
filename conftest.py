@@ -205,3 +205,12 @@ def empty_trie():
     """Create an empty trie."""
     from trie import Trie
     return Trie()
+
+
+@pytest.fixture(scope='session')
+def giant_trie():
+    """Create a giant tire from a dictionary."""
+    from trie import Trie
+    with open('/usr/share/dict/words') as f:
+        dict_list = [word.strip() for word in f]
+    return Trie(dict_list)
