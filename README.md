@@ -242,6 +242,38 @@ t = BST(iterable='list, tuple, or str')
 - **breadth_first():** Get an breadth-first traversal generator of the tree. Breadth-first gets values from the tree by stepping down through the layers of the tree.
     - Time complexity: O(n)
 
+## Self-Balancing Binary Search Tree
+
+Structure for values in a Self-Balancing Binary Search Tree. Each node has a maximum of two children, where the the left child is 'less' than the parent and the right child is 'greater' than the parent. Duplicate values cannot be added to the tree. Each time an item is added or removed from the tree, it is rebalanced such that the |balance| is no more than 1 at every node.
+
+### Constructor:
+```python
+b = BalanceBST(iterable='list, tuple, or str')
+```
+### Implements the following methods:
+- **insert(val):** Insert a new value into the Binary Search Tree. Duplicate values are ignored when inserted into the tree.
+    - Time complexity: O(n)
+- **delete(val):** Delete the given value from the tree. Does nothing if the value is not in the tree.
+    - Time complexity: O(n)
+- **search(val):** Find the node that contains the given value. Returns None if value is not in the tree.
+    - Time complexity: O(log(n))
+- **contains(val):** Check if a value is in the Binary Search Tree.
+    - Time complexity: O(log(n))
+- **size():** Get the size of the Binary Search Tree.
+    - Time complexity: O(1)
+- **depth():** Get the maximum depth of the Binary Search Tree. The depth is the number of levels in the tree. A tree with only one value has a depth of zero.
+    - Time complexity: O(1)
+- **balance():** Get the balance of the Binary Search Tree. Tree that is deeper on the left than right has positive balance. Tree that is deeper on the right than left has negative balance. Tree that is balanced, with the same depth on left and right, has a balance of zero. 
+    - Time complexity: O(1)
+- **in_order():** Get an in-order traversal generator of the tree. In-order gets values from the tree by traversing the left branch, root, then right branch.
+    - Time complexity: O(n)
+- **pre_order():** Get an pre-order traversal generator of the tree. Pre-order gets values from the tree by traversing the root, left branch, then right branch.
+    - Time complexity: O(n)
+- **post_order():** Get an post-order traversal generator of the tree.  Post-order gets values from the tree by traversing the left branch, right branch, then root.
+    - Time complexity: O(n)
+- **breadth_first():** Get an breadth-first traversal generator of the tree. Breadth-first gets values from the tree by stepping down through the layers of the tree.
+    - Time complexity: O(n)
+
 ## Resources
 
 - **Wikipedia:** https://en.wikipedia.org/wiki/Binary_heap
