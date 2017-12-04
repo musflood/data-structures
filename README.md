@@ -274,6 +274,20 @@ b = BalanceBST(iterable='list, tuple, or str')
 - **breadth_first():** Get an breadth-first traversal generator of the tree. Breadth-first gets values from the tree by stepping down through the layers of the tree.
     - Time complexity: O(n)
 
+## Hash Table
+
+Structure for items in a hash table. A hash table stored values under keys. It hashes the key using the hashing function to get a number and stores the value under that number, making for easy retrieval.
+
+### Constructor:
+```python
+h = HashTable(size, hashing)
+```
+### Implements the following methods:
+- **set(key):** Set the value to the key in the hash table. Adds the key if it is not in the table. Replaces the value if it is already in the table. Raises a TypeError for non-string keys.
+    - Time complexity: O(k) - where k is the number of collisions for the hash value
+- **get(key):** Get the value stored with the given key. Raises a TypeError for non-string keys. Raises KeyError for a key not in the hash table.
+    - Time complexity: O(k) - where k is the number of collisions for the hash value
+
 ## Resources
 
 - **Wikipedia:** https://en.wikipedia.org/wiki/Binary_heap

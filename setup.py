@@ -15,7 +15,8 @@ setup(
         'graph_1',
         'weight_graph',
         'bst',
-        'balance_bst'
+        'balance_bst',
+        'hash_table'
     ],
     authors='Megan, Kavdi',
     author_email='kavdyjh@gmail.com',
