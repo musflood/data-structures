@@ -17,7 +17,7 @@ class Trie(object):
     Stores strings as individual character nodes. Each string
     starts with a '*' node and ends with a '$' node. Only characters
     that are not in the tree in the string order are added to the tree.
-    When additional characters from those in the tree are added,
+    When characters different from those already in the tree are added,
     a new branch is added at the node where the difference occurs.
     """
 
@@ -51,7 +51,7 @@ class Trie(object):
             self._size += 1
 
     def contains(self, string):
-        """Chech if the given string is in the Trie tree."""
+        """Check if the given string is in the Trie tree."""
         if not isinstance(string, str):
             raise TypeError('Can only check for strings in the trie.')
 
@@ -63,7 +63,7 @@ class Trie(object):
         return True
 
     def size(self):
-        """Get that number of words in the Trie tree."""
+        """Get that number of strings in the Trie tree."""
         return self._size
 
     def remove(self, string):

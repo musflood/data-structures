@@ -292,6 +292,24 @@ h = HashTable(size, hashing)
 - **additive_hash(value):** Get the hash value by adding up the ASCII values of the characters in a string. Raises a TypeError for a non-string value.
 - **fnv_hash(value, offset=2166136261, prime=16777619):** Get the hash value using the Fowler-Noll-Vo method. Default is the 32-bit version. The initial hash value is the FNV offset basis. For each byte in the input, the hash is multiplied by the FNV prime, then XOR with the byte from the input. Raises a TypeError for a non-string value.
 
+## Trie Tree
+
+Structure for values in a Trie tree. Stores strings as individual character nodes. Each string starts with a '*' node and ends with a '$' node. Only characters that are not in the tree in the string order are added to the tree. When characters different from those already in the tree are added, a new branch is added at the node where the difference occurs.
+
+### Constructor:
+```python
+t = Trie(iterable='list, tuple, or str')
+```
+### Implements the following methods:
+- **insert(string):** Insert the given string into the Trie tree. Duplicate characters are ignored. Raises a TypeError if given a non-string value.
+    - Time complexity: O(k) - where k is the length of the string
+- **contains(string):** Check if the given string is in the Trie tree. Raises a TypeError if given a non-string value.
+    - Time complexity: O(k) - where k is the length of the string
+- **size():** Get that number of words in the Trie tree.
+    - Time complexity: O(1)
+- **remove(string):** Remove the given string from the Trie tree. Raises a TypeError if given a non-string value. Raises a ValueError if the string is not in the tree.
+    - Time complexity: O(k) - where k is the length of the string
+
 ## Resources
 
 - **Wikipedia:** [Binary Heap](https://en.wikipedia.org/wiki/Binary_heap)

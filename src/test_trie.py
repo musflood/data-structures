@@ -225,6 +225,16 @@ def test_remove_string_not_in_trie_raises_error(small_trie):
         small_trie.remove('apple')
 
 
+def test_remove_only_string_from_trie_empties_it(empty_trie):
+    """Test that removing the only string from a trie empties it."""
+    t = empty_trie
+    t.insert('apple')
+    t.remove('apple')
+    assert t.root.val == '*'
+    assert t.root.children == {}
+    assert t.size() == 0
+
+
 @pytest.mark.parametrize('trie, word', [(small_trie(), 'ormond'),
                                         (small_trie(), 'lycopodium'),
                                         (small_trie(), 'unamused'),
@@ -260,3 +270,28 @@ def test_remove_all_values_from_trie_empties_it(small_trie):
     assert t.size() == 0
     assert t.root.val == '*'
     assert t.root.children == {}
+
+
+def test_inserting_and_removing_from_trie_works(empty_trie):
+    """Test that inserting and removing from the trie works."""
+    t = empty_trie
+
+    all_words = DICT_LIST[:]
+    random.shuffle(all_words)
+    half_1 = all_words[:(len(all_words) // 2)]
+    half_2 = all_words[(len(all_words) // 2):]
+
+    for word in half_1:
+        t.insert(word)
+
+    assert t.size() == len(half_1)
+    assert len(t.root.children) == len(set([word[0] for word in half_1]))
+
+    removing_half_1 = random.sample(half_1, len(half_1) // 2)
+    for word in removing_half_1:
+        t.remove(word)
+    assert t.size() == len(half_1) - (len(half_1) // 2)
+
+    for word in half_2:
+        t.insert(word)
+    assert t.size() == len(half_1) - (len(half_1) // 2) + len(half_2)
