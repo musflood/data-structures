@@ -147,12 +147,11 @@ def test_insert_same_word_twice_is_ignored(empty_trie):
 
 def test_insert_dictionary_adds_all_words_with_no_extra_branches(empty_trie):
     """Test that inserting a dictionary of words works."""
-    from string import ascii_letters
     t = empty_trie
     for word in DICT_LIST:
         t.insert(word)
     assert t._size == len(DICT_LIST)
-    assert len(t.root.children) == len(ascii_letters)
+    assert len(t.root.children) == len(set([word[0] for word in DICT_LIST]))
 
 
 @pytest.fixture
@@ -160,13 +159,6 @@ def small_trie():
     """Create a small filled trie."""
     from trie import Trie
     return Trie(SMALL_DICT_LIST)
-
-
-@pytest.fixture
-def giant_trie():
-    """Create a giant tire from a dictionary."""
-    from trie import Trie
-    return Trie(DICT_LIST)
 
 
 def test_contains_for_non_string_raises_error(small_trie):
