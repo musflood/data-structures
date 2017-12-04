@@ -290,7 +290,7 @@ h = HashTable(size, hashing)
 
 ### Available functions in the module:
 - **additive_hash(value):** Get the hash value by adding up the ASCII values of the characters in a string. Raises a TypeError for a non-string value.
-- **fnv_hash(value):** Get the hash value using the Fowler-Noll-Vo method. Default is the 32-bit version. The initial hash value is the FNV offset basis. For each byte in the input, the hash is multiplied by the FNV prime, then XOR with the byte from the input. Raises a TypeError for a non-string value.
+- **fnv_hash(value, offset=2166136261, prime=16777619):** Get the hash value using the Fowler-Noll-Vo method. Default is the 32-bit version. The initial hash value is the FNV offset basis. For each byte in the input, the hash is multiplied by the FNV prime, then XOR with the byte from the input. Raises a TypeError for a non-string value.
 
 ## Resources
 
