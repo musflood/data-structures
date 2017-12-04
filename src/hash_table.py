@@ -9,7 +9,12 @@ def additive_hash(value):
 
 
 def fnv_hash(value, offset=2166136261, prime=16777619):
-    """Get the hash value using the Fowler-Noll-Vo method."""
+    """Get the hash value using the Fowler-Noll-Vo method.
+
+    Default is the 32-bit version. The initial hash value is the
+    FNV offset basis. For each byte in the input, the hash is
+    multiplied by the FNV prime, then XOR with the byte from the input.
+    """
     if not isinstance(value, str):
         raise TypeError('Value must be a string.')
 
