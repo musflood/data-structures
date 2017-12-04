@@ -198,3 +198,10 @@ def empty_add_table():
     """Create an empty hash table with add hash function."""
     from hash_table import additive_hash, HashTable
     return HashTable(100, additive_hash)
+
+
+@pytest.fixture
+def empty_trie():
+    """Create an empty trie."""
+    from trie import Trie
+    return Trie()
