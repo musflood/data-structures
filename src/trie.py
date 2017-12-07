@@ -91,27 +91,26 @@ class Trie(object):
 
         Starting traversal from an empty string returns a traversal
         of the entire Trie tree yielding individual letters. Starting
-        with a non-empty string will yield that string first, then
-        children as individual letters.
+        with a non-empty string will yield only the children as
+        individual letters.
         """
         if not isinstance(start, str):
             raise TypeError('Can only traverse the trie from strings.')
 
         def dive(node, first):
+            if not node:
+                return
             if node.val != '*' and node.val != '$' and not first:
                 yield node.val
             for ch in node.children:
                 for val in dive(node.children[ch], False):
                     yield val
 
-        if start:
-            yield start
-
         curr = self.root
         for ch in start:
             if ch not in curr.children:
-                return
+                curr = None
+                break
             curr = curr.children[ch]
 
-        for val in dive(curr, True):
-            yield val
+        return dive(curr, True)
