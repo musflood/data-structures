@@ -293,7 +293,7 @@ def test_inserting_and_removing_from_trie_works(empty_trie):
 def test_traversal_from_non_string_raises_error(small_trie):
     """Test that traversal from non-string raises a TypeError."""
     with pytest.raises(TypeError):
-        next(small_trie.traversal(10))
+        small_trie.traversal(10)
 
 
 def test_traversal_of_empty_trie_is_empty(empty_trie):
@@ -305,15 +305,15 @@ def test_traversal_of_empty_trie_is_empty(empty_trie):
 def test_traversal_from_string_not_in_trie_only_has_string(small_trie):
     """Test that traversal from string not in trie only has start string."""
     order = [x for x in small_trie.traversal('z')]
-    assert order == ['z']
+    assert order == []
 
 
 @pytest.mark.parametrize(
     'trie, letter, sol',
-    [(small_trie(), 'o', list('ormond')),
-     (small_trie(), 'l', list('lycopodiumenitively')),
-     (small_trie(), 'u', list('unidealisticretainedpleviableamused')),
-     (small_trie(), 'w', list('whirlpuff'))])
+    [(small_trie(), 'o', list('rmond')),
+     (small_trie(), 'l', list('ycopodiumenitively')),
+     (small_trie(), 'u', list('nidealisticretainedpleviableamused')),
+     (small_trie(), 'w', list('hirlpuff'))])
 def test_traversal_from_single_letter_has_entire_branch(trie, letter, sol):
     """Test that traversal from a single letter has branch of trie."""
     order = [x for x in trie.traversal(letter)]
@@ -324,13 +324,14 @@ def test_traversal_from_single_letter_has_entire_branch(trie, letter, sol):
 
 def test_traversal_from_longer_string_has_string_as_first_value(small_trie):
     """Test that traversal from a longer string has the string first."""
-    assert next(small_trie.traversal('unre')) == 'unre'
+    first = next(small_trie.traversal('unre'))
+    assert first == 'p' or first == 't'
 
 
 def test_traversal_from_longer_string_has_entire_branch(small_trie):
     """Test that traversal from a longer string has the entire branch."""
     order = [x for x in small_trie.traversal('unre')]
-    sol = ['unre', 't', 'a', 'i', 'n', 'e', 'd', 'p', 'l',
+    sol = ['t', 'a', 'i', 'n', 'e', 'd', 'p', 'l',
            'e', 'v', 'i', 'a', 'b', 'l', 'e']
 
     if sys.version_info.major == 3:
@@ -341,11 +342,11 @@ def test_traversal_from_longer_string_has_entire_branch(small_trie):
 def test_traversal_from_substring_has_no_extra_characters(small_trie):
     """Test that traversal from a substring has no extra characters."""
     order = [x for x in small_trie.traversal('whirl')]
-    assert order == ['whirl', 'p', 'u', 'f', 'f']
+    assert order == ['p', 'u', 'f', 'f']
 
 
 def test_traversal_with_empty_string_has_full_traversal(small_trie):
-    """Test that traversal from an empty string gets full traversal of the trie."""
+    """Test that traversal from an empty string gets full traversal of trie."""
     order = [x for x in small_trie.traversal('')]
     sol = list('whirlpufflycopodiumenitivelydiblastulaantenatihrapurpuringonis\
 tascaticooktricrotousunidealisticretainedpleviableamusedcacopharyngiahimakummu\
