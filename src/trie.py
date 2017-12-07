@@ -98,12 +98,7 @@ class Trie(object):
         def dive(node, first):
             if node.val != '*' and node.val != '$' and not first:
                 yield node.val
-
             for ch in node.children:
-                if len(node.children) > 1:
-                    print('children of', node.val)
-                    print(node.children)
-                    print()
                 for val in dive(node.children[ch], False):
                     yield val
 

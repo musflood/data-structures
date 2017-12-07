@@ -317,9 +317,9 @@ def test_traversal_from_string_not_in_trie_only_has_string(small_trie):
 def test_traversal_from_single_letter_has_entire_branch(trie, letter, sol):
     """Test that traversal from a single letter has branch of trie."""
     order = [x for x in trie.traversal(letter)]
-    if sys.version_info.major < 3:
-        pass
-    assert order == sol
+    if sys.version_info.major == 3:
+        assert order == sol
+    assert len(order) == len(sol)
 
 
 def test_traversal_from_longer_string_has_string_as_first_value(small_trie):
@@ -333,10 +333,9 @@ def test_traversal_from_longer_string_has_entire_branch(small_trie):
     sol = ['unre', 't', 'a', 'i', 'n', 'e', 'd', 'p', 'l',
            'e', 'v', 'i', 'a', 'b', 'l', 'e']
 
-    if sys.version_info.major < 3:
-        pass
-
-    assert order == sol
+    if sys.version_info.major == 3:
+        assert order == sol
+    assert len(order) == len(sol)
 
 
 def test_traversal_from_substring_has_no_extra_characters(small_trie):
@@ -352,29 +351,21 @@ def test_traversal_with_empty_string_has_full_traversal(small_trie):
 tascaticooktricrotousunidealisticretainedpleviableamusedcacopharyngiahimakummu\
 ltifoliolateenheritagenonsequestrationormondpseudo')
 
-    if sys.version_info.major < 3:
-        pass
+    if sys.version_info.major == 3:
+        assert order == sol
+    assert len(order) == len(sol)
 
-    assert order == sol
 
-# whirl
-# whirlpuff
-# lycopodium
-# lenitively
-# diblastula
-# antenati
-# anthrapurpurin
-# agonista
-# scaticook
-# tricrotous
-# unidealistic
-# unretained
-# unrepleviable
-# unamused
-# cacopharyngia
-# chimakum
-# multifoliolate
-# enheritage
-# nonsequestration
-# ormond
-# pseudo
+def test_traversal_full_traversal_of_giant_trie_works(giant_trie):
+    """Test that full traversal of giant tree is the appropriate length."""
+    order = [x for x in giant_trie.traversal('')]
+
+    sol = ''
+    prefix = ''
+    for word in sorted(DICT_LIST):
+        while not word.startswith(prefix):
+            prefix = prefix[:-1]
+        sol += word[len(prefix):]
+        prefix = word
+
+    assert len(order) == len(sol)
