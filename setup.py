@@ -16,7 +16,9 @@ setup(
         'weight_graph',
         'bst',
         'balance_bst',
-        'hash_table'
+        'hash_table',
+        'trie',
+        'bubble_sort'
     ],
     authors='Megan, Kavdi',
     author_email='kavdyjh@gmail.com',
