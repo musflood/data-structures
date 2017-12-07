@@ -90,7 +90,9 @@ class Trie(object):
         """Get an depth-first traversal generator of the Trie tree.
 
         Starting traversal from an empty string returns a traversal
-        of the entire Trie tree.
+        of the entire Trie tree yielding individual letters. Starting
+        with a non-empty string will yield that string first, then
+        children as individual letters.
         """
         if not isinstance(start, str):
             raise TypeError('Can only traverse the trie from strings.')

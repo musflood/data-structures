@@ -309,6 +309,8 @@ t = Trie(iterable='list or tuple')
     - Time complexity: O(1)
 - **remove(string):** Remove the given string from the Trie tree. Raises a TypeError if given a non-string value. Raises a ValueError if the string is not in the tree.
     - Time complexity: O(k) - where k is the length of the string
+- **traversal(start):** Get an depth-first traversal generator of the Trie tree. Starting traversal from an empty string returns a traversal of the entire Trie tree. Starting with a non-empty string will yield that string first, then children as individual letters. Raises a TypeError if given a non-string value.
+    - Time complexity: O(n)
 
 ## Resources
 
