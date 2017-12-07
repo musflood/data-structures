@@ -85,3 +85,36 @@ class Trie(object):
 
         del curr.children[last_ch]
         self._size -= 1
+
+    def traversal(self, start):
+        """Get an depth-first traversal generator of the Trie tree.
+
+        Starting traversal from an empty string returns a traversal
+        of the entire Trie tree.
+        """
+        if not isinstance(start, str):
+            raise TypeError('Can only traverse the trie from strings.')
+
+        def dive(node, first):
+            if node.val != '*' and node.val != '$' and not first:
+                yield node.val
+
+            for ch in node.children:
+                if len(node.children) > 1:
+                    print('children of', node.val)
+                    print(node.children)
+                    print()
+                for val in dive(node.children[ch], False):
+                    yield val
+
+        if start:
+            yield start
+
+        curr = self.root
+        for ch in start:
+            if ch not in curr.children:
+                return
+            curr = curr.children[ch]
+
+        for val in dive(curr, True):
+            yield val
