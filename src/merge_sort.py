@@ -9,8 +9,34 @@ both halves of the list are merged back together.
 
 def merge_sort(values):
     """Create a sorted copy of the given list using merge sort."""
-    sort_list = values[:]
-    pass
+    if not values:
+        return []
+
+    def merge(half1, half2):
+        if half1 and not half2:
+            return half1
+        if half2 and not half1:
+            return half2
+
+        mid1 = len(half1) // 2
+        half1 = merge(half1[:mid1], half1[mid1:])
+
+        mid2 = len(half2) // 2
+        half2 = merge(half2[:mid2], half2[mid2:])
+
+        result = []
+        idx1, idx2 = 0, 0
+        while idx1 < len(half1) and idx2 < len(half2):
+            if half1[idx1] < half2[idx2]:
+                result.append(half1[idx1])
+                idx1 += 1
+            else:
+                result.append(half2[idx2])
+                idx2 += 1
+        return result + half1[idx1:] + half2[idx2:]
+
+    mid = len(values) // 2
+    return merge(values[:mid], values[mid:])
 
 
 if __name__ == '__main__':  # pragma: no cover
