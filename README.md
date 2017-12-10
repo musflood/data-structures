@@ -1,10 +1,12 @@
-# Data Structures
+# Data Structures and Sorting Algorithms
 [![Build Status](https://travis-ci.org/musflood/data-structures.svg?branch=master)](https://travis-ci.org/musflood/data-structures)
 [![Coverage Status](https://coveralls.io/repos/github/musflood/data-structures/badge.svg)](https://coveralls.io/github/musflood/data-structures)
 
-This file holds sample code for a number of classic data structures implemented in python.
+This file holds sample code for a number of classic data structures and sorting algorithms implemented in python.
 
 **Authors:** Kavdi Hodgson and Megan Flood
+
+# Data Structures
 
 ## Linked-List
 
@@ -312,9 +314,19 @@ t = Trie(iterable='list or tuple')
 - **traversal(start):** Get an depth-first traversal generator of the Trie tree. Starting traversal from an empty string returns a traversal of the entire Trie tree. Starting with a non-empty string will yield only the children as individual letters. Raises a TypeError if given a non-string value.
     - Time complexity: O(n)
 
+# Sorting Algorithms
+
+## Bubble Sort
+
+Repeatedly iterates through the list swapping adjacent values if they are not in the correct order. Continues looping until the list is sorted.
+ - **Time complexity:** O(n<sup>2</sup>)
+
+[![Bubble Sort](https://upload.wikimedia.org/wikipedia/commons/c/c8/Bubble-sort-example-300px.gif)](https://en.wikipedia.org/wiki/Bubble_sort)
+
 ## Resources
 
 - **Wikipedia:** [Binary Heap](https://en.wikipedia.org/wiki/Binary_heap)
 - **GeeksForGeeks:** [Bellman-Ford](http://www.geeksforgeeks.org/dynamic-programming-set-23-bellman-ford-algorithm/)
 - **YouTube:** [Dijkstra's algorithm](https://www.youtube.com/watch?v=5GT5hYzjNoo)
 - **Eternally Confuzzled:** [List of hashing functions](http://www.eternallyconfuzzled.com/tuts/algorithms/jsw_tut_hashing.aspx)
+
