@@ -6,8 +6,16 @@ a list and comparing each value to the values that came before it.
 
 
 def insertion_sort(values):
-    """Create a sorted copy of the given list using bubble sort."""
-    pass
+    """Create a sorted copy of the given list using insertion sort."""
+    sort_list = values[:]
+
+    for i in range(len(sort_list)):
+        j = i
+        while j > 0 and sort_list[j] < sort_list[j - 1]:
+            sort_list[j], sort_list[j - 1] = sort_list[j - 1], sort_list[j]
+            j -= 1
+
+    return sort_list
 
 
 if __name__ == '__main__':  # pragma: no cover
