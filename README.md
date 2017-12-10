@@ -315,6 +315,13 @@ t = Trie(iterable='list or tuple')
     - Time complexity: O(n)
 
 # Sorting Algorithms
+All sorting algorithms will sort a list of comparable items in ascending order.
+
+Each module can be run from the command line for a synopsis of the efficiency of the algorithm in best, average, and worst case scenarios of varying lengths.
+```bash
+$ cd data-structures/src
+src $ python (algorithm to run).py
+```
 
 ## Bubble Sort
 

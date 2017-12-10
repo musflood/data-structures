@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='data-structures',
-    description='A number of classic data structures impemented in python',
+    description='A number of classic data structures and sorting algorithms impemented in python',
     package_dir={'': 'src'},
     py_modules=[
         'linked_list',
@@ -18,7 +18,9 @@ setup(
         'balance_bst',
         'hash_table',
         'trie',
-        'bubble_sort'
+        'bubble_sort',
+        'insertion_sort',
+        'merge_sort'
     ],
     authors='Megan, Kavdi',
     author_email='kavdyjh@gmail.com',
