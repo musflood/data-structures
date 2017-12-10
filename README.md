@@ -315,6 +315,13 @@ t = Trie(iterable='list or tuple')
     - Time complexity: O(n)
 
 # Sorting Algorithms
+All sorting algorithms will sort a list of comparable items in ascending order.
+
+Each module can be run from the command line for a synopsis of the efficiency of the algorithm in best, average, and worst case scenarios of varying lengths.
+```bash
+$ cd data-structures/src
+src $ python (algorithm to run).py
+```
 
 ## Bubble Sort
 
@@ -329,6 +336,13 @@ Iterates forward through the list moving each value into place by checking it ag
  - **Time complexity:** O(n<sup>2</sup>)
 
 [![Insertion Sort](https://upload.wikimedia.org/wikipedia/commons/0/0f/Insertion-sort-example-300px.gif)](https://en.wikipedia.org/wiki/Insertion_sort)
+
+## Merge Sort
+
+Halve a list repeatedly into the smallest possible pieces, then sort them. Compare each pair of pieces to each other one element at a time, merging them into a larger, sorted piece. Completed when both halves of the list are merged back together.
+ - **Time complexity:** O(nlog(n))
+
+[![Merge Sort](https://upload.wikimedia.org/wikipedia/commons/c/cc/Merge-sort-example-300px.gif)](https://en.wikipedia.org/wiki/Merge_sort)
 
 ## Resources
 
