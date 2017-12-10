@@ -1,2 +1,2 @@
 [run]
-omit = src/test_*
+omit = */test_*
