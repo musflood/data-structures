@@ -323,6 +323,13 @@ Repeatedly iterates through the list swapping adjacent values if they are not in
 
 [![Bubble Sort](https://upload.wikimedia.org/wikipedia/commons/c/c8/Bubble-sort-example-300px.gif)](https://en.wikipedia.org/wiki/Bubble_sort)
 
+## Insertion Sort
+
+Iterates forward through the list moving each value into place by checking it against the values before it.
+ - **Time complexity:** O(n<sup>2</sup>)
+
+[![Insertion Sort](https://upload.wikimedia.org/wikipedia/commons/0/0f/Insertion-sort-example-300px.gif)](https://en.wikipedia.org/wiki/Insertion_sort)
+
 ## Resources
 
 - **Wikipedia:** [Binary Heap](https://en.wikipedia.org/wiki/Binary_heap)
