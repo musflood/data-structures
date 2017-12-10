@@ -13,8 +13,6 @@ def merge_sort(values):
         return []
 
     def merge(half1, half2):
-        if half1 and not half2:
-            return half1
         if half2 and not half1:
             return half2
 
