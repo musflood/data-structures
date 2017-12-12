@@ -351,6 +351,13 @@ Partition a list into two pieces repeatedly by selecting a pivot value and rearr
 
 [![Quick Sort](https://upload.wikimedia.org/wikipedia/commons/9/9c/Quicksort-example.gif)](https://en.wikipedia.org/wiki/Quicksort)
 
+## Radix Sort
+
+Radix sort groups positive integers by the value of a position in the number. First the one's place is compared, then the ten's, etc. The numbers are repeatedly sorted into buckets and then flattened until all the positions have been examined.
+ - **Time complexity:** O(nk) - where k is the number of digits in the longest number
+
+[![Radix Sort](http://www.mat.uson.mx/omrodriguez/algoritmos/RadixSort/image003.jpg)](https://en.wikipedia.org/wiki/Radix_sort)
+
 ## Resources
 
 - **Wikipedia:** [Binary Heap](https://en.wikipedia.org/wiki/Binary_heap)
