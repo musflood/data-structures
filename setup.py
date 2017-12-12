@@ -20,7 +20,8 @@ setup(
         'trie',
         'bubble_sort',
         'insertion_sort',
-        'merge_sort'
+        'merge_sort',
+        'quick_sort'
     ],
     authors='Megan, Kavdi',
     author_email='kavdyjh@gmail.com',

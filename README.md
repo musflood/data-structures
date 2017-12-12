@@ -344,6 +344,13 @@ Halve a list repeatedly into the smallest possible pieces, then sort them. Compa
 
 [![Merge Sort](https://upload.wikimedia.org/wikipedia/commons/c/cc/Merge-sort-example-300px.gif)](https://en.wikipedia.org/wiki/Merge_sort)
 
+## Quick Sort
+
+Partition a list into two pieces repeatedly by selecting a pivot value and rearranging the elements such that all values less than the pivot are before it and those greater are after. Each partition is partitioned until the list is completely sorted.
+ - **Time complexity:** O(nlog(n))
+
+[![Quick Sort](https://upload.wikimedia.org/wikipedia/commons/9/9c/Quicksort-example.gif)](https://en.wikipedia.org/wiki/Quicksort)
+
 ## Resources
 
 - **Wikipedia:** [Binary Heap](https://en.wikipedia.org/wiki/Binary_heap)
